@@ -6,38 +6,15 @@ git clone /this
 docker-compose up --detach 
 ```
 ## Web Application Stack & Deployment
-Swimmpair is shipped via [docker](https://www.docker.com) cointainers & run by [docker-compose](https://docs.docker.com/compose)
-```yaml
-version: "3.9"
-services:
-  adminer:
-    image: adminer
-    ports:
-      - 8080:8080
-  database:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: "passwd"
-    volumes:
-      - mysql-data:/var/lib/mysql
-  php:
-    image: thecodingmachine/php:7.4-v4-apache
-    ports:
-      - "80:80"
-    environment:
-      DATABASE_HOST: 'database'
-      DATABASE_USER: 'root'
-      DATABASE_PASS: 'passwd'
-      DATABASE_NAME: 'plavani'
-    volumes:
-      - ./:/var/www/html
-volumes:
-  mysql-data:
-```
+Swimmpair is shipped via [docker](https://www.docker.com) cointainers & run by [docker-compose](https://docs.docker.com/compose) and following containers are in use:
+* thecodingmachine/php:7.4-v4-apache
+* mysql:8.0
+* adminer
 
 ## Web Application Structure
 Web application is divided into
-* public part
-* private part
+* public part - /www
+* private part - /www/admin
+* model - /www/model
 * database w/ routines
 * REST API for mobile app
