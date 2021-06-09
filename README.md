@@ -6,10 +6,16 @@ git clone /this
 docker-compose up --detach 
 ```
 ## Web Application Stack & Deployment
-Swimmpair is shipped via [docker](https://www.docker.com) cointainers & run by [docker-compose](https://docs.docker.com/compose) and following containers are in use:
-* thecodingmachine/php:7.4-v4-apache
-* mysql:8.0
-* adminer
+Swimmpair is shipped via [docker](https://www.docker.com) cointainers & is run by [docker-compose](https://docs.docker.com/compose): tl;dr docker-compose.yaml
+```yaml
+services:
+  php:
+    image: thecodingmachine/php:7.4-v4-apache
+  database:
+    image: mysql:8.0
+  adminer:
+    image: adminer
+```
 
 ## Web Application Structure
 Web application is divided into

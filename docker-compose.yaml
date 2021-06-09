@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+  database:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: "moje_tajne_heslo"
+    volumes:
+      - mysql-data:/var/lib/mysql
+  php:
+    image: thecodingmachine/php:7.4-v4-apache
+    ports:
+      - "80:80"
+    environment:
+      DATABASE_HOST: 'database'
+      DATABASE_USER: 'root'
+      DATABASE_PASS: 'moje_tajne_heslo'
+      DATABASE_NAME: 'plavani'
+    volumes:
+      - ./:/var/www/html
+volumes:
+  mysql-data:
