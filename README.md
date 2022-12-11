@@ -6,7 +6,7 @@ git clone /this
 docker-compose up --detach 
 ```
 ## Web Application Stack & Deployment
-Swimmpair is shipped via [docker](https://www.docker.com) cointainers & is run by [docker-compose](https://docs.docker.com/compose): tl;dr docker-compose.yaml
+Swimmpair is shipped via [docker](https://www.docker.com) cointainers & is run locally by [docker-compose](https://docs.docker.com/compose): tl;dr docker-compose.yaml
 ```yaml
 services:
   php:
@@ -23,4 +23,8 @@ Web application is divided into
 * private part - /www/admin
 * model - /www/model
 * database w/ routines
-* REST API for mobile app
+
+## Kubernetes DOKS hosting
+- create php image thecodingmachine/php:7.4-v4-apache of the app with all files 
+- secrets, mysql/adminer pulled, volume needed
+- Service, PVC, Deployment
