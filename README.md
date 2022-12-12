@@ -24,7 +24,13 @@ Web application is divided into
 * model - /www/model
 * database w/ routines
 
-## Kubernetes DOKS hosting
+## Production Kubernetes DOKS hosting
 - create php image thecodingmachine/php:7.4-v4-apache of the app with all files 
 - secrets, mysql/adminer pulled, volume needed
 - Service, PVC, Deployment
+
+# Cluster setup
+- 1 master, 2 nodes
+- install ingress
+- separate mysql database server w/ volume
+- this app as stateless app in the cluster
