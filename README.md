@@ -1,11 +1,22 @@
 # SwimmPair Web Application
-SwimmPair is an application created for managing referees for swimming competitions in the Czech Republic. Application **model** describes administrative units such as regions, cups, users etc. that are administratively present and used to be handled manually - in Excel files or even worse, in hand. SwimmPair exists to solve this.
+SwimmPair is web application for managing swimming competitions in the Czech Republic. Application **model** describes administrative objects, such as regions, cups, clubs or users. The main goal was to automate administrative work formerly achived via Excel spreadsheets.
+
 ## Try it out!
 ```shell script
 git clone https://github.com/KlosStepan/SwimmPair-Www
 //import database and set up credentials
 docker-compose up --detach 
 ```
+
+## Web Application Structure
+The web application consists of these main parts:
+* **public** part - www,
+* **private** admin - www/admin,
+* app **model** - www/model,
+* mysql **database procedures** used by model.  
+
+Public and private parts have php form actions and ajax calls for achieving functionality. 
+
 ## Web Application Development
 SwimmPair is shipped in [docker image](https://www.docker.com). It's run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair**, **MySQL** and **Adminer** containers.
 ```yaml
@@ -43,13 +54,8 @@ COPY --chown=docker . /var/www/html
 ```
 Dockerhub is in default public namespace - image can be tagged as [stepanklos/swimmpair](https://hub.docker.com/repository/docker/stepanklos/swimmpair) and is accessible publicly.  
 
-Bundled application doesn't come with database and adminer/phpmyadmin, so production is advised on cloud provider with database service or self-hosted database within persistent storage in the cluster.
-## Web Application Structure
-Web application consists of several parts
-* public part - www/
-* private admin - www/admin
-* app model - www/model
-* mysql database procedures used by model
+Bundled application doesn't come with database and adminer/phpmyadmin, so production is advised on cloud provider with database service or self-hosted database within persistent storage in the cluster.  
+
 
 ## Production in DOKS
 - Application: Service - Deployment w/ **stepanklos/swimmpair**
