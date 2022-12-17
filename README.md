@@ -18,7 +18,9 @@ The web application consists of these main parts:
 Application data flow is realized as follows: 
 ![App Schema](/misc/app-schema.jpg "app-schema")
 
-Public and private parts have php form actions and ajax calls for achieving functionality via appropriate manager calls or payloads sent on them. 
+Public and private parts have **php form actions** and **ajax call endpoints** for achieving functionality via appropriate manager calls or payloads sent on them. The folders (in public and private sections) are:
+* PHPActionHandler,
+* XMLHttpRequest.
 
 ## Web Application Development
 SwimmPair is shipped in [docker image](https://www.docker.com). It's run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair**, **MySQL** and **Adminer** containers.
