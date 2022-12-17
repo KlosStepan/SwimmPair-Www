@@ -113,7 +113,7 @@ class PositionsManager
 				}
 				//$statement = $this->mysqli->prepare('INSERT INTO `sp_public_stats_config` (`id`, `position_id`) VALUES (NULL, ?)');
 				$statement = $this->mysqli->prepare('CALL `InsertNewStatPosition`(?)');
-				//TODO p5epsat insertovany JSON
+				//TODO prepsat insertovany JSON
 				$statement->bind_param('i',$record["idpoz"]);
 				$statement->execute();
 			}
