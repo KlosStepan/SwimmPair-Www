@@ -56,8 +56,7 @@ if (isset($_GET['email']) && !empty($_GET['email']) AND isset($_GET['hash']) && 
         <input type="hidden" name="email" value="<?= $email ?>">
         <input type="hidden" name="hash" value="<?= $hash ?>">
 
-        <button class="button button-block"/>
-        Apply</button>
+        <button class="button button-block">Apply</button>
 
     </form>
 
