@@ -8,14 +8,17 @@ git clone https://github.com/KlosStepan/SwimmPair-Www
 docker-compose up --detach 
 ```
 
-## Web Application Structure
+## Web Application Structure Overview
 The web application consists of these main parts:
 * **public** part - www,
 * **private** admin - www/admin,
 * app **model** - www/model,
 * mysql **database procedures** used by model.  
 
-Public and private parts have php form actions and ajax calls for achieving functionality. 
+Application data flow is realized as follows: 
+![App Schema](/misc/app-schema.jpg "app-schema")
+
+Public and private parts have php form actions and ajax calls for achieving functionality via appropriate manager calls or payloads sent on them. 
 
 ## Web Application Development
 SwimmPair is shipped in [docker image](https://www.docker.com). It's run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair**, **MySQL** and **Adminer** containers.
@@ -58,8 +61,8 @@ Bundled application doesn't come with database and adminer/phpmyadmin, so produc
 
 
 ## Production in DOKS
-- Application: Service - Deployment w/ **stepanklos/swimmpair**
+- Application: Service - Deployment w/ **stepanklos/swimmpair**.
 - MySQL:
-  - Public Service - Service - Deployment - PVC - PC
-  - https://www.digitalocean.com/pricing/managed-databases
-- Database client: command line, Adminer deployment, Digital Ocean administration
+  - Public Service - Service - Deployment - PVC - PC,
+  - https://www.digitalocean.com/pricing/managed-databases .
+- Database client: command line, Adminer deployment or Digital Ocean administration dashboard.
