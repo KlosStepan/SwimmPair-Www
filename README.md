@@ -34,7 +34,7 @@ Public and private part have **php form actions** and **ajax call endpoints** fo
 * PHPActionHandler,
 * XMLHttpRequest.  
 
-## Containerized Locel Development
+## Containerized Local Development
 SwimmPair is shipped for production in [docker image](https://www.docker.com). It's run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair**, **MySQL** and **Adminer** containers.  
 
 Local development **docker-compose.yaml**:
@@ -88,15 +88,15 @@ Bundled application doesn't come with database and adminer/phpmyadmin, so produc
 
 
 ## Production in DOKS
-- Application: Service - Deployment w/ **stepanklos/swimmpair**.
+- Application: Service + Deployment utilizing **stepanklos/swimmpair**.
 - MySQL:
-  - Public Service - Service - Deployment - PVC - PC,
-  - https://www.digitalocean.com/pricing/managed-databases .
-- Database client: command line, Adminer deployment or Digital Ocean administration dashboard.  
+  - either Public Service - Service + Deployment + PVC -> PV,
+  - or https://www.digitalocean.com/pricing/managed-databases.
+- Database client: command line / Adminer Deployment / Digital Ocean administration dashboard.  
 
-Consider running 2 Node cluster and running replica on each one, reference **swimmpair-service** from Ingress routing. 
+Consider running 2 Node cluster running replica on each. Reference **swimmpair-service** Service from Ingress for cluster routing. 
 
-SwimmPair Service/Deployment for Kubernetes:
+Kubernetes cluster **app-swimmpair.yaml** Service + Deployment:
 ```yaml
 apiVersion: v1
 kind: Service
