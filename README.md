@@ -1,6 +1,8 @@
 # SwimmPair Web Application
-SwimmPair is web application for managing swimming competitions in the Czech Republic. Application **model** describes administrative objects, such as regions, cups, clubs or users. The main goal was to automate administrative work formerly achived via Excel spreadsheets.
+SwimmPair is web application for managing swimming competitions in the Czech Republic. Application **model** describes administrative objects, such as regions, cups, clubs or users. The main goal was to automate administrative work formerly achived via Excel spreadsheets.  
 
+![App Schema](/misc/app-preview.png "app-schema")
+Preview of SwimmPair - public page of **Cup** with available and paired **Users** for this cup.
 ## Try it out!
 ```shell script
 git clone https://github.com/KlosStepan/SwimmPair-Www
@@ -36,6 +38,7 @@ Public and private part have **php form actions** and **ajax call endpoints** fo
 
 ## Containerized Local Development
 SwimmPair is shipped for production in [docker image](https://www.docker.com). It's run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair**, **MySQL** and **Adminer** containers.  
+![docker compose rup](/misc/app-docker-compose-run.png "docker-compose-run")  
 
 Local development **docker-compose.yaml**:
 ```yaml
@@ -94,9 +97,12 @@ Bundled application doesn't come with database and adminer/phpmyadmin, so produc
   - or https://www.digitalocean.com/pricing/managed-databases.
 - Database client: command line / Adminer Deployment / Digital Ocean administration dashboard.  
 
-Consider running 2 Node cluster running replica on each. Reference **swimmpair-service** Service from Ingress for cluster routing. 
+Consider running 2 Node cluster running replica on each. Reference **swimmpair-service** Service from Ingress for cluster routing to access **swimmpair** Deployment with 2 Pods (up-to-date Replica Set). 
+![docker compose rup](/misc/app-kubernetes-doks-run.png "docker-compose-run")
 
-Kubernetes cluster **app-swimmpair.yaml** Service + Deployment:
+
+### Kubernetes Service+Deployment 
+Configuration file **app-swimmpair.yaml**:
 ```yaml
 apiVersion: v1
 kind: Service
@@ -143,3 +149,24 @@ spec:
         - name: DATABASE_NAME
           value: 'db'    
 ```
+### Ingress
+Ingress, add SwimmPair to config section `rules:` as following snippet: 
+```yaml
+  - host: "swimmpair.stkl.cz"
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: swimmpair-service
+            port:
+              number: 80
+```
+### Run
+Finally, apply `SwimmPair yaml config` and reapply `Ingress yaml config` as noted
+```zsh
+kubectl apply -f app-swimmpair.yaml
+kubectl apply -f kubernetes-ingress-config.yaml
+```
+to achieve desired state of running application in the Kubernetes Cluster.
