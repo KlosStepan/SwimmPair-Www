@@ -1,8 +1,8 @@
 # SwimmPair Web Application
-SwimmPair is web application for managing swimming competitions in the Czech Republic. Application **model** describes administrative objects, such as regions, cups, clubs or users. The main goal was to automate administrative work formerly achived via Excel spreadsheets.  
+SwimmPair is web application for managing swimming competitions in the Czech Republic. Application `model` describes administrative objects, such as `regions`, `cups`, `clubs` or `users`. The main goal was to automate administrative work formerly achived via Excel spreadsheets.  
 
 ![App Schema](/misc/app-preview.png "app-schema")
-Preview of SwimmPair - public page of **Cup** with available and paired **Users** for this cup.
+Preview of SwimmPair - **public page** of `Cup` with **available** and **paired** `Users`.
 ## Try it out!
 ```shell script
 git clone https://github.com/KlosStepan/SwimmPair-Www
@@ -21,7 +21,7 @@ The web application consists of these main parts:
 SwimmPair implements these structures to be moved around while administering the swimming competitions.  
 Following objects are:
 * **Page**/PagesManager - info pages,
-* **Clubs**/ClubsManager - organization units of cups of users,
+* **Club**/ClubsManager - organization units of cups of users,
 * **Cup**/CupsManager - swimming competition,
 * **Region**/RegionsManager - geographical region,
 * **User**/UsersManager - app users (admins, club managers, admins),
@@ -29,10 +29,10 @@ Following objects are:
 
 
 ## Web Application Data Flow Architecture Overview
-Application data flow is realized as follows: 
+Application flow is realized by accessing `application page` and calling `Controller` functionality, that wrapps database calls and returns results as PHP objects. 
 ![App Schema](/misc/app-schema.jpg "app-schema")
 
-Public and private part have **php form actions** and **ajax call endpoints** for achieving functionality via appropriate manager calls or payloads sent on them. The folders with these script actions (in public and private sections) are:
+Public and private part have **PHP form-actions** and **ajax call endpoints** for achieving functionality via. appropriate manager calls or stores payloads sent on them. The folders with these respective script actions (in public and private sections) are to be found in:
 * PHPActionHandler,
 * XMLHttpRequest.  
 
@@ -68,40 +68,42 @@ services:
 volumes:
   mysql-data:
 ```
-## Production & Deployment Notes
-Bundling website PHP files into Docker image with PHP runtime and Apache webserver is defined by Dockerfile.  
+## Dockerized Production & Deployment Notes
+Bundling PHP files into **Docker image** with base **PHP/Apache image** is defined by `Dockerfile`.  
 
-Dockerfile
 ```dockerfile
 FROM thecodingmachine/php:7.4-v4-apache
 COPY --chown=docker . /var/www/html
 ```
-Dockerhub is in default public namespace - image can be tagged as [stepanklos/swimmpair](https://hub.docker.com/repository/docker/stepanklos/swimmpair) and is accessible publicly.  
+[Dockerhub](https://hub.docker.com) is default and public namespace for pulling all images - our image can be tagger as [stepanklos/swimmpair](https://hub.docker.com/repository/docker/stepanklos/swimmpair) and therefore be accessible publicly by this name.  
 
-Run to build in project folder
+Build Docker image of swimmpair, tagged as **stepanklos/swimmpair**.
 ```zsh
 docker build -t stepanklos/swimmpair .
 ```
-Push into Dockerhub image repository
+Push **stepanklos/swimmpair** into Dockerhub image repository.
 ```zsh
 docker push stepanklos/swimmpair
 ```
 
-Bundled application doesn't come with database and adminer/phpmyadmin, so production is advised on cloud provider with database service or self-hosted database within persistent storage in the cluster.  
+Bundled application doesn't come with **database** and **adminer/phpmyadmin**. We advise production on cloud provider with database service or self-hosted database storing in `Persistent Storage` accessed via `Persistent Volume Claim`.  
 
 
 ## Production in DOKS
-- Application: Service + Deployment utilizing **stepanklos/swimmpair**.
-- MySQL:
+Several production options in container cloud service providers are possible, be it ECS or EKS in Amazon AWS, some alternative in Microsoft Azure, or self-hosted Kubernetes/Rancher/OpenShift/VMware Tanzu. We have, however, chosen **DigitalOcean** - [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes) because it suits us best.  
+
+It is advised to run SwimmPair as follows:
+- **Application**: Service + Deployment utilizing **stepanklos/swimmpair**.
+- **MySQL DB**:
   - either Public Service - Service + Deployment + PVC -> PV,
   - or https://www.digitalocean.com/pricing/managed-databases.
-- Database client: command line / Adminer Deployment / Digital Ocean administration dashboard.  
+- **Database Client**: command line / Adminer Deployment / administration dashboard of chosen cloud provider.  
 
-Consider running 2 Node cluster running replica on each. Reference **swimmpair-service** Service from Ingress for cluster routing to access **swimmpair** Deployment with 2 Pods (up-to-date Replica Set). 
+Consider running `2 Node Cluster` running replica on each. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with `2 Pods` (up-to-date `Replica Set`). 
 ![docker compose rup](/misc/app-kubernetes-doks-run.png "docker-compose-run")
 
 
-### Kubernetes Service+Deployment 
+### Kubernetes `Service` + `Deployment `
 Configuration file **app-swimmpair.yaml**:
 ```yaml
 apiVersion: v1
@@ -169,4 +171,4 @@ Finally, apply `SwimmPair yaml config` and reapply `Ingress yaml config` as note
 kubectl apply -f app-swimmpair.yaml
 kubectl apply -f kubernetes-ingress-config.yaml
 ```
-to achieve desired state of running application in the Kubernetes Cluster.
+to achieve desired state of running application in the **Kubernetes Cluster**.
