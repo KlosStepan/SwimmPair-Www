@@ -1,15 +1,11 @@
-	<?php
-	/* Database connection settings */
-	//$host = 'localhost';
-    //$user = 'kapr';
-    //$pass = 'gymnaziumjirihowolkera';
-    //$db = 'plavani';
+<?php
+
     $host = getenv("DATABASE_HOST");
     $user = getenv("DATABASE_USER");
     $pass = getenv("DATABASE_PASS");
     $db = getenv("DATABASE_NAME");
+
 	$mysqli = new mysqli($host, $user, $pass, $db) or die($mysqli->error);
-	//force Czech interpretation of db tables
 	$mysqli->set_charset('utf8');
 	
 	/* Sanitization function */
@@ -18,16 +14,15 @@
 	    return htmlspecialchars($string);
 	}
 	
-	/* exception handling*/
+	/* Exception handling*/
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1);
-	
 	set_exception_handler(function () {
 		echo "<h3 style=\"color: red;\">INVALID REQUEST</h3>";
 		exit();
 	});
 	
-	/* objects and managers*/
+	/* Objects and Managers*/
 	require __DIR__ . '/model/Sanitizer.php';
 	require __DIR__ . '/model/Auth.php';
 	require __DIR__ . '/model/Post.php';
@@ -51,7 +46,7 @@
 	//require __DIR__ . '/admin/profile.php';
 	
 	
-	/* construction of managers w/ reference to $mysqli */
+	/* Construction of Managers w/ reference to $mysqli */
 	$postsManager = new PostsManager($mysqli);
 	$pagesManager = new PagesManager($mysqli);
 	$usersManager = new UsersManager($mysqli);
