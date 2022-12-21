@@ -20,6 +20,7 @@ The web application consists of these main parts:
 ## Web Application Model Data Categorization
 SwimmPair implements these structures to be moved around while administering the swimming competitions.  
 Following objects are:
+* **Post**/PostsManager - informative posts on the homepage
 * **Page**/PagesManager - info pages,
 * **Club**/ClubsManager - organization units of cups of users,
 * **Cup**/CupsManager - swimming competition,
