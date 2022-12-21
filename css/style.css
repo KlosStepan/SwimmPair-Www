@@ -225,7 +225,6 @@ input[type=text] {
     font-size: 36px;
 }
 
-
 footer {
     display: block;
     color: white;
@@ -320,9 +319,10 @@ footer {
 /*.rozhodcinazavody tr:nth-child(1){
 border-bottom: 1pt solid black;
 }*/
-.rozhodcinazavody {
-    /*margin-bottom: 30px;*/
-}
+
+/*.rozhodcinazavody {
+    margin-bottom: 30px;
+}*/
 
 .rozhodcinazavody .rozhodcihlavicka th {
     /*border: 1px solid #C7364B;*/
@@ -345,8 +345,7 @@ border-bottom: 1pt solid black;
 .rozhodcinazavody tr:nth-child(even) td {
     border-radius: 4px;
     padding: 2px;
-    /*border-bottom: 1px solid #7DB9B3  /*#333333*/
-    ;
+    /*border-bottom: 1px solid #7DB9B3;  /*#333333*/
     background-color: #7DB9B3;
 }
 
@@ -469,9 +468,9 @@ border-bottom: 1pt solid black;
         display: block;
     }
 
-    .registeredOne {
-        /* hotfix collapsing lines */
-    }
+    /*.registeredOne {
+         hotfix collapsing lines 
+    }*/
 
     #roky-box * {
         height: 1px;
