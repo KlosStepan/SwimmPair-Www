@@ -12,8 +12,8 @@ docker-compose up --detach
 
 ## Web Application Structure Overview
 The web application consists of these main parts:
-* **public** part - www/index.php,
-* **private** admin - www/admin/index.php,
+* **public** part - www,
+* **private** admin - www/admin,
 * app **model** - www/model,
 * mysql **database procedures** used by model.  
 
