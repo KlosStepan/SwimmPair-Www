@@ -14,7 +14,7 @@ require_once('tmpl_header.php');
         <h1>Nově registrovaní</h1>
     </div>
 </div>
-<table class="registeredrozhodci" align="center">
+<table class="registeredrozhodci" text-align="center">
     <tbody>
         <tr class="registeredhlavicka">
             <th>Jméno</th>
@@ -29,7 +29,7 @@ require_once('tmpl_header.php');
                 <td><?= h($user->last_name)?></td>
                 <td><?= UserRights::getRightsById(h($user->rights))?></td>
                 <td><?= $usersManager->GetClubAbbreviationByAffiliationID(h($user->affiliation_club_id)) ?></td>
-                <td class="status" id="<?= h($user->id)?>" align="center" ><img src="img/icons/circle-x-2x.png" style="margin-top: 4px;cursor: pointer;" onclick="ApproveUser(<?=h($user->id)?>)"></td>
+                <td class="status" id="<?= h($user->id)?>" text-align="center" ><img src="img/icons/circle-x-2x.png" style="margin-top: 4px;cursor: pointer;" onclick="ApproveUser(<?=h($user->id)?>)"></td>
             </tr>
         <?php endforeach; ?>
     </tbody>
