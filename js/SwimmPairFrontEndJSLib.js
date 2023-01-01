@@ -1,20 +1,15 @@
 //article json stuff
-function PushLastID()
-{
+function PushLastID() {
     var lastIDval = document.querySelector("#posts .post:last-child").id;
     //var nextIDval = lastIDval - 1;
     return lastIDval;
 }
-
-function GetPostAppendPost(id)
-{
+function GetPostAppendPost(id) {
     var returnedGetJSON = null;
-    if (window.XMLHttpRequest)
-    {
+    if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
     }
-    else
-    {
+    else {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
@@ -23,12 +18,10 @@ function GetPostAppendPost(id)
             var post = JSON.parse(returnedGetJSON);
             console.log(returnedGetJSON);
             //if failed {"XHRCallResult":"null"}
-            if(post.XHRCallResult!="null")
-            {
+            if (post.XHRCallResult != "null") {
                 ConstructNextPost(post.id, post.timestamp, post.title, post.content, post.author_user_id, post.signature_flag);
             }
-            else
-            {
+            else {
                 document.getElementById("err").innerHTML = "Další aktualita nenalezena 😠!";
                 document.getElementById("btn").remove();
                 return;
@@ -40,8 +33,7 @@ function GetPostAppendPost(id)
 
 }
 //displayed, author, signed
-function ConstructNextPost(id, timestamp, title, content, author, signed)
-{
+function ConstructNextPost(id, timestamp, title, content, author, signed) {
     var thisPostId = id;
     var thisTimestamp = timestamp;
     var thisPostTitle = title;
@@ -64,12 +56,10 @@ function ConstructNextPost(id, timestamp, title, content, author, signed)
 
     console.log(thisSigned);
     //If signed=0, article without signiture element
-    if(thisSigned=="0")
-    {
+    if (thisSigned == "0") {
         console.log("not signed");
     }
-    else
-    {
+    else {
         //Else signed=1 attaching signature this post
 
         //Signature frame
@@ -77,22 +67,20 @@ function ConstructNextPost(id, timestamp, title, content, author, signed)
         spanSIGN.setAttribute("class", "author");
 
         //If author=null, author not present, it means PSA
-        if(thisAuthor=="null")
-        {
+        if (thisAuthor == "null") {
             //Fill w/ info icon and text
             console.log("PSA");
             var txtPSA = document.createTextNode(" OZNÁMENÍ");
-                //Info icon here
-                var info_img = new Image();
-                info_img.src = "img/info_24x24.png";
-                info_img.alt = "info";
-                info_img.height = 12;
-                info_img.width = 12;
-                spanSIGN.appendChild(info_img);
+            //Info icon here
+            var info_img = new Image();
+            info_img.src = "img/info_24x24.png";
+            info_img.alt = "info";
+            info_img.height = 12;
+            info_img.width = 12;
+            spanSIGN.appendChild(info_img);
             spanSIGN.appendChild(txtPSA);
         }
-        else
-        {
+        else {
             //Else name present
 
             //Now we're gonna this fill w/ 3 spans of author related stuff
@@ -107,14 +95,14 @@ function ConstructNextPost(id, timestamp, title, content, author, signed)
 
             //Signature frame filling 2/3 - author name
             var spanNAME = document.createElement("SPAN");
-            var txtNAME = document.createTextNode(thisAuthor+", ");
+            var txtNAME = document.createTextNode(thisAuthor + ", ");
             spanNAME.appendChild(txtNAME);
             spanSIGN.appendChild(spanNAME);
 
             //Signature frame filling 3/3 - written date
             var spanDATE = document.createElement("SPAN");
             spanDATE.setAttribute("class", "frame");
-            var txtDATE = document.createTextNode("naps. "+thisTimestamp);
+            var txtDATE = document.createTextNode("naps. " + thisTimestamp);
             spanDATE.appendChild(txtDATE);
             spanSIGN.appendChild(spanDATE);
         }
@@ -131,17 +119,13 @@ function ConstructNextPost(id, timestamp, title, content, author, signed)
     //Append CONTENT paragraph to article
     document.getElementById(thisPostId).appendChild(paragraph);
 }
-
-
-function ProcessPersonForTheSeason(userID, callerYearElement)
-{
+function ProcessPersonForTheSeason(userID, callerYearElement) {
     var year = callerYearElement.innerHTML;
     //console.log(callerYearElement);
     //var year = callerYearElement;
     var list = document.getElementById("roky").getElementsByClassName("season-button");
 
-    for (var i = 0; i<list.length; i++)
-    {
+    for (var i = 0; i < list.length; i++) {
         var rok = list[i];
         rok.className = "season-button";
     }
@@ -149,13 +133,11 @@ function ProcessPersonForTheSeason(userID, callerYearElement)
     callerYearElement.className = "season-button selected";
     document.getElementById("curr-rok").innerText = year;
     document.getElementById("rok-ucasti").innerText = year;
-    console.log(year+" "+userID);
+    console.log(year + " " + userID);
     //XHRCall
     var stats = CommunicateUserStatsXHRAndUpdateTable(userID, year);
 }
-
-function CommunicateUserStatsXHRAndUpdateTable(userID, callerYear)
-{
+function CommunicateUserStatsXHRAndUpdateTable(userID, callerYear) {
     var returnedGetJSON = null;
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
@@ -173,14 +155,12 @@ function CommunicateUserStatsXHRAndUpdateTable(userID, callerYear)
             //return _arr;
         }
     }
-    xmlhttp.open("GET", "XMLHttpRequest/call_get_person_statistics_for_the_season.php?id="+userID+"&year="+callerYear, true);
+    xmlhttp.open("GET", "XMLHttpRequest/call_get_person_statistics_for_the_season.php?id=" + userID + "&year=" + callerYear, true);
     xmlhttp.send();
 }
-
-function UpdateUserStatsTable(cnt, arr_str)
-{
+function UpdateUserStatsTable(cnt, arr_str) {
     console.log("calling append f");
-    document.getElementById("pocet-ucasti").innerText=String(cnt);
+    document.getElementById("pocet-ucasti").innerText = String(cnt);
     console.log(cnt);
     console.log(arr_str);
     //console.log(cnt);
@@ -188,44 +168,37 @@ function UpdateUserStatsTable(cnt, arr_str)
     //console.log(typeof(arr));
     var arr = JSON.parse(arr_str);
 
-    for(var p in arr)
-    {
-        console.log(arr[p].position_id+"->"+arr[p].cnt);
+    for (var p in arr) {
+        console.log(arr[p].position_id + "->" + arr[p].cnt);
         //console.log(arr[p].cnt);
 
         //pokud pozice s timto id existuje
-        if(document.getElementById(arr[p].position_id) !== null)
-        {
+        if (document.getElementById(arr[p].position_id) !== null) {
             //console.log(arr[p].idpoz);
-            document.getElementById(arr[p].position_id).innerHTML=arr[p].cnt;
-            arr[p].cnt=0;
+            document.getElementById(arr[p].position_id).innerHTML = arr[p].cnt;
+            arr[p].cnt = 0;
         }
-        else
-        {
+        else {
 
         }
     }
 
     var counter = Number(0);
-    for(var p in arr)
-    {
-        counter+=Number(arr[p].cnt);
+    for (var p in arr) {
+        counter += Number(arr[p].cnt);
     }
-    console.log("zbyva "+counter+" "+typeof(counter));
-    document.getElementById("zbyvajici").innerText=String(counter);
+    console.log("zbyva " + counter + " " + typeof (counter));
+    document.getElementById("zbyvajici").innerText = String(counter);
     //loop secti zbtek
 
     //do the job
 }
-
-function ProcessClubForTheSeason(clubID, callerYearElement)
-{
+function ProcessClubForTheSeason(clubID, callerYearElement) {
     var year = callerYearElement.innerHTML;
     var list = document.getElementById("roky").getElementsByClassName("season-button");
     console.log(list);
     console.log(callerYearElement);
-    for(var i = 0; i<list.length; i++)
-    {
+    for (var i = 0; i < list.length; i++) {
         var rok = list[i];
         rok.className = "season-button";
     }
@@ -234,20 +207,16 @@ function ProcessClubForTheSeason(clubID, callerYearElement)
     //document.getElementById("curr-rok").innerText = year;
     //console.log(year+" "+clubId);
     document.getElementById("rok-ucasti").innerText = year;
-    console.log("tento rok je "+year);
+    console.log("tento rok je " + year);
     //XHRCall
     var stats = CommunicateClubStatsXHRAndUpdateTable(clubID, year);
     //Delete rows from table
     //Populate table
 }
-
-function PopulateClubStatsGivenYear(clubID, year)
-{
+function PopulateClubStatsGivenYear(clubID, year) {
     var stats = CommunicateClubStatsXHRAndUpdateTable(clubID, year);
 }
-
-function CommunicateClubStatsXHRAndUpdateTable(clubId, callerYear)
-{
+function CommunicateClubStatsXHRAndUpdateTable(clubId, callerYear) {
     var returnedGetJSON = null;
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
@@ -267,52 +236,42 @@ function CommunicateClubStatsXHRAndUpdateTable(clubId, callerYear)
             UpdateClubStatsTable(returnedGetJSON)
         }
     }
-    xmlhttp.open("GET", "XMLHttpRequest/get_club_statistics_for_the_season.php?id="+clubId+"&year="+callerYear, true);
+    xmlhttp.open("GET", "XMLHttpRequest/get_club_statistics_for_the_season.php?id=" + clubId + "&year=" + callerYear, true);
     xmlhttp.send();
 }
-
-function UpdateClubStatsTable(arr_str)
-{
+function UpdateClubStatsTable(arr_str) {
     console.log("calling refresh f");
     var arr = JSON.parse(arr_str);
     console.log(arr);
 
-    for(var p in arr)
-    {
-        console.log(arr[p].user_id+"->"+arr[p].cnt);
-        document.getElementById(arr[p].user_id).innerHTML=arr[p].cnt;
+    for (var p in arr) {
+        console.log(arr[p].user_id + "->" + arr[p].cnt);
+        document.getElementById(arr[p].user_id).innerHTML = arr[p].cnt;
         //update table here
     }
     //blabla foreach arr_str as pair element.p.id->fill w/ p.value
 }
-
 //deprecate
-function refreshPPL()
-{
+function refreshPPL() {
     var query = document.getElementById("inputText").value;
     var list = document.getElementById("lide").getElementsByClassName("rozhodci");
 
-    for(var i = 0; i<list.length; i++)
-    {
+    for (var i = 0; i < list.length; i++) {
         var articlePerson = list[i];
 
-        var name = articlePerson.childNodes[1].textContent+" "+articlePerson.childNodes[2].textContent;
+        var name = articlePerson.childNodes[1].textContent + " " + articlePerson.childNodes[2].textContent;
         var swapped_name = articlePerson.childNodes[2].textContent + " " + articlePerson.childNodes[1].textContent;
 
-        if((name.toUpperCase()).includes(query.toUpperCase())||(swapped_name.toUpperCase()).includes(query.toUpperCase()))
-        {
+        if ((name.toUpperCase()).includes(query.toUpperCase()) || (swapped_name.toUpperCase()).includes(query.toUpperCase())) {
             articlePerson.setAttribute("style", "");
         }
-        else
-        {
+        else {
             articlePerson.setAttribute("style", "display:none;");
         }
     }
 }
-
 //kraj picked trigger
-function RegionPickerChanged(callerElementKraj)
-{
+function RegionPickerChanged(callerElementKraj) {
     /*console.log(callerElementKraj);
     var _seznamRef = callerElementKraj.parentElement;
     console.log(_seznamRef);
@@ -333,89 +292,72 @@ function RegionPickerChanged(callerElementKraj)
         //rok.className = "lide-filtered-button";
     }*/
 
-    if(callerElementKraj.innerHTML=="VŠE")
-    {
+    if (callerElementKraj.innerHTML == "VŠE") {
         //odznac all a konec
-        for(var i = 0; i<list.length;i++)
-        {
+        for (var i = 0; i < list.length; i++) {
             var _krajBtn = list[i];
             _krajBtn.className = "lide-filter-button";
         }
-        list[0].className="lide-filter-button selected";
+        list[0].className = "lide-filter-button selected";
         //return;
     }
-    else
-    {
+    else {
         //odoznacit prvni ALL if still selected
-        if(list[0].className=="lide-filter-button selected")
-        {
-            list[0].className="lide-filter-button";
+        if (list[0].className == "lide-filter-button selected") {
+            list[0].className = "lide-filter-button";
         }
         //zvolit/odzvolit pri kliknuti
-        if(callerElementKraj.className=="lide-filter-button selected")
-        {
-            callerElementKraj.className="lide-filter-button";
+        if (callerElementKraj.className == "lide-filter-button selected") {
+            callerElementKraj.className = "lide-filter-button";
         }
-        else
-        {
+        else {
             callerElementKraj.className = "lide-filter-button selected";
         }
     }
 
     //var kraje = queriedKraje();
     //var tridy = ObtainPickerSubquery("tridy");
-    FilterQueriedReferees("kraje","tridy","inputText","nopplfound");
+    FilterQueriedReferees("kraje", "tridy", "inputText", "nopplfound");
 }
 //trida rozhodcich picked trigger
-function RefereeRankPickerChanged(callerElementTrida)
-{
+function RefereeRankPickerChanged(callerElementTrida) {
     var list = document.getElementById("tridy").getElementsByClassName("lide-filter-button");
     console.log(list);
 
-    if(callerElementTrida.innerHTML=="VŠE")
-    {
+    if (callerElementTrida.innerHTML == "VŠE") {
         //odznac all a konec
-        for(var i = 0; i<list.length;i++)
-        {
+        for (var i = 0; i < list.length; i++) {
             var _tridaBtn = list[i];
             _tridaBtn.className = "lide-filter-button";
         }
-        list[0].className="lide-filter-button selected";
+        list[0].className = "lide-filter-button selected";
         //return;
     }
-    else
-    {
+    else {
         //odoznacit prvni ALL if still selected
-        if(list[0].className=="lide-filter-button selected")
-        {
-            list[0].className="lide-filter-button";
+        if (list[0].className == "lide-filter-button selected") {
+            list[0].className = "lide-filter-button";
         }
         //zvolit/odzvolit pri kliknuti
-        if(callerElementTrida.className=="lide-filter-button selected")
-        {
-            callerElementTrida.className="lide-filter-button";
+        if (callerElementTrida.className == "lide-filter-button selected") {
+            callerElementTrida.className = "lide-filter-button";
         }
-        else
-        {
+        else {
             callerElementTrida.className = "lide-filter-button selected";
         }
     }
 
     //var tridy = ObtainPickerSubquery("tridy");
-    FilterQueriedReferees("kraje","tridy","inputText","nopplfound");
+    FilterQueriedReferees("kraje", "tridy", "inputText", "nopplfound");
 }
 //search performed trigger
-function SearchBarChanged()
-{
+function SearchBarChanged() {
     //no GUI modifications
-    FilterQueriedReferees("kraje","tridy","inputText","nopplfound");
+    FilterQueriedReferees("kraje", "tridy", "inputText", "nopplfound");
 }
-
-
 //get list of available kraj[]
 //deprecate
-function queriedKraje()
-{
+function queriedKraje() {
     //list of relevant ids
     var _ids = [];
     var list = document.getElementById("kraje").getElementsByClassName("lide-filter-button");
@@ -423,11 +365,9 @@ function queriedKraje()
     //console.log(list);
 
     //if list[0]selected, ret vsechny, jsou acceptable
-    if(list[0].classList.contains("selected"))
-    {
+    if (list[0].classList.contains("selected")) {
         //napushuj vsechny ids 1->length
-        for(var i = 1;i<list.length;i++)
-        {
+        for (var i = 1; i < list.length; i++) {
             //raid-1 to _splitted={raid, 1}
             var id = list[i].id;
 
@@ -453,19 +393,15 @@ function queriedKraje()
     console.log(_ids);
     return _ids;
 }
-
 //get list of available picker, trida[] or kraj[]
-function ObtainPickerSubquery(pickerID)
-{
+function ObtainPickerSubquery(pickerID) {
     console.log(pickerID);
     var _ids = [];
     var list = document.getElementById(pickerID).getElementsByClassName("lide-filter-button");
-    console.log("ObtainPickerSubquery()" +pickerID+" running");
+    console.log("ObtainPickerSubquery()" + pickerID + " running");
 
-    if(list[0].classList.contains("selected"))
-    {
-        for(var i = 1;i<list.length;i++)
-        {
+    if (list[0].classList.contains("selected")) {
+        for (var i = 1; i < list.length; i++) {
             //r(r|a)id-1 to _splitted={r(r|a)id, 1}
             var id = list[i].id;
 
@@ -473,12 +409,9 @@ function ObtainPickerSubquery(pickerID)
             _ids.push(_splited[1]);
         }
     }
-    else
-    {
-        for (var i = 1; i < list.length; i++)
-        {
-            if (list[i].classList.contains("selected"))
-            {
+    else {
+        for (var i = 1; i < list.length; i++) {
+            if (list[i].classList.contains("selected")) {
                 var id = list[i].id;
 
                 var _splited = id.split("-");
@@ -491,19 +424,14 @@ function ObtainPickerSubquery(pickerID)
     return _ids;
 }
 //get searchbar text
-function ObtainSearchBarSubquery(barID)
-{
+function ObtainSearchBarSubquery(barID) {
     return document.getElementById(barID).value;
 }
-
 //is one of the options from list permissible? ret T/F
-function IsOptionPermissible(_queriedID, _listOfPermissibleIDs)
-{
-    for(var i = 0; i<_listOfPermissibleIDs.length;i++)
-    {
-        console.log("srovnavam:"+_listOfPermissibleIDs[i]+"s"+_queriedID);
-        if(_listOfPermissibleIDs[i]==_queriedID)
-        {
+function IsOptionPermissible(_queriedID, _listOfPermissibleIDs) {
+    for (var i = 0; i < _listOfPermissibleIDs.length; i++) {
+        console.log("srovnavam:" + _listOfPermissibleIDs[i] + "s" + _queriedID);
+        if (_listOfPermissibleIDs[i] == _queriedID) {
             console.log("ret true");
             return true;
         }
@@ -512,23 +440,18 @@ function IsOptionPermissible(_queriedID, _listOfPermissibleIDs)
     return false;
 }
 //is this name permissible? ret T/F
-function IsNamePermissible(_queried, _first_name, _last_name)
-{
+function IsNamePermissible(_queried, _first_name, _last_name) {
     var name = _first_name + " " + _last_name;
     var swapped_name = _last_name + " " + _first_name;
-    if((name.toUpperCase()).includes(_queried.toUpperCase())||(swapped_name.toUpperCase()).includes(_queried.toUpperCase()))
-    {
+    if ((name.toUpperCase()).includes(_queried.toUpperCase()) || (swapped_name.toUpperCase()).includes(_queried.toUpperCase())) {
         return true;
     }
-    else
-    {
+    else {
         return false;
     }
 }
-
 //rearrange after a change was triggered
-function FilterQueriedReferees(_krajID, _tridyID, _strID, _npfID)
-{
+function FilterQueriedReferees(_krajID, _tridyID, _strID, _npfID) {
     //id[] of above kraj
     var krajeIDs = ObtainPickerSubquery(_krajID);
     //id[] of trida rozhodcich
@@ -542,8 +465,7 @@ function FilterQueriedReferees(_krajID, _tridyID, _strID, _npfID)
     var list = document.getElementById("lide").getElementsByClassName("rozhodci");
     //check if everything is empty
     var empty = true;
-    for(var i = 0; i<list.length; i++)
-    {
+    for (var i = 0; i < list.length; i++) {
         var articlePerson = list[i];
         console.log(articlePerson);
 
@@ -552,34 +474,30 @@ function FilterQueriedReferees(_krajID, _tridyID, _strID, _npfID)
         var rrid;
         var raid;
         //extract children
-        for(var j=0;j<articlePerson.children.length;j++)
-        {
+        for (var j = 0; j < articlePerson.children.length; j++) {
             var _iteratedNode = articlePerson.children[j];
             console.log(_iteratedNode);
 
-            if(_iteratedNode.className=="first_name") {
-                first_name=_iteratedNode.textContent;
+            if (_iteratedNode.className == "first_name") {
+                first_name = _iteratedNode.textContent;
             }
-            if(_iteratedNode.className=="last_name") {
-                last_name=_iteratedNode.textContent;
+            if (_iteratedNode.className == "last_name") {
+                last_name = _iteratedNode.textContent;
             }
-            if(_iteratedNode.className=="rrid") {
-                rrid=_iteratedNode.textContent;
+            if (_iteratedNode.className == "rrid") {
+                rrid = _iteratedNode.textContent;
             }
-            if(_iteratedNode.className=="raid") {
-                raid=_iteratedNode.textContent;
+            if (_iteratedNode.className == "raid") {
+                raid = _iteratedNode.textContent;
             }
         }
 
         //Querying
-        if(IsOptionPermissible(raid, krajeIDs))
-        {
+        if (IsOptionPermissible(raid, krajeIDs)) {
             //console.log("IsOptionPermissible"+rrid+"of"+tridyIDs);
-            if(IsOptionPermissible(rrid, tridyIDs))
-            {
+            if (IsOptionPermissible(rrid, tridyIDs)) {
                 //console.log("IsNamePermissible"+jmeno+"w/"+first_name+"&"+last_name);
-                if(IsNamePermissible(jmeno, first_name, last_name))
-                {
+                if (IsNamePermissible(jmeno, first_name, last_name)) {
                     //PROJDE VSE, muzu zobrazit
                     //console.log("projde vse");
                     articlePerson.setAttribute("style", "");
@@ -594,13 +512,11 @@ function FilterQueriedReferees(_krajID, _tridyID, _strID, _npfID)
     }
     //console.log("EMPTY RESULT VAR");
     //console.log(empty);
-    if(empty==true)
-    {
+    if (empty == true) {
         console.log("NO PEOPLE FOUND");
         document.getElementById(_npfID).setAttribute("style", "");
     }
-    else
-    {
+    else {
         console.log("PEOPLE DISPLAYED");
         document.getElementById(_npfID).setAttribute("style", "display:none;");
     }
