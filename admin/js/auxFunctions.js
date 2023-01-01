@@ -1,16 +1,13 @@
-/*general use functions*/
+/*DnD functions w/ jQuery*/
 function goBack() {
     window.history.back();
 }
-
 function allowDrop(ev) {
     ev.preventDefault();
 }
-
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
-
 function drop(ev, id) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
@@ -26,7 +23,6 @@ function drop(ev, id) {
     /*ev.target.appendChild(document.getElementById(data));*/
     removeEventualDuplicities();
 }
-
 function dropAvailability(ev, id) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
@@ -34,7 +30,7 @@ function dropAvailability(ev, id) {
     var nodeCopy = document.getElementById(data).cloneNode(true);
     var flag = getAvFlag(id, ev.dataTransfer.getData("text"));
     flag = flag.replace(/\s/g, '');
-    console.log("flag:"+flag);
+    console.log("flag:" + flag);
     nodeCopy.id = id + "," + ev.dataTransfer.getData("text") + "," + flag;
     /* We cannot use the same ID */
     /*ev.dataTransfer.getData("text")*/
@@ -45,9 +41,7 @@ function dropAvailability(ev, id) {
     /*ev.target.appendChild(document.getElementById(data));*/
     removeEventualDuplicities();
 }
-
-function getAvFlag(cupid, userid)
-{
+function getAvFlag(cupid, userid) {
     var _returnedFlag = null;
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
@@ -70,36 +64,30 @@ function getAvFlag(cupid, userid)
     xmlhttp.send();
     return _returnedFlag;
 }
-
 function destroyElement(obj) {
     var el = document.getElementById(obj);
     el.remove();
 }
-
-function availChangeHandler(obj, delay)
-{
-    setTimeout( function() {availChange(obj);}, delay);
+function availChangeHandler(obj, delay) {
+    setTimeout(function () { availChange(obj); }, delay);
 }
 function availChange(obj) {
     //console.log(obj);
     //console.log(obj.id);
     var split_id = obj.id.split(",");
     //console.log(split_id[2]);
-    if(split_id[2]==1)
-    {
+    if (split_id[2] == 1) {
         console.log(split_id[2]);
         console.log("je 1");
-        obj.id=split_id[0]+","+split_id[1]+","+"0";
-        obj.className="clovekNG";
-    } else
-    {
+        obj.id = split_id[0] + "," + split_id[1] + "," + "0";
+        obj.className = "clovekNG";
+    } else {
         console.log(split_id[2]);
         console.log("je 0");
-        obj.id=split_id[0]+","+split_id[1]+","+"1";
-        obj.className="clovek";
+        obj.id = split_id[0] + "," + split_id[1] + "," + "1";
+        obj.className = "clovek";
     }
 }
-
 function removeEventualDuplicities() {
     var ids = [];
     $('*').each(function () {
@@ -113,25 +101,24 @@ function removeEventualDuplicities() {
     });
 }
 
-function validateForm()
-{
+//Text input handling 
+function validateForm() {
     var title = document.getElementById("title").value;
     //var mytextarea = document.getElementById("mytextarea").value;
     var mytextarea = tinyMCE.get('mytextarea').getContent();
     console.log(title);
     console.log(mytextarea);
-    if (title == "")
-    {
+    if (title == "") {
         alert("Titulek missing");
         return false;
     }
-    if (mytextarea == "")
-    {
+    if (mytextarea == "") {
         alert("Content missing");
         return false;
     }
 }
 
+//CMS stuff
 function UpdatePost() {
     var id = document.getElementById("postID").value;
     var title = document.getElementById("title").value;
@@ -150,24 +137,22 @@ function UpdatePost() {
     xmlhttp.open("GET", "XMLHttpRequest/call_update_article.php?id=" + encodeURIComponent(id) + "&title=" + encodeURIComponent(title) + "&article=" + encodeURIComponent(article), true);
     xmlhttp.send();
 }
-
 function ApproveUser(i) {
     //window.alert(i);
-    if(window.XMLHttpRequest){
+    if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
     } else {
         xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
     xmlhttp.onreadystatechange = function () {
-        if(this.readyState == 4 && this.status == 200){
+        if (this.readyState == 4 && this.status == 200) {
             //change fajfku&swap onclick
             location.reload();
         }
     }
-    xmlhttp.open("GET", "XMLHttpRequest/call_approve_user.php?id="+encodeURIComponent(i),true);
+    xmlhttp.open("GET", "XMLHttpRequest/call_approve_user.php?id=" + encodeURIComponent(i), true);
     xmlhttp.send();
 }
-
 function ParseSerializePairingDOM() {
     //var list = document.getElementById("pairing").getElementsByClassName("clovek");
     var list = document.getElementById("pairing").querySelectorAll('[class^="clovek"]');
@@ -187,8 +172,7 @@ function ParseSerializePairingDOM() {
     console.log(str);
     return (str);
 }
-
-function ParseSerializeStatsDOM()  {
+function ParseSerializeStatsDOM() {
     var list = document.getElementById("pairing").getElementsByClassName("pozice");
     var str = "[";
     for (i = 0; i < list.length; i++) {
@@ -200,10 +184,9 @@ function ParseSerializeStatsDOM()  {
         }
     }
     str += ']';
-    console.log("ParseSerializeStatsDOM"+str);
+    console.log("ParseSerializeStatsDOM" + str);
     return str;
 }
-
 function UpdatePairing(JSON) {
     var zavodID = encodeURIComponent(document.getElementById("zavodID").innerHTML);
     var json = encodeURIComponent(JSON);
@@ -224,10 +207,9 @@ function UpdatePairing(JSON) {
     xmlhttp.send(encoded);
     //console.log(JSON);
 }
-
 function UpdatePreferedStats(JSON) {
     var json = encodeURIComponent(JSON);
-    var encoded = 'json='+json;
+    var encoded = 'json=' + json;
     console.log(JSON);
     console.log(encoded);
     if (window.XMLHttpRequest) {
@@ -244,6 +226,7 @@ function UpdatePreferedStats(JSON) {
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }
+
 //Availability
 //create JSON for availability
 function AvailableToJSON() {
@@ -253,7 +236,7 @@ function AvailableToJSON() {
     for (i = 0; i < list.length; i++) {
         var result;
         result = list[i].id.split(",");
-        str += '{"idcup":"' + result[0] + '","iduser":"' + result[1] + '","coming":"'+result[2]+'"}';
+        str += '{"idcup":"' + result[0] + '","iduser":"' + result[1] + '","coming":"' + result[2] + '"}';
         if (i != list.length - 1) {
             str += ',';
         }
@@ -261,7 +244,6 @@ function AvailableToJSON() {
     str += ']';
     return (str);
 }
-
 function UpdateAvailability(JSON) {
     var zavodID = encodeURIComponent(document.getElementById("zavodID").innerHTML);
     var json = encodeURIComponent(JSON);
@@ -280,7 +262,6 @@ function UpdateAvailability(JSON) {
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }
-
 function registerMeForTheCup(cupId, userId) {
     var encoded = 'cupid=' + cupId + '&userid=' + userId;
     if (window.XMLHttpRequest) {
@@ -297,9 +278,7 @@ function registerMeForTheCup(cupId, userId) {
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }
-
-function makeMeGoing(cupId, userId)
-{
+function makeMeGoing(cupId, userId) {
     var encoded = 'cupid=' + cupId + '&userid=' + userId;
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
@@ -315,8 +294,7 @@ function makeMeGoing(cupId, userId)
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }
-function makeMeNotGoing(cupId, userId)
-{
+function makeMeNotGoing(cupId, userId) {
     var encoded = 'cupid=' + cupId + '&userid=' + userId;
     if (window.XMLHttpRequest) {
         xmlhttp = new XMLHttpRequest();
@@ -332,20 +310,16 @@ function makeMeNotGoing(cupId, userId)
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }
-
-function DummyPasswd(iters)
-{
+function DummyPasswd(iters) {
     var heslo = "heslo";
     var i;
-    for(i = 0; i<iters;i++)
-    {
+    for (i = 0; i < iters; i++) {
         var num = Math.floor(Math.random() * 10);
-        heslo+=num;
+        heslo += num;
     }
     console.log(heslo);
     return heslo;
 }
-function FillDummyPasswdIN(passElemName, passwd)
-{
-    var field = document.getElementById(passElemName).value=passwd;
+function FillDummyPasswdIN(passElemName, passwd) {
+    var field = document.getElementById(passElemName).value = passwd;
 }
