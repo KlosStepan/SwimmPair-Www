@@ -24,9 +24,9 @@ $initialStats = $usersManager->CountOverallStatisticsOfUserGivenYear($userID, $m
     <!--PAGE SPECIALIZATION GOES HERE-->
 
     <section class="content">
-        <h1 style=\"text-align:center\"><?= h($user->last_name)?> <?= h($user->first_name) ?><!--, refrank: <?= h($user->referee_rank_id)?> --></h1>
-        <h1 style=\"text-align:center\"><?= h($usersManager->GetClubNameByAffiliationID($user->affiliation_club_id)) ?></h1>
-        <div id="roky-box" align="center">
+        <h1 style="text-align:center"><?= h($user->last_name)?> <?= h($user->first_name) ?><!--, refrank: <?= h($user->referee_rank_id)?> --></h1>
+        <h1 style="text-align:center"><?= h($usersManager->GetClubNameByAffiliationID($user->affiliation_club_id)) ?></h1>
+        <div id="roky-box" text-align="center">
             <div id="roky" class="season-box">
                 <?php for($i=$minCupYear;$i<$maxCupYear;$i++): ?>
                     <span onclick="ProcessPersonForTheSeason(<?php echo $userID; ?>, this);" class="season-button"><?php echo $i; ?></span>
@@ -36,11 +36,11 @@ $initialStats = $usersManager->CountOverallStatisticsOfUserGivenYear($userID, $m
             </div>
         </div>
         <h1 id="curr-rok" style="visibility:hidden; height: 1px; margin-top: 0.25px; margin-bottom: 0.25px;"><?php echo date("Y"); ?></h1>
-        <h1 class="contracted" style=\"text-align:center\">Počet účastí na závodech je <span id="pocet-ucasti"><?php echo $initialCupCount; ?></span> v roce <span id="rok-ucasti"><?php echo $maxCupYear; ?></span></h1>
+        <h1 class="contracted" style="text-align:center">Počet účastí na závodech je <span id="pocet-ucasti"><?php echo $initialCupCount; ?></span> v roce <span id="rok-ucasti"><?php echo $maxCupYear; ?></span></h1>
         <?php
             //print_r($initialStats);
         ?>
-        <table class="statistikysezona" align="center">
+        <table class="statistikysezona" text-align="center">
             <tbody>
                 <tr class="statistikyhlavicka">
                     <th>Pozice</th>
@@ -67,7 +67,7 @@ $initialStats = $usersManager->CountOverallStatisticsOfUserGivenYear($userID, $m
                         <td style="text-align: center;"><span id="zbyvajici"><?= h($cnt)?></span>x</td>
                     </tr>
 
-                <!-- Ostatní bullthis count->
+                <!-- Ostatní bullthis count-->
                 <!--
                 <tr>
                     <td>Vrchní rozhodčí</td>

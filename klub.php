@@ -25,7 +25,7 @@ $myPPL = $usersManager->FindAllTeamMembers($clubId);
     <section class="content">
         <h1 style="text-align:center"><?= h($club->name)?><!--, krajaffil: <?= h($club->affiliation_region_id) ?>--></h1>
         <h1 style="text-align:center"><?= h($club->abbreviation)?> / No. <?= h($club->code)?></h1>
-        <div id="roky-box" align="center">
+        <div id="roky-box" text-align="center">
             <div id="roky" class="season-box">
 	            <?php for($i=$minCupYear;$i<$maxCupYear;$i++): ?>
                     <span onclick="ProcessClubForTheSeason(<?php echo $clubId; ?>, this);" class="season-button"><?php echo $i; ?></span>
@@ -45,7 +45,7 @@ $myPPL = $usersManager->FindAllTeamMembers($clubId);
 	    echo "<!-- cnt: ".count($myPPL)." -->";
 	    echo "\r\n";
 	    ?>
-        <table class="statistikysezona" align="center">
+        <table class="statistikysezona" text-align="center">
             <tbody>
             <tr class="statistikyhlavicka">
                 <th>Rozhodčí</th>
