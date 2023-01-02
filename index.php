@@ -66,7 +66,7 @@ $posts = $postsManager->FindLastThreePosts();
         <?php
             if (count($posts)==3) {
 	            ?>
-                <p id="btn" text-align="center">
+                <p id="btn" align="center">
                     <button class="dalsiAktualita" onclick="GetPostAppendPost(PushLastID())">Starší aktualita</button>
                 </p>
 	            <?php
