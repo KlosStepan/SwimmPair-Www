@@ -34,7 +34,7 @@ $refereeRanks = $usersManager->FindAllRefereeRanks();
         <?php
             if(count($users)!=0) {
 	            ?>
-                <div id="kraje-box" text-align="center">
+                <div id="kraje-box" align="center">
                     <!--<span>KRAJE</span>-->
                     <div id="kraje" class="lide-filter-box">
                         <!-- loop generate -->
@@ -45,7 +45,7 @@ $refereeRanks = $usersManager->FindAllRefereeRanks();
                     </div>
                 </div>
 
-                <div class="tridy-box" text-align="center">
+                <div class="tridy-box" align="center">
                     <!--<span>TRIDY</span>-->
                     <div id="tridy" class="lide-filter-box">
                         <span id="rrid-all" onclick="RefereeRankPickerChanged(this);"
@@ -57,7 +57,7 @@ $refereeRanks = $usersManager->FindAllRefereeRanks();
 			            <?php endforeach; ?>
                     </div>
                 </div>
-                <div text-align="center">
+                <div align="center">
                     <!--<input id="inputText" onkeyup="refreshPPL();" type="text" name="search" placeholder="Hledat...">-->
                     <input id="inputText" onkeyup="SearchBarChanged();" type="text" name="search"
                            placeholder="Hledat...">

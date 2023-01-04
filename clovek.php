@@ -26,7 +26,7 @@ $initialStats = $usersManager->CountOverallStatisticsOfUserGivenYear($userID, $m
     <section class="content">
         <h1 style="text-align:center"><?= h($user->last_name)?> <?= h($user->first_name) ?><!--, refrank: <?= h($user->referee_rank_id)?> --></h1>
         <h1 style="text-align:center"><?= h($usersManager->GetClubNameByAffiliationID($user->affiliation_club_id)) ?></h1>
-        <div id="roky-box" text-align="center">
+        <div id="roky-box" align="center">
             <div id="roky" class="season-box">
                 <?php for($i=$minCupYear;$i<$maxCupYear;$i++): ?>
                     <span onclick="ProcessPersonForTheSeason(<?php echo $userID; ?>, this);" class="season-button"><?php echo $i; ?></span>
@@ -40,7 +40,7 @@ $initialStats = $usersManager->CountOverallStatisticsOfUserGivenYear($userID, $m
         <?php
             //print_r($initialStats);
         ?>
-        <table class="statistikysezona" text-align="center">
+        <table class="statistikysezona" align="center">
             <tbody>
                 <tr class="statistikyhlavicka">
                     <th>Pozice</th>

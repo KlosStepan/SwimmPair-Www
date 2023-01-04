@@ -1,8 +1,9 @@
 <?php
-$host = "database";
-$user = "root";
-$pass = "moje_tajne_heslo";
-$db = "plavani";
-$mysqli = new mysqli($host, $user, $pass, $db) or die($mysqli->error);
-$mysqli->set_charset('utf8');
+require 'start.php';
+
+$start = microtime(true);
+$y = $usersManager->FindAllActiveUsersOrderByLastNameAsc();
+//print_r($y)
+$total = microtime(true) - $start;
+echo $total;
 ?>

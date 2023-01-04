@@ -55,7 +55,7 @@ $registeredAll = $usersManager->FindAllRegisteredUsersForTheCup($cupID);
                     }
                     ?>
                 <!--</p>-->
-                <table class="rozhodcinazavody" text-align="center">
+                <table class="rozhodcinazavody" align="center">
                 <tr class="rozhodcihlavicka"><th>Pozice</th><th>Rozhodčí</th></tr>
                 <!-- IF NOT isComing($cupId, $registeredOne->id) STRIKE -->
 	            <?php
