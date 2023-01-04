@@ -15,7 +15,7 @@
 	}
 	
 	/* Exception handling*/
-	error_reporting(E_ALL);
+	/*error_reporting(E_ALL);
 	ini_set("display_errors", 1);
 	set_exception_handler(function () {
 		echo "<h3 style=\"color: red;\">INVALID REQUEST</h3>";
