@@ -169,7 +169,7 @@ function ParseSerializePairingDOM() {
     str += ']';
     //var textnode = document.createTextNode(str);
     //node.appendChild(textnode);
-    console.log(str);
+    //console.log(str);
     return (str);
 }
 function ParseSerializeStatsDOM() {
