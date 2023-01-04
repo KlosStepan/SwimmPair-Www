@@ -57,6 +57,6 @@ require_once('tmpl_header.php');
 </div>
 <p> </p>
 <input type="button" onclick="UpdateAvailability(AvailableToJSON());" value="Aktualizovat">
-<!--<p> </p>
-<input type="button" onclick="console.log(availableToJSON());" value="console.log(availableToJSON())">-->
+<p> </p>
+<input type="button" onclick="console.log(AvailableToJSON());" value="console.log(AvailableToJSON());">
 

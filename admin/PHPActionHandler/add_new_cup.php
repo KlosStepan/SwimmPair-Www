@@ -4,7 +4,8 @@ require __DIR__ . '/../../start.php';
 session_start();
 Auth::requireRole(UserRights::VedouciKlubu);
 
-$redDestURL = "Location: profile.php";
+$admin = "http://".$_SERVER['SERVER_NAME']."/admin";
+$redDestURL = "Location: $admin/profile.php";
 
 //sanitize POST information
 $name = Sanitizer::getPostString('name');
@@ -22,10 +23,10 @@ echo "club_id: ".$clubID;
 $clubAbbrev = $usersManager->GetClubAbbreviationByAffiliationID($clubID);
 
 //TODO if returned number is not null
-
+echo ("| ".$name."/".$time_start."/".$time_end."/". $organizer_club_id."/".$description." |<br/>\r\n");
 if ($cupsManager->InsertNewCup($name, $time_start, $time_end, $organizer_club_id, $description)) {
-	echo 'succ ';
-	//create PSA
+	echo 'succ<br/>\r\n';
+	//create PSA - flag
 	$cupID = $cupsManager->GetNewCupIDByInfo($name, $time_start, $time_end);
 	echo $cupID;
 	if($cupID!=null)

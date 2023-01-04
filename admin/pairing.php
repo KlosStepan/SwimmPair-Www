@@ -26,9 +26,7 @@ require_once('tmpl_header.php');
     </div>
 </div>
 <h2><?= $thisCup->time_start ?> </h2>
-<p style="font-size:12px; padding-top:10px;text-align: justify;">Pozn.: Rozhodčí na závody přiřadíte PŘETAŽENÍM.
-    Dvojklikem člověka z role odeberete. Pro chytré telefony jsou dostupné mobilní apliace na <u>Android</u> i <u>iOS</u>.
-    Aplikace jsou alternativou k drag'n'drop mechanizmu.</p>
+<p style="font-size:12px; padding-top:10px;text-align: justify;">Pozn.: Rozhodčí na závody přiřadíte PŘETAŽENÍM. Dvojklikem člověka z role odeberete.</p>
 <p id="zavodID" hidden><?= $cupID ?></p>
 <p id="currPairingLoadHash" hidden><?= $cupsManager->GetPairingHashForThisCup($cupID) ?></p>
 <h2>Dostupní rozhodčí</h2>
@@ -83,8 +81,8 @@ require_once('tmpl_header.php');
 <div id="out"></div>
 <p>&nbsp;</p>
 <input type="button" onclick="UpdatePairing(ParseSerializePairingDOM());" value="Aktualizovat">
-<!--<p>&nbsp;</p>
-<input type="button" onclick="vypis();" value="print JSON">-->
+<p>&nbsp;</p>
+<input type="button" onclick="console.log(ParseSerializePairingDOM());" value="console.log(ParseSerializePairingDOM());">
 <?php
 require_once('tmpl_footer.php');
 ?>

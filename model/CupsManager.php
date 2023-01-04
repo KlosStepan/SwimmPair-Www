@@ -185,7 +185,7 @@ class CupsManager
 	{
 		//$statement = $this->mysqli->prepare('INSERT INTO `sp_cups` (`time_start`, `time_end`, `name`, `description`, `organizer_club_id`) VALUES (?,?,?,?,?)');
 		$statement = $this->mysqli->prepare('CALL `InsertNewCup`(?,?,?,?,?)');
-		$statement->bind_param('ssssi', $date_begin, $date_end, $name, $content, $club);
+		$statement->bind_param('sssis', $name, $date_begin, $date_end, $club, $content);
 		if ($statement->execute())
 		{
 			return true;
@@ -198,9 +198,9 @@ class CupsManager
 
 	public function GetNewCupIDByInfo($name, $date_begin, $date_end)
 	{
-		//$statement = $this->mysqli->prepare('SELECT id FROM `sp_cups` WHERE time_start=? AND time_end=? AND name=?');
+		//$statement = $this->mysqli->prepare('SELECT id FROM `sp_cups` WHERE name=? AND time_start=? AND time_end=?');
 		$statement = $this->mysqli->prepare('CALL `GetNewCupIDByInfo`(?,?,?)');
-		$statement->bind_param('sss', $date_begin, $date_end, $name);
+		$statement->bind_param('sss', $name, $date_begin, $date_end);
 
 		return $this->_GetSingleResultFromStatement($statement);
 	}

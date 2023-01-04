@@ -311,8 +311,13 @@ class UsersManager
 	private function _GetSingleResultFromStatement(mysqli_stmt $statement){
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_NUM);
-		$row = $rows[0];
-		return $row[0];
+		if(!empty($rows)) {
+			$row = $rows[0];
+			return $row[0];
+		}
+		else {
+			return null;
+		}
 	}
 
 	/**
@@ -407,13 +412,13 @@ class UsersManager
 		{
 			return true;
 		}
-		else if($_res==0)
+		elseif($_res==0)
 		{
 			return false;
 		}
 		else
 		{
-			return null;
+			return true;
 		}
 	}
 
@@ -433,13 +438,17 @@ class UsersManager
 	public function RetStringComingFlag($cupID, $userID)
 	{
 		$_res = $this->_IsComingINT($cupID, $userID);
-		if($_res==1)
+		if($_res===1)
 		{
-		return "1";
+			return "1";
 		}
-		else
+		elseif($_res===0)
 		{
-		return "0";
+			return "0";
+		}
+		else // $_res == null - nove prihlaseny, neni v databazi = going 
+		{
+			return "1";
 		}
 	}
 

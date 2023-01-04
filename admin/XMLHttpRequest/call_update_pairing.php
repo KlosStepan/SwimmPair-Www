@@ -20,7 +20,7 @@ try {
 	if($hash==$cupsManager->GetPairingHashForThisCup($id))
 	{
 		/*deleting of old pairing*/
-		$statement = $mysqli->prepare('DELETE FROM `pozicerozhodci` WHERE idzav=?');
+		$statement = $mysqli->prepare('DELETE FROM `sp_user_position_pairing` WHERE cup_id=?');
 		$statement->bind_param('i', $id);
 		$statement->execute();
 
@@ -35,7 +35,7 @@ try {
 				throw new RuntimeException();
 			}
 			/*insert the new pair*/
-			$statement = $mysqli->prepare('INSERT INTO `pozicerozhodci` (`id`, `idzav`, `idpoz`, `iduser`) VALUES (NULL, ? , ? , ?)');
+			$statement = $mysqli->prepare('INSERT INTO `sp_user_position_pairing` (`id`, `cup_id`, `position_id`, `user_id`) VALUES (NULL, ? , ? , ?)');
 			$statement->bind_param('iii', $id, $record["idpoz"], $record["iduser"]);
 			$statement->execute();
 		}

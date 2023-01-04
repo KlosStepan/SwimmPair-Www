@@ -3,7 +3,8 @@ require __DIR__ . '/../../start.php';
 
 $id = Sanitizer::getPostInt('id');
 $json = Sanitizer::getPostString('json');
-
+echo ($id);
+echo ($json);
 $json_processed = json_decode($json, true);
 if (json_last_error()!==JSON_ERROR_NONE){
 	echo "RuntimeException(), no commit";
@@ -13,7 +14,7 @@ if (json_last_error()!==JSON_ERROR_NONE){
 $mysqli->begin_transaction();
 try {
 	//drop all availabilities
-	$statement = $mysqli->prepare('DELETE FROM `dostupnost` WHERE zavodid=?');
+	$statement = $mysqli->prepare('DELETE FROM `sp_user_cup_availability` WHERE cup_id=?');
 	$statement->bind_param('i', $id);
 	$statement->execute();
 
@@ -23,7 +24,7 @@ try {
 		} elseif (!ctype_digit($record["idcup"]) || !ctype_digit($record["iduser"])|| !ctype_digit($record["coming"])) {
 			throw new RuntimeException();
 		}
-		$statement = $mysqli->prepare('INSERT INTO `dostupnost` (`id`, `zavodid`, `userid`, `coming`) VALUES (NULL, ?, ?, ?)');
+		$statement = $mysqli->prepare('INSERT INTO `sp_user_cup_availability` (`id`, `cup_id`, `user_id`, `attendance_flag`) VALUES (NULL, ?, ?, ?)');
 		$statement->bind_param('iii', $record['idcup'], $record['iduser'], $record['coming']);
 		$statement->execute();
 	}
