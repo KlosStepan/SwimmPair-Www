@@ -544,7 +544,7 @@ class UsersManager
 	public function IsEmailPresentAlready($email)
 	{
 		//echo "emailova adresa".$email."\r\n";
-		$email_escaped = mysqli_real_escape_string($email);
+		$email_escaped = mysqli_real_escape_string($this->mysqli, $email);
 		//$statement = $this->mysqli->prepare('SELECT * FROM `sp_users` WHERE email=?');
 		$statement = $this->mysqli->prepare('CALL `IsEmailPresentAlready`(?)');
 		$statement->bind_param('s', $email_escaped);
