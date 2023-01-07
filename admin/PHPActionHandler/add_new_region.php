@@ -1,23 +1,24 @@
 <?php
 require __DIR__ . '/../../start.php';
-
+//Redirect address
 session_start();
 Auth::requireRole(UserRights::SuperUser);
-
+//Region data prep - HTTP POST
 $name = Sanitizer::getPostString('name');
 $abbreviation = Sanitizer::getPostString('abbreviation');
+//Redirect address
+$admin = "http://".$_SERVER['SERVER_NAME']."/admin";
+$redDestURL = "Location: $admin/profile.php";
 
-$actionError = "Location: action_error.php";
-//try insert
+//Insert and redirect or throw
 if($regionsManager->InsertNewRegion($name, $abbreviation))
 {
-	//succ
-	echo "New Region created";
-	echo "<script>window.history.back();</script>";
+	echo "succ<br/>\r\n";
+	header($redDestURL);
 }
 else
 {
-	//error
-	echo "Action Error";
-	header($actionError);
+	throw new Exception('Insert failed - RegionsManager::InsertNewRegion');
+	echo "err<br/>\r\n";
+	echo "Insert failed - RegionsManager::InsertNewRegion<br/>\r\n";
 }

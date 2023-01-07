@@ -13,8 +13,14 @@ require_once('tmpl_header.php');
 	</div>
 </div>
 <form action="PHPActionHandler/add_new_region.php" method="post" autocomplete="off">
-	<div class="field-wrap-in-hundred"><div class="field-wrap-in-twenty-five"><h2>Jméno</h2></div><div class="field-wrap-in-seventy"><input class="fiftyPercent name="name" type="text"></div></div>
-	<div class="field-wrap-in-hundred"><div class="field-wrap-in-twenty-five"><h2>Zkratka</h2></div><div class="field-wrap-in-seventy"><input class="fiftyPercent name="abbreviation" type="text"></div></div>
+	<div class="field-wrap-in-hundred">
+		<div class="field-wrap-in-twenty-five"><h2>Jméno</h2></div>
+		<div class="field-wrap-in-seventy"><input class="fiftyPercent" name="name" type="text"></div>
+	</div>
+	<div class="field-wrap-in-hundred">
+		<div class="field-wrap-in-twenty-five"><h2>Zkratka</h2></div>
+		<div class="field-wrap-in-seventy"><input class="fiftyPercent" name="abbreviation" type="text"></div>
+	</div>
 	<div class="center-fifty-wrap">
 		<div class="field-wrap-in-center">
 			<button type="submit" class="button-style">Přidat</button>
