@@ -1,30 +1,28 @@
 <?php
 require __DIR__ . '/../../start.php';
-
+//Session and Authentication
 session_start();
 Auth::requireRole(UserRights::SuperUser);
-
+//Club prep - HTTP POST
 $id = Sanitizer::getPostInt('id');
 $name = Sanitizer::getPostString('name');
 $abbreviation = Sanitizer::getPostString('abbreviation');
 $code = Sanitizer::getPostInt('code');
 $img = Sanitizer::getPostString('img');
-
 $affiliation_region_id = Sanitizer::getPostInt('affiliation_region_id');
+//Redirect address
+$admin = "http://".$_SERVER['SERVER_NAME']."/admin";
+$redDestURL = "Location: $admin/profile.php";
 
-$actionError = "Location: action_error.php";
-
+//Update and redirect or throw
 if($clubsManager->UpdateClub($id, $name, $abbreviation, $code, $img, $affiliation_region_id))
 {
-	//succ
-	echo "Club updated";
-	echo "<script>window.history.back();</script>";
+	echo "succ<br/>\r\n";
+	header($redDestURL);
 }
 else
 {
-	//error
-	echo 'Action Error calling ClubsManager::UpdateClub(args[])';
-	echo "\r\n";
-	echo "Klub neaktualizovan/Club not updated";
-	//header($actionError);
+	echo "err<br/>\r\n";
+	echo "Update failed - ClubsManager::UpdateClub";
+	throw new Exception('Update failed - ClubsManager::UpdateClub');
 }

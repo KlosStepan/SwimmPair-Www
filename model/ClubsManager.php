@@ -136,15 +136,13 @@ class ClubsManager
 		return $row[0];
 	}
 
-	/** REGIONS */
-
-	/** END REGIONS  */
-	//TBI
+	//OK
 	public function UpdateClub($id, $name, $abbreviation, $code, $img, $affiliation_region_id)
 	{
 		//$statement = $this->mysqli->prepare('UPDATE `sp_clubs` SET `name`=?, `abbreviation`=?, `code`=?, `img`=?, `affiliation_region_id`=? WHERE `id`=?');
 		$statement = $this->mysqli->prepare('CALL `UpdateClub`(?,?,?,?,?,?)');
-		$statement->bind_param('ssisii', $name, $abbreviation, $code, $img, $affiliation_region_id, $id);
+		//$statement->bind_param('ssisii', $name, $abbreviation, $code, $img, $affiliation_region_id, $id);
+		$statement->bind_param('issisi', $id, $name, $abbreviation, $code, $img, $affiliation_region_id);
 		if($statement->execute())
 		{
 			return true;

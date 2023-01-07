@@ -7,6 +7,7 @@ Auth::requireRole(UserRights::SuperUser);
 $clubID = Sanitizer::getGetInt('id');
 $club = $clubsManager->GetClubByID($clubID);
 $regions = $regionsManager->FindAllRegions();
+
 require_once('tmpl_header.php');
 ?>
 <div id="hcontainer">
@@ -21,7 +22,6 @@ require_once('tmpl_header.php');
     echo "<!-- ".($club->SerializeFull())." -->\r\n";
 ?>
 <form action="PHPActionHandler/update_club.php" method="post" autocomplete="off">
-    <!--hidden id-->
     <input name="id" type="hidden" value="<?= h($club->id); ?>">
     <div class="field-wrap-in-hundred"><div class="field-wrap-in-twenty-five"><h2>Jméno</h2></div><div class="field-wrap-in-seventy"><input class="fiftyPercent" name="name" type="text" value="<?= h($club->name); ?>"></div></div>
     <div class="field-wrap-in-hundred"><div class="field-wrap-in-twenty-five"><h2>Zkratka</h2></div><div class="field-wrap-in-seventy"><input class="fiftyPercent" name="abbreviation" type="text" value="<?= h($club->abbreviation); ?>"></div></div>
