@@ -562,14 +562,15 @@ class UsersManager
 
 		$rows = $statement->num_rows();
 
-		if ($rows == 1) {
+		if ($rows == 1)
+		{
 			return true;
 		}
 		else
 		{
 			return false;
 		}
-		//return false;
+
 	}
 
 	public function IsUserWithIDPresentAlready($id)
@@ -596,13 +597,13 @@ class UsersManager
 	 * return boolean
 	 */
 
-	//TODO impl SQL function
-	//!ref_rank! smuggle from $_POST TODO 100 FIXED
 	public function RegisterUser($first_name, $last_name, $email, $password, $rights, $refRank, $klubaffil)
 	{
 		$passwordHashed = password_hash($password, PASSWORD_BCRYPT);
-		$hash = md5(rand(0, 1000));                                                                                                                                                                                             //approved,activated
-		$statement = $this->mysqli->prepare('INSERT INTO `sp_users` (`first_name`, `last_name`, `email`, `password`, `hash`, `active_flag`, `approved_flag`, `rights`, `ref_rank`, `affiliation_club_id`) VALUES (?,?,?,?,?,1,1,?,?,?)');
+		$hash = md5(rand(0, 1000));
+		//approved, activated
+		//$statement = $this->mysqli->prepare('INSERT INTO `sp_users` (`first_name`, `last_name`, `email`, `password`, `hash`, `active_flag`, `approved_flag`, `rights`, `ref_rank`, `affiliation_club_id`) VALUES (?,?,?,?,?,1,1,?,?,?)');
+		$statement = $this->mysqli->prepate('CALL `RegisterUser`(?,?,?,?,?,1,1,?,?,?)');
 		$statement->bind_param('sssssiii', $first_name, $last_name, $email, $passwordHashed, $hash, $rights, $refRank, $klubaffil);
 		if ($statement->execute())
 		{

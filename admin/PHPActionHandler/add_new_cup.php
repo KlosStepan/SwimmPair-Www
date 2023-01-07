@@ -1,42 +1,47 @@
 <?php
 require __DIR__ . '/../../start.php';
-
+//Session and Authentication
 session_start();
 Auth::requireRole(UserRights::VedouciKlubu);
-
-$admin = "http://".$_SERVER['SERVER_NAME']."/admin";
-$redDestURL = "Location: $admin/profile.php";
-
-//sanitize POST information
+//Cup data prep - HTTP POST
 $name = Sanitizer::getPostString('name');
 $time_start = Sanitizer::getPostString('time_start');
 $time_end = Sanitizer::getPostString('time_end');
-$description = Sanitizer::getPostString('descr_zavodu');
 $organizer_club_id = Sanitizer::getPostInt('organizer_club_id');
-
-//person ID
+$description = Sanitizer::getPostString('descr_zavodu');
+//Redirect address
+$admin = "http://".$_SERVER['SERVER_NAME']."/admin";
+$redDestURL = "Location: $admin/profile.php";
+//User id - SESSION
 echo "person_id: ".$_SESSION['id'];
+//Club id - SESSION and pull abbrevation
 $clubID = $_SESSION['affiliation_club_id'];
 echo "club_id: ".$clubID;
-//$usersManager = getClubNameByAffiliationId($clubID)
-//$usersManager = getClubAbbreviationByAffiliationId($clubID)
 $clubAbbrev = $usersManager->GetClubAbbreviationByAffiliationID($clubID);
+//Debug info
+echo ("<p>".$name."/".$time_start."/".$time_end."/". $organizer_club_id."/".$description."</p><br/>\r\n");
 
-//TODO if returned number is not null
-echo ("| ".$name."/".$time_start."/".$time_end."/". $organizer_club_id."/".$description." |<br/>\r\n");
-if ($cupsManager->InsertNewCup($name, $time_start, $time_end, $organizer_club_id, $description)) {
-	echo 'succ<br/>\r\n';
-	//create PSA - flag
+//Insert and redirect or throw
+if ($cupsManager->InsertNewCup($name, $time_start, $time_end, $organizer_club_id, $description))
+{
+	echo "succ<br/>\r\n";
+	//Create PSA - w/ flag
 	$cupID = $cupsManager->GetNewCupIDByInfo($name, $time_start, $time_end);
 	echo $cupID;
 	if($cupID!=null)
 	{
 		$postsManager->InsertNewCupPSAPost($name, $cupID, $time_start, $time_end, $authorID, $clubAbbrev);
 	}
+	echo "succ<br/>\r\n";
 	header($redDestURL);
-} else {
-	throw new Exception('Insert failed');
 }
+else
+{
+	throw new Exception('Insert failed - CupsManager::InsertNewCup');
+	echo "err<br/>\r\n";
+	echo "Insert failed - CupsManager::InsertNewCup<br/>\r\n";
+}
+//Some old DEBUG
 //echo $title . "</br>";
 //echo $_POST['datum_zavodu'] . "</br>";
 //echo $owner ."</br>";
