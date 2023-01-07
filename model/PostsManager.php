@@ -121,7 +121,8 @@ class PostsManager
         {
             //displayed_flag, signature_flag
             $statement = $this->mysqli->prepare("CALL `UpdatePost`(?, ?, ?, ?, ?);");
-            $statement->bind_param('ssiii', $title, $content, $id, $display_flag, $signature_flag);
+            //$statement->bind_param('ssiii', $title, $content, $id, $display_flag, $signature_flag);
+			$statement->bind_param('issii', $id, $title, $content, $display_flag, $signature_flag);
             $statement->execute();
 
             $this->mysqli->commit();
