@@ -10,19 +10,17 @@ $relevantPositions = $positionsManager->DisplayedLiveStatsConfiguredPositions();
 $initialCupCount = $usersManager->CountCupsAttendanceOfUserGivenYear($userID, $maxCupYear);
 $initialStats = $usersManager->CountOverallStatisticsOfUserGivenYear($userID, $maxCupYear);
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include("UNIFIED_head_content.php"); ?>
 </head>
-
 <body>
 <div class="bodywrapper">
     <?php include("UNIFIED_header.php"); ?>
     <?php include("UNIFIED_menu.php"); ?>
-
     <!--PAGE SPECIALIZATION GOES HERE-->
-
     <section class="content">
         <h1 style="text-align:center"><?= h($user->last_name)?> <?= h($user->first_name) ?><!--, refrank: <?= h($user->referee_rank_id)?> --></h1>
         <h1 style="text-align:center"><?= h($usersManager->GetClubNameByAffiliationID($user->affiliation_club_id)) ?></h1>
@@ -32,7 +30,6 @@ $initialStats = $usersManager->CountOverallStatisticsOfUserGivenYear($userID, $m
                     <span onclick="ProcessPersonForTheSeason(<?php echo $userID; ?>, this);" class="season-button"><?php echo $i; ?></span>
                 <?php endfor; ?>
                 <span onclick="ProcessPersonForTheSeason(<?php echo $userID; ?>, this);" class="season-button selected"><?php echo $maxCupYear; ?></span>
-
             </div>
         </div>
         <h1 id="curr-rok" style="visibility:hidden; height: 1px; margin-top: 0.25px; margin-bottom: 0.25px;"><?php echo date("Y"); ?></h1>
@@ -66,39 +63,10 @@ $initialStats = $usersManager->CountOverallStatisticsOfUserGivenYear($userID, $m
                         <td>Zbývající</td>
                         <td style="text-align: center;"><span id="zbyvajici"><?= h($cnt)?></span>x</td>
                     </tr>
-
-                <!-- Ostatní bullthis count-->
-                <!--
-                <tr>
-                    <td>Vrchní rozhodčí</td>
-                    <td>2x</td>
-                </tr>
-                <tr>
-                    <td>Vrchní časomíra</td>
-                    <td>0x</td>
-                </tr>
-                <tr>
-                    <td>Startér</td>
-                    <td>3x</td>
-                </tr>
-                <tr>
-                    <td>Hlasatel</td>
-                    <td>1x</td>
-                </tr>
-                <tr>
-                    <td>Obsluha PC</td>
-                    <td>2x</td>
-                </tr>
-                <tr>
-                    <td>Ostatní</td>
-                    <td>7x</td>
-                </tr>
-                -->
             </tbody>
         </table>
     </section>
-    <!--PAGE SPECIALIZATION GOES HERE FIN -->
-
+    <!--PAGE SPECIALIZATION FIN-->
     <?php include("UNIFIED_footer.php"); ?>
 </div>
 </body>

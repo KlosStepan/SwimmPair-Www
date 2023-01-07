@@ -7,20 +7,19 @@ $maxCupYear = $cupsManager->GetMaximumCupYear();
 
 $club = $clubsManager->GetClubByID($clubId);
 $myPPL = $usersManager->FindAllTeamMembers($clubId);
-//
+
 //statistiky na tento rok, feed tabulku raw PHP function that feeds XHR as well
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include("UNIFIED_head_content.php"); ?>
 </head>
-
 <body onload="PopulateClubStatsGivenYear(<?= $clubId;?>,<?=$maxCupYear;?>);">
 <div class="bodywrapper">
     <?php include("UNIFIED_header.php"); ?>
     <?php include("UNIFIED_menu.php"); ?>
-
     <!--PAGE SPECIALIZATION GOES HERE-->
     <section class="content">
         <h1 style="text-align:center"><?= h($club->name)?><!--, krajaffil: <?= h($club->affiliation_region_id) ?>--></h1>
@@ -31,7 +30,6 @@ $myPPL = $usersManager->FindAllTeamMembers($clubId);
                     <span onclick="ProcessClubForTheSeason(<?php echo $clubId; ?>, this);" class="season-button"><?php echo $i; ?></span>
 	            <?php endfor; ?>
                 <span onclick="ProcessClubForTheSeason(<?php echo $clubId; ?>, this);" class="season-button selected"><?php echo $maxCupYear; ?></span>
-
             </div>
         </div>
         <h1 style="text-align:center">Statistika klubu v roce <span id="rok-ucasti"><?php echo $maxCupYear; ?></span></h1>
@@ -71,26 +69,10 @@ $myPPL = $usersManager->FindAllTeamMembers($clubId);
 	                echo "<p style=\"text-align:center;\">–<span style=\"border: 1px solid black;\">&nbsp;0 ROZHODČÍCH V TOMTO KLUBU&nbsp;</span>–</p>";
                 }
             ?>
-            <!-- Generate ppl -->
-            <!--
-            <tr>
-                <td>Petr Adamec</td>
-                <td>5x</td>
-            </tr>
-            <tr>
-                <td>Lukáš Kousal</td>
-                <td>2x</td>
-            </tr>
-            <tr>
-                <td>Štěpán Klos</td>
-                <td>1x</td>
-            </tr>
-            -->
             </tbody>
         </table>
     </section>
-    <!--PAGE SPECIALIZATION GOES HERE FIN -->
-
+    <!--PAGE SPECIALIZATION FIN-->
     <?php include("UNIFIED_footer.php"); ?>
 </div>
 </body>

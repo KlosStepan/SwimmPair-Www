@@ -1,20 +1,18 @@
 <?php
 require 'start.php';
 
-//$cups = [];
 $cups = $cupsManager->FindAllPastCupsMostRecentFirst();
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include("UNIFIED_head_content.php"); ?>
 </head>
-
 <body>
 <div class="bodywrapper">
     <?php include("UNIFIED_header.php"); ?>
     <?php include("UNIFIED_menu.php"); ?>
-
     <!--PAGE SPECIALIZATION GOES HERE-->
     <section class="content">
         <h1>Archiv minulých závodů</h1>
@@ -47,8 +45,7 @@ $cups = $cupsManager->FindAllPastCupsMostRecentFirst();
             }
         ?>
     </section>
-    <!--PAGE SPECIALIZATION GOES HERE FIN -->
-
+    <!--PAGE SPECIALIZATION FIN-->
     <?php include("UNIFIED_footer.php"); ?>
 </div>
 </body>

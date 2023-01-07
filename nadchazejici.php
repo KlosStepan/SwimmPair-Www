@@ -3,17 +3,16 @@ require 'start.php';
 
 $cups = $cupsManager->FindAllUpcomingCupsEarliestFirst();
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include("UNIFIED_head_content.php"); ?>
 </head>
-
 <body>
 <div class="bodywrapper">
     <?php include("UNIFIED_header.php"); ?>
     <?php include("UNIFIED_menu.php"); ?>
-
     <!--PAGE SPECIALIZATION GOES HERE-->
     <section class="content">
         <h1>Nadcházející závody</h1>
@@ -43,8 +42,7 @@ $cups = $cupsManager->FindAllUpcomingCupsEarliestFirst();
             }
         ?>
     </section>
-    <!--PAGE SPECIALIZATION GOES HERE FIN -->
-
+    <!--PAGE SPECIALIZATION FIN-->
     <?php include("UNIFIED_footer.php"); ?>
 </div>
 </body>

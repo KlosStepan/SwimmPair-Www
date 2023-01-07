@@ -4,6 +4,5 @@
     </a>
 </div>
 <div class="headerwrapper">
-    <img style="width: 100%; object-fit: contain;" src="img/header_stripe.jpg"
-                                alt="lukas_kousal_prerov2014.png">
+    <img style="width: 100%; object-fit: contain;" src="img/header_stripe.jpg" alt="lukas_kousal_prerov2014.png">
 </div>

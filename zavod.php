@@ -2,21 +2,21 @@
 require 'start.php';
 
 $cupID = Sanitizer::getGetInt('id');
+
 $cup = $cupsManager->GetCupByID($cupID);
 $pairs = $cupsManager->FindPairingsForThisCup($cupID);
 $registeredAll = $usersManager->FindAllRegisteredUsersForTheCup($cupID);
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include("UNIFIED_head_content.php"); ?>
 </head>
-
 <body>
 <div class="bodywrapper">
     <?php include("UNIFIED_header.php"); ?>
     <?php include("UNIFIED_menu.php"); ?>
-
     <!--PAGE SPECIALIZATION GOES HERE-->
     <section class="content">
         <section>
@@ -25,7 +25,6 @@ $registeredAll = $usersManager->FindAllRegisteredUsersForTheCup($cupID);
             <h1 class="contracted"> Info: <?=h($cup->description)?></h1>
             <p>&nbsp;</p>
             <h1 class="contracted">Registrovaní rozhodčí</h1>
-            <!--<p style="text-align:center;line-height: 165%;">-->
                 <!-- DOSTUPNOST frame -->
                 <?php
                     //DOSTUPNOST TESTING INFO
@@ -54,7 +53,6 @@ $registeredAll = $usersManager->FindAllRegisteredUsersForTheCup($cupID);
                         echo "<p style=\"text-align:center;\">–<span style=\"border: 1px solid black;\">&nbsp;ZATÍM 0 REGISTROVANÝCH NA TENTO ZÁVOD&nbsp;</span>–</p>";
                     }
                     ?>
-                <!--</p>-->
                 <table class="rozhodcinazavody" align="center">
                 <tr class="rozhodcihlavicka"><th>Pozice</th><th>Rozhodčí</th></tr>
                 <!-- IF NOT isComing($cupId, $registeredOne->id) STRIKE -->
@@ -92,12 +90,9 @@ $registeredAll = $usersManager->FindAllRegisteredUsersForTheCup($cupID);
                     }
                     ?>
                     <p style="margin-top:0px;margin-bottom:0px;">&nbsp;</p>
-                <!--</table>-->
                 </section>
-
     </section>
-    <!--PAGE SPECIALIZATION GOES HERE FIN -->
-
+    <!--PAGE SPECIALIZATION FIN -->
     <?php include("UNIFIED_footer.php"); ?>
 </div>
 </body>

@@ -3,6 +3,7 @@ require 'start.php';
 
 $posts = $postsManager->FindLastThreePosts();
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +13,6 @@ $posts = $postsManager->FindLastThreePosts();
     <div class="bodywrapper">
     <?php include("UNIFIED_header.php"); ?>
     <?php include("UNIFIED_menu.php"); ?>
-
     <!--PAGE SPECIALIZATION GOES HERE-->
     <section class="content">
         <h1>Aktuality</h1>
@@ -47,8 +47,6 @@ $posts = $postsManager->FindLastThreePosts();
                                 }
                                 else
                                 {
-	                                //echo $post->author;
-	                                //echo $usersManager->getUserFullNameById($post->author);
 	                                echo "<span class=\"frame\">aut. </span><span>".$usersManager->GetUserFullNameByID($post->author_user_id).", </span><span class=\"frame\">naps. ".date("d-m-Y", strtotime($post->timestamp))."</span>";
                                 }
 	                            echo "</span>";
@@ -77,8 +75,7 @@ $posts = $postsManager->FindLastThreePosts();
             }
         ?>
     </section>
-    <!--PAGE SPECIALIZATION GOES HERE FIN -->
-
+    <!--PAGE SPECIALIZATION FIN-->
     <?php include("UNIFIED_footer.php"); ?>
 </div>
 </body>

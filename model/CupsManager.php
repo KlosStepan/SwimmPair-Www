@@ -331,7 +331,6 @@ class CupsManager
 		{
 			return date("Y");
 		}
-		//return $this->getSingleResultFromStatement($statement);
 	}
 
 	public function GetMaximumCupYear()

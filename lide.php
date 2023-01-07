@@ -1,17 +1,15 @@
 <?php
 require 'start.php';
 
-//$users = [];
 $users = $usersManager->FindAllActiveUsersOrderByLastNameAsc();
-
 $refereeRanks = $usersManager->FindAllRefereeRanks();
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include("UNIFIED_head_content.php"); ?>
 </head>
-
 <body>
 <div class="bodywrapper">
     <?php include("UNIFIED_header.php"); ?>
@@ -35,9 +33,7 @@ $refereeRanks = $usersManager->FindAllRefereeRanks();
             if(count($users)!=0) {
 	            ?>
                 <div id="kraje-box" align="center">
-                    <!--<span>KRAJE</span>-->
                     <div id="kraje" class="lide-filter-box">
-                        <!-- loop generate -->
                         <span id="raid-all" onclick="RegionPickerChanged(this);"
                               class="lide-filter-button selected">VŠE</span>
                         <span id="raid-1" onclick="RegionPickerChanged(this);" class="lide-filter-button">OLK</span>
@@ -46,11 +42,9 @@ $refereeRanks = $usersManager->FindAllRefereeRanks();
                 </div>
 
                 <div class="tridy-box" align="center">
-                    <!--<span>TRIDY</span>-->
                     <div id="tridy" class="lide-filter-box">
                         <span id="rrid-all" onclick="RefereeRankPickerChanged(this);"
                               class="lide-filter-button selected">VŠE</span>
-                        <!--<span onclick="tridaTapped(this);" class="lide-filter-button">default</span>-->
 			            <?php foreach ($refereeRanks as $refereeRank): ?>
                             <span id="rrid-<?= h($refereeRank->id) ?>" onclick="RefereeRankPickerChanged(this);"
                                   class="lide-filter-button"><?= h($refereeRank->rank_name) ?></span>
@@ -58,9 +52,7 @@ $refereeRanks = $usersManager->FindAllRefereeRanks();
                     </div>
                 </div>
                 <div align="center">
-                    <!--<input id="inputText" onkeyup="refreshPPL();" type="text" name="search" placeholder="Hledat...">-->
-                    <input id="inputText" onkeyup="SearchBarChanged();" type="text" name="search"
-                           placeholder="Hledat...">
+                    <input id="inputText" onkeyup="SearchBarChanged();" type="text" name="search" placeholder="Hledat...">
                 </div>
                 <div></div>
                 <div id="lide">
@@ -86,11 +78,9 @@ $refereeRanks = $usersManager->FindAllRefereeRanks();
     <div id="nopplfound" style="display:none;">
         <p style="text-align:center;">–<span style="border: 1px solid black;">&nbsp;0 ROZHODČÍCH ODPOVÍDÁ HLEDÁNÍ&nbsp;</span>–</p>
     </div>
-    <!-- KONEC -->
     </section>
-    <!--PAGE SPECIALIZATION GOES HERE FIN -->
     </div>
-
+    <!--PAGE SPECIALIZATION FIN-->
     <?php include("UNIFIED_footer.php"); ?>
 </div>
 </body>

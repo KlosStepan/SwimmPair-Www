@@ -17,6 +17,6 @@
         </li>
         <li><a href="/pravidla/">Pravidla</a></li>
         <li><a href="/kontakty.php">Kontakty</a></li>
-        <!-- style="float:right;"--><li id="menu-log-reg"><a href="/admin/index.php">Login/Registrace</a></li>
+        <li id="menu-log-reg"><a href="/admin/index.php">Login/Registrace</a></li>
     </ul>
 </nav>

@@ -1,20 +1,18 @@
 <?php
 require 'start.php';
 
-//$clubs = [];
 $clubs = $clubsManager->FindAllClubs();
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<?php include("UNIFIED_head_content.php"); ?>
 </head>
-
 <body>
 <div class="bodywrapper">
     <?php include("UNIFIED_header.php"); ?>
     <?php include("UNIFIED_menu.php"); ?>
-
     <!--PAGE SPECIALIZATION GOES HERE-->
     <section class="content">
         <h1>Kluby v našich krajích</h1>
@@ -48,8 +46,7 @@ $clubs = $clubsManager->FindAllClubs();
         ?>
         </div>
     </section>
-    <!--PAGE SPECIALIZATION GOES HERE FIN -->
-
+    <!--PAGE SPECIALIZATION FIN-->
     <?php include("UNIFIED_footer.php"); ?>
 </div>
 </body>
