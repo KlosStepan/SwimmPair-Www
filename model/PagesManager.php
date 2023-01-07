@@ -33,22 +33,15 @@ class PagesManager
 	 */
 	public function UpdatePage($id, $title, $content)
 	{
-		$this->mysqli->begin_transaction();
-		try {
-			//$statement = $this->mysqli->prepare('UPDATE `sp_pages` SET `title` = ?, `content` = ?  WHERE `id` = ?');
-			$statement = $this->mysqli->prepare('CALL `UpdatePage`(?,?,?)');
-			$statement->bind_param('ssi', $title, $content, $id);
-			$statement->execute();
-
-			$this->mysqli->commit();
-			//return "Success, commited";
+		//$statement = $this->mysqli->prepare('UPDATE `sp_pages` SET `title` = ?, `content` = ?  WHERE `id` = ?');
+		$statement = $this->mysqli->prepare('CALL `UpdatePage`(?,?,?)');
+		$statement->bind_param('iss', $id, $title, $content);
+		if($statement->execute())
+		{
 			return true;
 		}
-		catch(RuntimeException $e)
+		else
 		{
-			//echo $e->getMessage();
-			$this->mysqli->rollback();
-			//return "RuntimeException(), rollback";
 			return false;
 		}
 	}
