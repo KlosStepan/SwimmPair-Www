@@ -25,7 +25,7 @@ require_once('tmpl_header.php');
 </div>
 <p>&nbsp;</p>
 <h2>Změnit rozhodčovskou trídu</h2>
-<form action="PHPActionHandler/change_ref_rank.php" method="post" autocomplete="off">
+<form action="PHPActionHandler/update_user_set_ref_rank.php" method="post" autocomplete="off">
     <input type="hidden" name="uid" value="<?= h($profileID); ?>">
     <div class="center-fifty-wrap">
         <div class="field-wrap-in-center picker-padding">
@@ -44,14 +44,13 @@ require_once('tmpl_header.php');
 </form>
 <p>&nbsp;</p>
 <h2>Nový přihlašovací email</h2>
-<form action="PHPActionHandler/change_login_email_for_user.php" method="post" autocomplete="off">
+<form action="PHPActionHandler/update_user_set_email.php" method="post" autocomplete="off">
     <input type="hidden" name="uid" value="<?= h($profileID); ?>">
     <div class="center-fifty-wrap">
         <div class="field-wrap-in-center">
             <input class="fiftyPercent" name="email">
         </div>
     </div>
-    <!-- <button type="submit" class="button-submit-in">Změnit</button> -->
     <div class="center-fifty-wrap">
         <div class="field-wrap-in-center">
             <button type="submit" class="button-style">Změnit login</button>
@@ -60,14 +59,13 @@ require_once('tmpl_header.php');
 </form>
 <p>&nbsp;</p>
 <h2>Nové heslo</h2>
-<form action="PHPActionHandler/set_password_for_user.php" method="post" autocomplete="off">
+<form action="PHPActionHandler/update_user_set_password.php" method="post" autocomplete="off">
     <input type="hidden" name="uid" value="<?= h($profileID); ?>">
     <div class="center-fifty-wrap">
         <div class="field-wrap-in-center">
             <input class="fiftyPercent" name="password">
         </div>
     </div>
-    <!-- <button type="submit" class="button-submit-in">Změnit</button> -->
     <div class="center-fifty-wrap">
         <div class="field-wrap-in-center">
             <button type="submit" class="button-style">Nastavit heslo</button>

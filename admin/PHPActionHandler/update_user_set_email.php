@@ -1,18 +1,18 @@
 <?php
 require __DIR__ . '/../../start.php';
-
+//Session and Authentication
 session_start();
 Auth::requireRole(UserRights::SuperUser);
-
+//User email prep - HTTP POST
 $uid = Sanitizer::getPostString('uid');
 $email = Sanitizer::getPostString('email');
+//Redirect address - TODO red. to USER(?)
+$admin = "http://".$_SERVER['SERVER_NAME']."/admin";
+$redDestURL = "Location: $admin/profile.php";
 
-$backToMenu = "Location: ../editovat_profily.php";
-$actionError = "Location: action_error.php";
-
-
+//Update/Set and redirect or throw
 if ($usersManager->IsUserWithIDPresentAlready($uid)) {
-	//menim svuj username?
+	//If changing my own username
 	$me = false;
 	if($_SESSION['email']==$usersManager->GetUserEmailByID($uid))
 	{
@@ -22,23 +22,22 @@ if ($usersManager->IsUserWithIDPresentAlready($uid)) {
 	{
 		$me = false;
 	}
-	//actual change
+	//Set user-id -> email
 	if($usersManager->SetLoginEmailForUser($uid, $email))
 	{
-		//succ
-		echo "Login Email changed";
-		//update session info after change
+		echo "succ<br/>\r\n";
+		//Update SESSION if me
 		if($me==true)
 		{
 			$_SESSION['email']=$email;
 		}
-		echo "<script>window.history.back();</script>";
+		header($redDestURL);
 	}
 	else
 	{
-		//error
-		echo "Action Error";
-		header($actionError);
+		echo "err<br/>\r\n";
+		echo "SetLoginEmail failed - UsersManager::SetLoginEmailForUser";
+		throw new Exception('SetLoginEmail failed - UsersManager::SetLoginEmailForUser');
 	}
 }
 else

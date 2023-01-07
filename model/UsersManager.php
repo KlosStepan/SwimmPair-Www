@@ -461,13 +461,13 @@ class UsersManager
 
 		return $this->_GetSingleResultFromStatement($statement);
 	}
-	/*true/false*/
+	//OK
 	public function SetPasswordForUser($uid, $passwd)
 	{
 		$passwdHashed = password_hash($passwd, PASSWORD_BCRYPT);
 		//$statement = $this->mysqli->prepare('UPDATE `sp_users` SET `password`=? WHERE id=?');
 		$statement = $this->mysqli->prepare('CALL `SetPasswordForUser`(?,?)');
-		$statement->bind_param('si', $passwdHashed, $uid);
+		$statement->bind_param('is', $uid, $passwdHashed);
 		if ($statement->execute())
 		{
 			return true;
@@ -482,7 +482,8 @@ class UsersManager
 	{
 		//$statement = $this->mysqli->prepare('UPDATE `sp_users` SET `email`=? WHERE `id`=?');
 		$statement = $this->mysqli->prepare('CALL `SetLoginEmailForUser`(?,?)');
-		$statement->bind_param('si', $email, $uid);
+		//$statement->bind_param('si', $email, $uid);
+		$statement->bind_param('is', $uid, $email);
 		if ($statement->execute())
 		{
 			return true;
@@ -495,10 +496,9 @@ class UsersManager
 
 	public function SetRefereeRankForUser($uid, $rank)
 	{
-		//some fucking $statement
 		//$statement = $this->mysqli->prepare('UPDATE `sp_users` SET `referee_rank_id`=? WHERE `id`=?');
 		$statement = $this->mysqli->prepare('CALL `SetRefereeRankForUser`(?,?)');
-		$statement->bind_param('ii', $rank, $uid);
+		$statement->bind_param('ii', $uid, $rank);
 		if ($statement->execute())
 		{
 			return true;
