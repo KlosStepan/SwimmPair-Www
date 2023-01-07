@@ -58,11 +58,13 @@ class RegionsManager
 		}
 	}
 
+	//OK
 	public function UpdateRegion($id, $name, $abbrev)
 	{
 		//$statement = $this->mysqli->prepare('UPDATE sp_regions SET name=?, abbreviation=? WHERE id=?');
 		$statement = $this->mysqli->prepare('CALL `UpdateRegion`(?,?,?)');
-		$statement->bind_param('ssi', $name, $abbrev, $id);
+		//$statement->bind_param('ssi', $name, $abbrev, $id);
+		$statement->bind_param('iss', $id, $name, $abbrev);
 		if($statement->execute())
 		{
 			return true;

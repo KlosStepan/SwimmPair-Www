@@ -1,26 +1,25 @@
 <?php
 require __DIR__ . '/../../start.php';
-
+//Session and Authentication
 session_start();
 Auth::requireRole(UserRights::SuperUser);
-
+//Region prep - HTTP POST
 $id = Sanitizer::getPostInt('id');
 $name = Sanitizer::getPostString('name');
 $abbreviation = Sanitizer::getPostString('abbreviation');
+//Redirect address
+$admin = "http://".$_SERVER['SERVER_NAME']."/admin";
+$redDestURL = "Location: $admin/profile.php";
 
-$actionError = "Location: action_error.php";
-
+//Update and redirect or throw
 if($regionsManager->UpdateRegion($id, $name, $abbreviation))
 {
-	//succ
-	echo "Region updated";
-	echo "<script>window.history.back();</script>";
+	echo "succ<br/>\r\n";
+	header($redDestURL);
 }
 else
 {
-	//error
-	echo 'Action Error calling RegionsManager::UpdateRegion(args[])';
-	echo "\r\n";
-	echo "Kraj neaktualizovan/Region not updated";
-	//header($actionError);
+	echo "err<br/>\r\n";
+	echo "Update failed - RegionsManager::UpdateRegion";
+	throw new Exception('Update failed - RegionsManager::UpdateRegion');
 }
