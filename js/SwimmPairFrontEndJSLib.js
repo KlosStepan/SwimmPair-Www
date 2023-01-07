@@ -28,9 +28,8 @@ function GetPostAppendPost(id) {
             }
         }
     }
-    xmlhttp.open("GET", "XMLHttpRequest/get_post_following.php?id=" + id, true);
+    xmlhttp.open("GET", "XMLHttpRequest/following_post.php?id=" + id, true);
     xmlhttp.send();
-
 }
 //displayed, author, signed
 function ConstructNextPost(id, timestamp, title, content, author, signed) {
@@ -155,7 +154,7 @@ function CommunicateUserStatsXHRAndUpdateTable(userID, callerYear) {
             //return _arr;
         }
     }
-    xmlhttp.open("GET", "XMLHttpRequest/call_get_person_statistics_for_the_season.php?id=" + userID + "&year=" + callerYear, true);
+    xmlhttp.open("GET", "XMLHttpRequest/seasonal_stats_user.php?id=" + userID + "&year=" + callerYear, true);
     xmlhttp.send();
 }
 function UpdateUserStatsTable(cnt, arr_str) {
@@ -236,7 +235,7 @@ function CommunicateClubStatsXHRAndUpdateTable(clubId, callerYear) {
             UpdateClubStatsTable(returnedGetJSON)
         }
     }
-    xmlhttp.open("GET", "XMLHttpRequest/get_club_statistics_for_the_season.php?id=" + clubId + "&year=" + callerYear, true);
+    xmlhttp.open("GET", "XMLHttpRequest/seasonal_stats_club.php?id=" + clubId + "&year=" + callerYear, true);
     xmlhttp.send();
 }
 function UpdateClubStatsTable(arr_str) {
