@@ -9,6 +9,7 @@ $page = $pagesManager->GetPageByID($id);
 
 require_once('tmpl_header.php');
 ?>
+
 <script src='js/tinymce/tinymce.min.js'></script>
 <script>
     tinymce.init({
