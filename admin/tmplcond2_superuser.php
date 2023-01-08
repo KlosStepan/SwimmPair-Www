@@ -7,9 +7,9 @@
     <li class="left-split" onclick="location.href = 'zaregistrovat_uzivatele.php';"><div>ZAREGISTROVAT ČLOVĚKA</div></li>
     <li class="right-split" onclick="location.href = 'editovat_profily.php';"><div>EDITOVAT ČLOVĚKA</div></li>
     <li class="left-split" onclick="location.href = 'novy_klub.php';" ><div>PŘIDAT KLUB</div></li>
-    <li class="right-split" onclick="location.href = 'sprava_klubu.php';"><div>EDITOVAT KLUB</div></li>
+    <li class="right-split" onclick="location.href = 'editovat_kluby.php';"><div>EDITOVAT KLUB</div></li>
     <li class="left-split" onclick="location.href = 'novy_kraj.php';" ><div>PŘIDAT KRAJ</div></li>
-    <li class="right-split" onclick="location.href = 'sprava_kraju.php';"><div>EDITOVAT KRAJ</div></li>
+    <li class="right-split" onclick="location.href = 'editovat_kraje.php';"><div>EDITOVAT KRAJ</div></li>
     <li onclick="location.href = 'konfigurace_statistik.php';"><div>KONFIGURACE STATISTIK</div></li>
     <li onclick="location.href = 'editovat_stranku.php?id=1';"><div>EDITOVAT KONTAKTY</div></li>
 </ul>
