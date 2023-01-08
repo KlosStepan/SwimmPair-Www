@@ -80,7 +80,8 @@ class UsersManager
 	}
 
 	/** param comment */
-	public function FindAllRegisteredTeamMembersForTheCup($cupId, $teamId){
+	public function FindAllRegisteredTeamMembersForTheCup($cupId, $teamId)
+	{
 		//SELECT dostupnost.id, dostupnost.zavodid, dostupnost.userid, users.klubaffil FROM `dostupnost` INNER JOIN users ON dostupnost.userid = users.id WHERE dostupnost.zavodid = 4 AND users.klubaffil = 2
 		//$statement = $this->mysqli->prepare('SELECT sp_user_cup_availability.user_id as id, sp_users.first_name, sp_users.last_name, sp_users.email, sp_users.approved_flag, sp_users.rights, sp_users.referee_rank_id, sp_users.affiliation_club_id FROM sp_user_cup_availability INNER JOIN sp_users ON sp_user_cup_availability.user_id = sp_users.id WHERE sp_user_cup_availability.cup_id=? AND sp_users.affiliation_club_id=?');
 		$statement = $this->mysqli->prepare('CALL `FindAllRegisteredTeamMembersForTheCup`(?,?)');
@@ -93,7 +94,8 @@ class UsersManager
 	/**
 	 * ret User[]
 	 */
-	public function FindAllTeamMembers($teamId){
+	public function FindAllTeamMembers($teamId)
+	{
 		//bind number, call the aux functions
 		//$statement = $this->mysqli->prepare('SELECT `id`, `first_name`, `last_name`, `email`, `approved_flag`, `rights`, `referee_rank_id`, `affiliation_club_id` FROM `sp_users` WHERE affiliation_club_id=?');
 		$statement = $this->mysqli->prepare('CALL `FindAllTeamMembers`(?)');
@@ -106,7 +108,8 @@ class UsersManager
 	/**
 	 * @return User[]
 	 */
-	public function FindAllUsers(){
+	public function FindAllUsers()
+	{
 		//bind number, call the aux functions
 		//$statement = $this->mysqli->prepare('SELECT `id`, `first_name`, `last_name`, `email`, `approved_flag`, `rights`, `referee_rank_id`, `affiliation_club_id` FROM `sp_users` ');
 		$statement = $this->mysqli->prepare('CALL `FindAllUsers`()');
@@ -296,7 +299,8 @@ class UsersManager
 	 * @param $id
 	 * @return string
 	 */
-	public function GetClubNameByAffiliationID($id){
+	public function GetClubNameByAffiliationID($id)
+	{
 		//$statement = $this->mysqli->prepare('SELECT `name` FROM `sp_clubs` WHERE id=? LIMIT 1');
 		$statement = $this->mysqli->prepare('CALL `GetClubNameByAffiliationID`(?)');
 		$statement->bind_param('i', $id);
@@ -308,14 +312,17 @@ class UsersManager
 	 * @param mysqli_stmt $statement
 	 * @return string
 	 */
-	private function _GetSingleResultFromStatement(mysqli_stmt $statement){
+	private function _GetSingleResultFromStatement(mysqli_stmt $statement)
+	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_NUM);
-		if(!empty($rows)) {
+		if(!empty($rows))
+		{
 			$row = $rows[0];
 			return $row[0];
 		}
-		else {
+		else
+		{
 			return null;
 		}
 	}
@@ -324,7 +331,8 @@ class UsersManager
 	 * @param mysqli_stmt $statement
 	 * @return string
 	 */
-	private function _GetSingleResultFromTwoColsStatement(mysqli_stmt $statement){
+	private function _GetSingleResultFromTwoColsStatement(mysqli_stmt $statement)
+	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_NUM);
 		$row = $rows[0];
@@ -570,7 +578,6 @@ class UsersManager
 		{
 			return false;
 		}
-
 	}
 
 	public function IsUserWithIDPresentAlready($id)
