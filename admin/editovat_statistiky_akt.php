@@ -6,10 +6,12 @@ Auth::requireRole(UserRights::SuperUser);
 
 $positions = $positionsManager->FindAllPositions();
 $positionsRelevant = $positionsManager->DisplayedLiveStatsConfiguredPositions();
+
 require_once('tmpl_header.php');
 ?>
+
 <div id="hcontainer">
-    <div id="hnavi" ><a href="javascript:history.go(-1)"><img src="img/icons/arrow-121-xxl.png"  width="36" heigt="36"></a></div>
+    <div id="hnavi"><a href="javascript:history.go(-1)"><img src="img/icons/arrow-121-xxl.png"  width="36" heigt="36"></a></div>
     <div id="hinfoi">
         <h1>Konfigurace statistik</h1>
     </div>
@@ -29,7 +31,7 @@ require_once('tmpl_header.php');
 		<?php endforeach; ?>
 	</div>
 </div>
-<p></p>
+<p>&nbsp;</p>
 <input type="button" onclick="UpdatePreferedStats(ParseSerializeStatsDOM());" value="Uložit">
 <?php
 //echo print_r($positions);

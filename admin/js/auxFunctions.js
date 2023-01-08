@@ -207,6 +207,7 @@ function UpdatePairing(JSON) {
     xmlhttp.send(encoded);
     //console.log(JSON);
 }
+
 function UpdatePreferedStats(JSON) {
     var json = encodeURIComponent(JSON);
     var encoded = 'json=' + json;
@@ -222,7 +223,7 @@ function UpdatePreferedStats(JSON) {
             location.reload();
         }
     }
-    xmlhttp.open("POST", "XMLHttpRequest/call_update_stats_positions_config.php", true);
+    xmlhttp.open("POST", "XMLHttpRequest/update_config_stats_positions.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }

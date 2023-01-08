@@ -10,6 +10,6 @@
     <li class="right-split" onclick="location.href = 'editovat_kluby.php';"><div>EDITOVAT KLUB</div></li>
     <li class="left-split" onclick="location.href = 'pridat_kraj.php';" ><div>PŘIDAT KRAJ</div></li>
     <li class="right-split" onclick="location.href = 'editovat_kraje.php';"><div>EDITOVAT KRAJ</div></li>
-    <li onclick="location.href = 'konfigurace_statistik.php';"><div>KONFIGURACE STATISTIK</div></li>
+    <li onclick="location.href = 'editovat_statistiky_akt.php';"><div>KONFIGURACE STATISTIK</div></li>
     <li onclick="location.href = 'editovat_stranku.php?id=1';"><div>EDITOVAT KONTAKTY</div></li>
 </ul>
