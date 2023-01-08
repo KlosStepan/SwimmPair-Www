@@ -150,7 +150,7 @@ function ApproveUser(i) {
             location.reload();
         }
     }
-    xmlhttp.open("GET", "XMLHttpRequest/call_approve_user.php?id=" + encodeURIComponent(i), true);
+    xmlhttp.open("GET", "XMLHttpRequest/approve_user.php?id=" + encodeURIComponent(i), true);
     xmlhttp.send();
 }
 function ParseSerializePairingDOM() {

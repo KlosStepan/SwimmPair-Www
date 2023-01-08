@@ -8,6 +8,7 @@ $users = $usersManager->FindAllInactiveUsersOrderByLastNameAsc();
 
 require_once('tmpl_header.php');
 ?>
+
 <div id="hcontainer">
     <div id="hnavi" ><a href="javascript:history.go(-1)"><img src="img/icons/arrow-121-xxl.png"  width="36" heigt="36"></a></div>
     <div id="hinfoi">
