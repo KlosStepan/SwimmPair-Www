@@ -10,11 +10,10 @@ $refPositions = $usersManager->FindAllRefereeRanks();
 require_once('tmpl_header.php');
 ?>
 <form action="PHPActionHandler/add_new_user.php" method="post" autocomplete="off">
-    <!--<h1>Zaregistrovat uživatele</h1>-->
     <div id="hcontainer">
         <div id="hnavi" ><a href="javascript:history.go(-1)"><img src="img/icons/arrow-121-xxl.png"  width="36" heigt="36"></a></div>
         <div id="hinfoi">
-            <h1>Zaregistrovat uživatele</h1>
+            <h1>Přidat uživatele</h1>
         </div>
     </div>
     <div class="field-wrap-in-fifty"><p>Jméno *</p><input class="fiftyPercent" type="text" required autocomplete="off" name="first_name"></div>
