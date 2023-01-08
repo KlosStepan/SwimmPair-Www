@@ -6,11 +6,10 @@ Auth::requireRole(UserRights::VedouciKlubu);
 
 require_once('tmpl_header.php');
 ?>
-    <!--insert form-->
+
 <form action="PHPActionHandler/add_new_cup.php" method="post" autocomplete="off">
-    <!--<h1>Přidat závod</h1>-->
     <div id="hcontainer">
-        <div id="hnavi" ><a href="javascript:history.go(-1)"><img src="img/icons/arrow-121-xxl.png"  width="36" heigt="36"></a></div>
+        <div id="hnavi"><a href="javascript:history.go(-1)"><img src="img/icons/arrow-121-xxl.png"  width="36" heigt="36"></a></div>
         <div id="hinfoi">
             <h1>Přidat závod</h1>
         </div>
