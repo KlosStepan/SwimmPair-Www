@@ -1,4 +1,5 @@
 <?php
+
 abstract class UserRights
 {
 	//nesmime mit v session nizsi prava nez requireRole

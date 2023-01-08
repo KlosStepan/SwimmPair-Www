@@ -1,7 +1,7 @@
 <?php
 
-class RefereeRank {
-
+class RefereeRank
+{
 	/** @var int*/
 	public $id;
 
