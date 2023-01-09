@@ -276,7 +276,7 @@ function registerMeForTheCup(cupId, userId) {
             location.reload();
         }
     }
-    xmlhttp.open("POST", "XMLHttpRequest/call_im_available.php", true);
+    xmlhttp.open("POST", "XMLHttpRequest/avail_register.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }
@@ -292,7 +292,7 @@ function makeMeGoing(cupId, userId) {
             location.reload();
         }
     }
-    xmlhttp.open("POST", "XMLHttpRequest/call_i_can_go.php", true);
+    xmlhttp.open("POST", "XMLHttpRequest/avail_can_go.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }
@@ -308,7 +308,7 @@ function makeMeNotGoing(cupId, userId) {
             location.reload();
         }
     }
-    xmlhttp.open("POST", "XMLHttpRequest/call_i_cant_go.php", true);
+    xmlhttp.open("POST", "XMLHttpRequest/avail_cant_go.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }

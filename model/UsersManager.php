@@ -518,18 +518,11 @@ class UsersManager
 			return false;
 		}
 	}
-	/*Ajax implementations here*/
-	public function SetUserAvailable($uid, $cid)
-	{
-		$statement = $this->mysqli->prepare('INSERT INTO `sp_user_cup_availability` (`id`, `cup_id`, `user_id`, `attendance_flag`) VALUES (NULL, ?, ?, 1)');
-		$statement->bind_param('ii', $cupId, $userId);
-		$statement->execute();
-	}
 
-	public function SetUserAttending($uid, $cid)
+	//Availability 3Fs
+	public function SetAvailabilityRegister($uid, $cid)
 	{
-		//$statement = $this->mysqli->prepare('UPDATE `sp_user_cup_availability` SET `attendance_flag`=1 WHERE `cup_id`=? AND `user_id`=?');
-		$statement = $this->mysqli->prepare('CALL `SetUserAttending`(?,?)');
+		$statement = $this->mysqli->prepare('CALL `SetAvailabilityRegister`(?,?)');
 		$statement->bind_param('ii', $cid, $uid);
 		if ($statement->execute())
 		{
@@ -540,11 +533,22 @@ class UsersManager
 			return false;
 		}
 	}
-
-	public function SetUserNotAttending($uid, $cid)
+	public function SetAvailabilityCanGo($uid, $cid)
 	{
-		//$statement = $this->mysqli->prepare('UPDATE `sp_user_cup_availability` SET `attendance_flag`=0 WHERE `cup_id`=? AND `user_id`=?');
-		$statement = $this->mysqli->prepare('CALL `SetUserNotAttending`(?,?)');
+		$statement = $this->mysqli->prepare('CALL `SetAvailabilityCanGo`(?,?)');
+		$statement->bind_param('ii', $cid, $uid);
+		if ($statement->execute())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	public function SetAvailabilityCantGo($uid, $cid)
+	{
+		$statement = $this->mysqli->prepare('CALL `SetAvailabilityCantGo`(?,?)');
 		$statement->bind_param('ii', $cid, $uid);
 		if ($statement->execute())
 		{
