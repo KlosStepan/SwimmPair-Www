@@ -43,17 +43,6 @@ class PostsManager
 	}
 
 	/**
-	 * @return Post[]
-	 */
-	public function FindLastThreePosts()
-	{
-		$statement = $this->mysqli->prepare('CALL `FindLastThreePosts`();');
-		$posts = $this->_CreatePostsFromStatement($statement);
-
-		return $posts;
-	}
-
-	/**
 	 * @var int N
 	 * @return Post[]
 	 */
@@ -137,7 +126,6 @@ class PostsManager
     }
 
     //Private functions
-
 	/**
 	 * @param  mysqli_stmt $statement
 	 * @return Post|NULL
