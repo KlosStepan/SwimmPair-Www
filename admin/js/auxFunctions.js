@@ -245,6 +245,7 @@ function AvailableToJSON() {
     str += ']';
     return (str);
 }
+
 function UpdateAvailability(JSON) {
     var zavodID = encodeURIComponent(document.getElementById("zavodID").innerHTML);
     var json = encodeURIComponent(JSON);
@@ -259,7 +260,7 @@ function UpdateAvailability(JSON) {
             location.reload();
         }
     }
-    xmlhttp.open("POST", "XMLHttpRequest/call_update_availability.php", true);
+    xmlhttp.open("POST", "XMLHttpRequest/update_availability.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
 }

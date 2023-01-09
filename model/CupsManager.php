@@ -147,6 +147,7 @@ class CupsManager
 
 		return $this->_GetSingleResultFromStatement($statement);
 	}
+
 	/**
 	 * @param mysqli_stmt $statement
 	 * @return PairPositionUser[]
@@ -233,6 +234,36 @@ class CupsManager
 		}
 	}
 
+	//new migrated SQL to Funct
+	public function DeleteOldAvailability($cupID)
+	{
+		$statement = $this->mysqli->prepare('CALL `DeleteOldAvailability`(?)');
+		$statement->bind_param('i', $cupID);
+		if ($statement->execute())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	//new migrated SQL to Funct
+	public function InsertNewAvailability($cupID, $userID, $attendanceFlag)
+	{
+		$statement = $this->mysqli->prepare('CALL `InsertNewAvailability`(?,?,?)');
+		$statement->bind_param('iii', $cupID, $userID, $attendanceFlag);
+		if ($statement->execute())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	//OUT - use functions
 	public function UpdatePairingForThisCup($cupID, $json)
 	{
 		$this->mysqli->begin_transaction();
@@ -264,6 +295,7 @@ class CupsManager
 		}
 	}
 
+	//hmm OUT
 	//TODO check this (availability_flag) - automatic value 1, still insert null value into column
 	public function UpdateAvailabilityForThisCup($cupID, $json)
 	{

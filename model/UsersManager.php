@@ -282,6 +282,7 @@ class UsersManager
 		return new StatUserCnt($row['user_id'], $row['cnt']);
 	}
 
+	//WTF? to ClubsManager I guess
 	/**
 	 * @param $id
 	 * @return string
@@ -295,6 +296,7 @@ class UsersManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 
+	//WTF? to ClubsManager I guess
 	/**
 	 * @param $id
 	 * @return string
@@ -599,6 +601,7 @@ class UsersManager
 			return false;
 		}
 	}
+
 	/**
 	 * n params
 	 * return boolean
@@ -699,7 +702,7 @@ class UsersManager
 	//TO REIMPLEMENT FROM XHR
 	public function updatePairing($JSON)
 	{
-
+		return true;
 	}
 
 	////MOBILE APP AUX FUNCTIONS

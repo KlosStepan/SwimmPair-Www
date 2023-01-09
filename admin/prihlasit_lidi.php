@@ -13,7 +13,7 @@ $registeredTeamMates = $usersManager->FindAllRegisteredTeamMembersForTheCup($cup
 
 require_once('tmpl_header.php');
 ?>
-<!--<h1><?= $thisCup->name ?> </h1>-->
+
 <div id="hcontainer">
     <div id="hnavi" ><a href="javascript:history.go(-1)"><img src="img/icons/arrow-121-xxl.png"  width="36" heigt="36"></a></div>
     <div id="hinfoi">
@@ -34,7 +34,6 @@ require_once('tmpl_header.php');
         <div id="<?= $user->id ?>" class="clovek" draggable="true" ondragstart="drag(event)" ondblclick=""><?= $user->first_name ?> <?= $user->last_name ?></br></div>
 	<?php endforeach; ?>
 </div>
-<!-- <hr> -->
 <p>&nbsp;</p>
 <p style="margin-top:10px; margin-bottom:0px;">Currently registered</p>
 <div id="pairing">
