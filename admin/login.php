@@ -4,7 +4,7 @@
 // Escape email to protect against SQL injections
 $email = $mysqli->escape_string($_POST['email']);
 //$result = $mysqli->query("SELECT * FROM sp_users WHERE email='$email'");
-$user = $usersManager->LoginCandidateTBA($email);
+$user = $usersManager->LoginCandidateToBeAuthorized($email);
 echo $user;
 if ($user==null)
 {

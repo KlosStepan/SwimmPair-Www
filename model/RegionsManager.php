@@ -2,50 +2,32 @@
 
 class RegionsManager
 {
-	/** @var mysqli */
 	private $mysqli;
-
-	/***
-	 * RegionsManager constructor.
-	 * @param mysqli $mysqli
-	 */
 	public function __construct(mysqli $mysqli)
 	{
 		$this->mysqli = $mysqli;
 	}
-
-	/**
-	 * @return Region[]
-	 */
+	//
 	public function FindAllRegions()
 	{
-		//$statement = $this->mysqli->prepare('SELECT `id`, `name`, `abbreviation` FROM `sp_regions` ORDER BY `id` ASC');
 		$statement = $this->mysqli->prepare('CALL `FindAllRegions`()');
-
 		return $this->_CreateRegionsFromStatement($statement);
 	}
-
-	/**
-	 * @param $regionID
-	 * @return null|Region
-	 */
+	public function GetRegionNameOfClub($regionID)
+	{
+		$statement = $this->mysqli->prepare('CALL `GetRegionNameOfClub`(?)');
+		$statement->bind_param('i',$regionID);
+		return $this->_GetSingleResultFromStatement($statement);
+	}
+	//Region handling
 	public function GetRegionByID($regionID)
 	{
-		//$statement = $this->mysqli->prepare('SELECT `id`, `name`, `abbreviation` FROM `sp_regions` WHERE id=?');
 		$statement = $this->mysqli->prepare('CALL `GetRegionByID`(?)');
 		$statement->bind_param('i',$regionID);
-
 		return $this->_CreateRegionFromStatement($statement);
 	}
-
-	/**
-	 * @param $name
-	 * @param $abbrev
-	 * @return bool
-	 */
 	public function InsertNewRegion($name, $abbrev)
 	{
-		//$statement = $this->mysqli->prepare('INSERT INTO `sp_regions` (`id`, `name`, `abbreviation`) VALUES (NULL, ?, ?)');
 		$statement = $this->mysqli->prepare('CALL `InsertNewRegion`(?, ?)');
 		$statement->bind_param('ss', $name, $abbrev);
 		if($statement->execute())
@@ -57,13 +39,9 @@ class RegionsManager
 			return false;
 		}
 	}
-
-	//OK
 	public function UpdateRegion($id, $name, $abbrev)
 	{
-		//$statement = $this->mysqli->prepare('UPDATE sp_regions SET name=?, abbreviation=? WHERE id=?');
 		$statement = $this->mysqli->prepare('CALL `UpdateRegion`(?,?,?)');
-		//$statement->bind_param('ssi', $name, $abbrev, $id);
 		$statement->bind_param('iss', $id, $name, $abbrev);
 		if($statement->execute())
 		{
@@ -74,29 +52,19 @@ class RegionsManager
 			return false;
 		}
 	}
-
-	public function GetRegionNameOfClub($regionID)
+	//PRIVATE FUNCTIONS - ORM-ing DB client lib results
+	private function _CreateRegionsFromStatement(mysqli_stmt $statement)
 	{
-		//$statement = $this->mysqli->prepare('SELECT `name` FROM `sp_regions` WHERE `sp_regions`.`id`=?');
-		$statement = $this->mysqli->prepare('CALL `GetRegionNameOfClub`(?)');
-		$statement->bind_param('i',$regionID);
+		$statement->execute();
+		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
 
-		return $this->_GetSingleResultFromStatement($statement);
+		$regions = [];
+		foreach($rows as $row) {
+			$regions[] = $this->_CreateRegionFromRow($row);
+		}
+
+		return $regions;
 	}
-
-	/**
-	 * @param array $row
-	 * @return Region
-	 */
-	private function _CreateRegionFromRow(array $row)
-	{
-		return new Region($row['id'], $row['name'], $row['abbreviation']);
-	}
-
-	/**
-	 * @param mysqli_stmt $statement
-	 * @return null|Region
-	 */
 	private function _CreateRegionFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
@@ -110,28 +78,10 @@ class RegionsManager
 			return NULL;
 		}
 	}
-
-	/**
-	 * @param mysqli_stmt $statement
-	 * @return array
-	 */
-	private function _CreateRegionsFromStatement(mysqli_stmt $statement)
+	private function _CreateRegionFromRow(array $row)
 	{
-		$statement->execute();
-		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
-
-		$regions = [];
-		foreach($rows as $row) {
-			$regions[] = $this->_CreateRegionFromRow($row);
-		}
-
-		return $regions;
+		return new Region($row['id'], $row['name'], $row['abbreviation']);
 	}
-
-	/**
-	 * @param mysqli_stmt $statement
-	 * @return mixed
-	 */
 	private function _GetSingleResultFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();

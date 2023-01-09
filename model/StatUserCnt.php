@@ -2,16 +2,8 @@
 
 class StatUserCnt
 {
-	/**
-	 * @var int
-	 */
 	public $user_id;
-
-	/**
-	 * @var int
-	 */
 	public $cnt;
-
 	public function __construct($user_id, $cnt)
 	{
 		$this->user_id = $user_id;

@@ -2,203 +2,45 @@
 
 class CupsManager
 {
-	/** @var mysqli */
 	private $mysqli;
-
-	/** @param  mysqli $mysqli*/
 	public function __construct(mysqli $mysqli)
 	{
 		$this->mysqli = $mysqli;
 	}
 
-	/**
-	 * @return Cup[]
-	 */
 	public function FindAllUpcomingCupsEarliestFirst()
 	{
-		//$statement = $this->mysqli->prepare('SELECT `id`, `time_start`, `time_end`, `name`, `description`, `organizer_club_id` FROM `sp_cups` WHERE `time_end` >= NOW() ORDER BY `time_start` ASC');
 		$statement = $this->mysqli->prepare('CALL `FindAllUpcomingCupsEarliestFirst`()');
 		$cups = $this->_CreateCupsFromStatement($statement);
-
 		return $cups;
 	}
-
-	/**
-	 * @return Cup[]
-	 */
 	public function FindAllPastCupsMostRecentFirst()
 	{
-		//$statement = $this->mysqli->prepare('SELECT `id`, `time_start`, `time_end`, `name`, `description`, `organizer_club_id` FROM `sp_cups` WHERE `time_end` <= NOW() ORDER BY `time_start` DESC');
 		$statement = $this->mysqli->prepare('CALL `FindAllPastCupsMostRecentFirst`()');
 		$cups = $this->_CreateCupsFromStatement($statement);
-
 		return $cups;
 	}
-	//here
-
-	/**
-	 * @param mysqli_stmt $statement
-	 * @return Club[]
-	 */
-	public function _CreateCupsFromStatement(mysqli_stmt $statement)
-	{
-		$statement->execute();
-		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
-
-		$cups = [];
-		foreach($rows as $row)
-		{
-			$cups[]=$this->_CreateCupFromRow($row);
-		}
-		return $cups;
-	}
-
-	/**
-	 * @param array $row
-	 * @return Cup
-	 */
-	public function _CreateCupFromRow(array $row)
-	{
-		return new Cup($row['id'], $row['time_start'], $row['time_end'], $row['name'], $row['description'], $row['organizer_club_id']);
-	}
-
-	/**
-	 * @param mysqli_stmt $statement
-	 * @return string[]
-	 */
-	public function _GetSingleResultFromStatement(mysqli_stmt $statement){
-		$statement->execute();
-		$rows = $statement->get_result()->fetch_all(MYSQLI_NUM);
-		if($rows==NULL)
-		{
-			//OR NULL
-			return null;
-		}
-		else
-		{
-			$row = $rows[0];
-			return $row[0];
-		}
-	}
-
-	/**
-	 * @param $cupID
-	 * @return Cup|null
-	 */
-	public function GetCupByID($cupID)
-	{
-		//$statement = $this->mysqli->prepare('SELECT `id`, `time_start`, `time_end`, `name`, `description`, `organizer_club_id` FROM `sp_cups` WHERE id=?');
-		$statement = $this->mysqli->prepare('CALL `GetCupByID`(?)');
-		$statement->bind_param('i', $cupID);
-
-		return $this->_CreateCupOrNullFromStatement($statement);
-	}
-
-	/**
-	 * @param mysqli_stmt $statement
-	 * @return Cup|null
-	 */
-	public function _CreateCupOrNullFromStatement(mysqli_stmt $statement)
-	{
-		$statement->execute();
-		$row = $statement->get_result()->fetch_assoc();
-		if ($row !== NULL)
-		{
-			return $this->_CreateCupFromRow($row);
-		}
-		else
-		{
-			return NULL;
-		}
-	}
-
-	/**
-	 * @param $cupID
-	 * @return PairPositionUser[]
-	 */
 	public function FindPairingsForThisCup($cupID)
 	{
-		//$statement = $this->mysqli->prepare('SELECT `position_id`, `user_id` FROM `sp_user_position_pairing` WHERE `cup_id`=? ORDER BY `position_id`');
 		$statement = $this->mysqli->prepare('CALL `FindPairingsForThisCup`(?)');
 		$statement->bind_param('i', $cupID);
 		$pairs = $this->_CreatePairsFromStatement($statement);
-
 		return $pairs;
 	}
-
 	public function GetPairingHashForThisCup($cupID)
 	{
-		//$statement = $this->mysqli->prepare('SELECT MD5(GROUP_CONCAT(CONCAT(`position_id`, `user_id`))) as hash FROM `sp_user_position_pairing` WHERE `cup_id`=? ORDER BY `position_id`');
 		$statement = $this->mysqli->prepare('CALL `HashPairingForThisCup`(?)');
 		$statement->bind_param('i', $cupID);
-
 		return $this->_GetSingleResultFromStatement($statement);
 	}
-
-	/**
-	 * @param mysqli_stmt $statement
-	 * @return PairPositionUser[]
-	 */
-	public function _CreatePairsFromStatement(mysqli_stmt $statement)
-	{
-		$statement->execute();
-		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
-
-		$pairs = [];
-		foreach($rows as $row)
-		{
-			$pairs[]=$this->_CreatePairFromRow($row);
-		}
-		return $pairs;
-	}
-
-	/**
-	 * @param array $row
-	 * @return PairPositionUser
-	 */
-	public function _CreatePairFromRow(array $row)
-	{
-		return new PairPositionUser($row['position_id'], $row['user_id']);
-	}
-
-	/**
-	 * @param $name
-	 * @param $date_begin
-	 * @param $date_end
-	 * @param $club
-	 * @param $content
-	 * @return bool
-	 */
-	public function InsertNewCup($name, $date_begin, $date_end, $club, $content)
-	{
-		//$statement = $this->mysqli->prepare('INSERT INTO `sp_cups` (`time_start`, `time_end`, `name`, `description`, `organizer_club_id`) VALUES (?,?,?,?,?)');
-		$statement = $this->mysqli->prepare('CALL `InsertNewCup`(?,?,?,?,?)');
-		$statement->bind_param('sssis', $name, $date_begin, $date_end, $club, $content);
-		if ($statement->execute())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 	public function GetNewCupIDByInfo($name, $date_begin, $date_end)
 	{
-		//$statement = $this->mysqli->prepare('SELECT id FROM `sp_cups` WHERE name=? AND time_start=? AND time_end=?');
 		$statement = $this->mysqli->prepare('CALL `GetNewCupIDByInfo`(?,?,?)');
 		$statement->bind_param('sss', $name, $date_begin, $date_end);
-
 		return $this->_GetSingleResultFromStatement($statement);
 	}
-
-	/**
-	 * check if my ID is registered
-	 */
 	public function IsUserAvailableForTheCup($userID, $cupID)
 	{
-		//$statement = $this->mysqli->prepare('SELECT * FROM `sp_user_cup_availability` WHERE `cup_id`=? AND `user_id`=?');
 		$statement = $this->mysqli->prepare('CALL `IsUserAvailableForTheCup`(?,?)');
 		$statement->bind_param('ii', $cupID, $userID);
 		$statement->execute();
@@ -217,11 +59,49 @@ class CupsManager
 		}
 		else
 		{
-			throw new RuntimeException(); //more registrations for one cup, wtf
+			throw new RuntimeException(); //more registrations for one cup
 		}
 	}
-
-	//new migrated SQL to Proc - avail.
+	public function GetEarliestCupYear()
+	{
+		$statement = $this->mysqli->prepare('CALL `GetEarliestCupYear`()');
+		$_ret = $this->_GetSingleResultFromStatement($statement);
+		if($_ret!=null)
+		{
+			return $_ret;
+		}
+		else
+		{
+			return date("Y");
+		}
+	}
+	public function GetMaximumCupYear()
+	{
+		return (int)date("Y");
+	}
+	//Cup handling
+	public function GetCupByID($cupID)
+	{
+		$statement = $this->mysqli->prepare('CALL `GetCupByID`(?)');
+		$statement->bind_param('i', $cupID);
+		return $this->_CreateCupOrNullFromStatement($statement);
+	}
+	public function InsertNewCup($name, $date_begin, $date_end, $club, $content)
+	{
+		$statement = $this->mysqli->prepare('CALL `InsertNewCup`(?,?,?,?,?)');
+		$statement->bind_param('sssis', $name, $date_begin, $date_end, $club, $content);
+		if ($statement->execute())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	//public function UpdateCup($cupId) - TODO
+	//public function DeleteCup($cupId) - TODO
+	//Cup Availability
 	public function DeleteOldAvailability($cupID)
 	{
 		$statement = $this->mysqli->prepare('CALL `DeleteOldAvailability`(?)');
@@ -235,7 +115,6 @@ class CupsManager
 			return false;
 		}
 	}
-	//new migrated SQL to Proc - avail.
 	public function InsertNewAvailability($cupID, $userID, $attendanceFlag)
 	{
 		$statement = $this->mysqli->prepare('CALL `InsertNewAvailability`(?,?,?)');
@@ -249,9 +128,8 @@ class CupsManager
 			return false;
 		}
 	}
-
-	//new migrated SQL to Proc - pairing
-	function DeleteOldPairing($cupID)
+	//Cup Pairing
+	public function DeleteOldPairing($cupID)
 	{
 		$statement = $this->mysqli->prepare('CALL `DeleteOldPairing`(?)');
 		$statement->bind_param('i', $cupID);
@@ -264,8 +142,7 @@ class CupsManager
 			return false;
 		}
 	}
-	//new migrated SQL to Proc - pairing
-	function InsertNewPairing($cupID, $posID, $userID)
+	public function InsertNewPairing($cupID, $posID, $userID)
 	{
 		$statement = $this->mysqli->prepare('CALL `InsertNewPairing`(?,?,?)');
 		$statement->bind_param('iii', $cupID, $posID, $userID);
@@ -278,24 +155,62 @@ class CupsManager
 			return false;
 		}
 	}
-
-	public function GetEarliestCupYear()
+	//PRIVATE FUNCTIONS - ORM-ing DB client lib results
+	public function _CreateCupsFromStatement(mysqli_stmt $statement)
 	{
-		//$statement = $this->mysqli->prepare('SELECT YEAR(`time_start`) FROM `sp_cups` ORDER BY `time_start` ASC LIMIT 1');
-		$statement = $this->mysqli->prepare('CALL `GetEarliestCupYear`()');
-		$_ret = $this->_GetSingleResultFromStatement($statement);
-		if($_ret!=null)
+		$statement->execute();
+		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+		$cups = [];
+		foreach($rows as $row)
 		{
-			return $_ret;
+			$cups[]=$this->_CreateCupFromRow($row);
+		}
+		return $cups;
+	}
+	public function _CreateCupOrNullFromStatement(mysqli_stmt $statement)
+	{
+		$statement->execute();
+		$row = $statement->get_result()->fetch_assoc();
+		if ($row !== NULL)
+		{
+			return $this->_CreateCupFromRow($row);
 		}
 		else
 		{
-			return date("Y");
+			return NULL;
 		}
 	}
-
-	public function GetMaximumCupYear()
+	public function _CreateCupFromRow(array $row)
 	{
-		return date("Y");
+		return new Cup($row['id'], $row['time_start'], $row['time_end'], $row['name'], $row['description'], $row['organizer_club_id']);
+	}
+	public function _CreatePairsFromStatement(mysqli_stmt $statement)
+	{
+		$statement->execute();
+		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
+		$pairs = [];
+		foreach($rows as $row)
+		{
+			$pairs[]=$this->_CreatePairFromRow($row);
+		}
+		return $pairs;
+	}
+	public function _CreatePairFromRow(array $row)
+	{
+		return new PairPositionUser($row['position_id'], $row['user_id']);
+	}
+	public function _GetSingleResultFromStatement(mysqli_stmt $statement)
+	{
+		$statement->execute();
+		$rows = $statement->get_result()->fetch_all(MYSQLI_NUM);
+		if($rows==NULL)
+		{
+			return null;
+		}
+		else
+		{
+			$row = $rows[0];
+			return $row[0];
+		}
 	}
 }
