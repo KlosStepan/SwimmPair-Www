@@ -234,7 +234,7 @@ class CupsManager
 		}
 	}
 
-	//new migrated SQL to Funct
+	//new migrated SQL to Proc - avail.
 	public function DeleteOldAvailability($cupID)
 	{
 		$statement = $this->mysqli->prepare('CALL `DeleteOldAvailability`(?)');
@@ -248,8 +248,7 @@ class CupsManager
 			return false;
 		}
 	}
-
-	//new migrated SQL to Funct
+	//new migrated SQL to Proc - avail.
 	public function InsertNewAvailability($cupID, $userID, $attendanceFlag)
 	{
 		$statement = $this->mysqli->prepare('CALL `InsertNewAvailability`(?,?,?)');
@@ -263,6 +262,36 @@ class CupsManager
 			return false;
 		}
 	}
+
+	//new migrated SQL to Proc - pairing
+	function DeleteOldPairing($cupID)
+	{
+		$statement = $this->mysqli->prepare('CALL `DeleteOldPairing`(?)');
+		$statement->bind_param('i', $cupID);
+		if ($statement->execute())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	//new migrated SQL to Proc - pairing
+	function InsertNewPairing($cupID, $posID, $userID)
+	{
+		$statement = $this->mysqli->prepare('CALL `InsertNewPairing`(?,?,?)');
+		$statement->bind_param('iii', $cupID, $posID, $userID);
+		if ($statement->execute())
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	//OUT - use functions
 	public function UpdatePairingForThisCup($cupID, $json)
 	{
@@ -295,7 +324,7 @@ class CupsManager
 		}
 	}
 
-	//hmm OUT
+	//OUT - use functions
 	//TODO check this (availability_flag) - automatic value 1, still insert null value into column
 	public function UpdateAvailabilityForThisCup($cupID, $json)
 	{
