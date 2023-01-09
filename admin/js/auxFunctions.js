@@ -60,7 +60,7 @@ function getAvFlag(cupid, userid) {
             //ret flag
         }
     }
-    xmlhttp.open("GET", "XMLHttpRequest/call_get_availability_flag.php?cupid=" + cupid + "&userid=" + userid, false);
+    xmlhttp.open("GET", "XMLHttpRequest/get_availability_flag.php?cupid=" + cupid + "&userid=" + userid, false);
     xmlhttp.send();
     return _returnedFlag;
 }
