@@ -17,7 +17,7 @@ try {
 	//$statement = $mysqli->prepare('DELETE FROM `sp_user_cup_availability` WHERE cup_id=?');
 	//$statement->bind_param('i', $id);
 	//$statement->execute();
-	if(!($clubsManager->DeleteOldAvailability($id)))
+	if(!($cupsManager->DeleteOldAvailability($id)))
 	{
 		echo "Delete old avail. - failed";
 		throw new RuntimeException("Delete old avail. - failed");
@@ -37,7 +37,7 @@ try {
 		//$statement = $mysqli->prepare('INSERT INTO `sp_user_cup_availability` (`id`, `cup_id`, `user_id`, `attendance_flag`) VALUES (NULL, ?, ?, ?)');
 		//$statement->bind_param('iii', $record['idcup'], $record['iduser'], $record['coming']);
 		//$statement->execute();
-		if(!($clubsManager->InsertNewAvailability($record['idcup'], $record['iduser'], $record['coming'])))
+		if(!($cupsManager->InsertNewAvailability($record['idcup'], $record['iduser'], $record['coming'])))
 		{
 			echo "New avail. insert {$record['idcup']}, {$record['iduser']}, {$record['coming']} - failed";
 			throw new RuntimeException("New avail. insert {$record['idcup']}, {$record['iduser']}, {$record['coming']} - failed");
