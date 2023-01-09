@@ -63,19 +63,6 @@ class CupsManager
 	}
 
 	/**
-	 * @param $cupID
-	 * @return string[]
-	 */
-	public function GetCupNameByID($cupID)
-	{
-		//$statement = $this->mysqli->prepare('SELECT `name` FROM `sp_cups` WHERE id=? LIMIT 1');
-		$statement = $this->mysqli->prepare('CALL `GetCupNameByID`(?)');
-		$statement->bind_param('i', $cupID);
-
-		return $this->_GetSingleResultFromStatement($statement);
-	}
-
-	/**
 	 * @param mysqli_stmt $statement
 	 * @return string[]
 	 */

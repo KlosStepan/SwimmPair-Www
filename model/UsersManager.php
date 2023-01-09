@@ -151,21 +151,6 @@ class UsersManager
 		return $users;
 	}
 
-	//TODO prolly deprecate- lepi jmena dostupna
-	// DODELAT for CUPid [{userid, dostupnost},...], mozna struktura pro dostupnost na webu a v mobilu
-	/**
-	 * @param $cupId
-	 * @return User[]
-	 */
-	public function FindAllNametagsForTheCup($cupId)
-	{
-		//$statement = $this->mysqli->prepare('SELECT DISTINCT `user_id` as id, `sp_users`.`first_name`, `sp_users`.`last_name`, `sp_users`.`email`, `sp_users`.`approved_flag`, `sp_users`.`rights`, `sp_users`.`referee_rank_id`, `sp_users`.`affiliation_club_id` FROM `sp_user_position_pairing` INNER JOIN `sp_users` ON `sp_users`.`id` = `sp_user_position_pairing`.`user_id` WHERE `cup_id`=?');
-		$statement = $this->mysqli->prepare('CALL `FindAllNametagsForTheCup`(?)');
-		$statement->bind_param('i', $cupId);
-		$users = $this->_CreateUsersFromStatement($statement);
-
-		return $users;
-	}
 
 	//TODO deprecate and merge this call mby
 	/**
@@ -182,20 +167,6 @@ class UsersManager
 
 		return $users;
 
-	}
-
-	/**
-	 * @param $cupId
-	 * @return array
-	 */
-	public function FindPairedPositionIDUserIDForCup($cupId)
-	{
-		//$statement = $this->mysqli->prepare('SELECT `position_id`, `user_id` FROM `sp_user_position_pairing` WHERE `cup_id`=? ');
-		$statement = $this->mysqli->prepare('CALL `FindPairedPositionIDUserIDForCup`(?)');
-		$statement->bind_param('i', $cupId);
-		$users = $this->_CreatePairsFromStatement($statement);
-
-		return $users;
 	}
 
 	/**
