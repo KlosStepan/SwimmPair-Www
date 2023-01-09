@@ -29,8 +29,9 @@ class Cup
 		$this->description = $description;
 		$this->organizer_club_id = $organizer_club_id;
 	}
-
-	//6/6: id, time_start, time_end, name, description, owningclub
+	
+	//6/6 Full Serialization
+	//id, time_start, time_end, name, description, owningclub
 	//{"id":"7","time_start":"2018-07-16","time_end":"2018-07-18","name":"CMG Cup","description":"Letos v cervenci bude CMG cup","organizer_club_id":"5"}
 	public function SerializeFull()
 	{
@@ -38,7 +39,8 @@ class Cup
 		return $_serialized;
 	}
 
-	//4/6: id, time_start, time_end, name, -NULL-, -NULL-
+	//4/6 Slim Serialization
+	//id, time_start, time_end, name, -NULL-, -NULL-
 	//{"id":"7","time_start":"2018-07-16","time_end":"2018-07-18","name":"CMG Cup"}
 	public function SerializeSlim()
 	{

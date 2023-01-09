@@ -14,7 +14,8 @@ class Position
 		$this->name = $name;
 	}
 
-	//2/2: id, name
+	//2/2 Full Serialization
+	//id, name
 	//{"id":"1","name":"Hlavní rozhodčí"};
 	public function Serialize()
 	{

@@ -1,7 +1,8 @@
 <?php
 
 class PagesManager
-{	/** @var mysqli */
+{
+	/** @var mysqli */
 	private $mysqli;
 
 	/**
@@ -46,9 +47,7 @@ class PagesManager
 		}
 	}
 
-
 	/* PRIVATE AUX FUNCTIONS */
-
 	/**
 	 * @param $statement
 	 * @return null|Page

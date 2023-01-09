@@ -18,6 +18,8 @@ class StatPositionCnt
 		$this->cnt = $cnt;
 	}
 
+    //2/2 Full Serialization
+	//position_id, cnt
 	//{"position_id":"1","cnt":"2"};
 	public function Serialize()
 	{

@@ -19,6 +19,7 @@ class Region
 	}
 
 	//3/3: id, name, abbreviation
+	//id, abbreviation
 	//{"id":1,"name":"Olomoucky kraj","abbreviation":OLK"}
 	public function Serialize()
 	{

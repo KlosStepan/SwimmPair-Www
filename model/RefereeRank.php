@@ -14,6 +14,9 @@ class RefereeRank
 		$this->rank_name = $rank_name;
 	}
 
+	//2/2 Full Serialization
+	//id, rank_name
+	//{"id":"1","rank_name":"Hlavni rozhodci"}
 	public function Serialize()
 	{
 		$_serialized = "{\"id\":\"".$this->id."\",\"rank_name\":\"".$this->rank_name."\"}";

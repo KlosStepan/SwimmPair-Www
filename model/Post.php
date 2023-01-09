@@ -55,8 +55,9 @@ class Post
 			'content'   => htmlentities($this->content)
 		];
 	}*/
-
-	//7/7: id, timestamp, title, content, display_flag, author_user_id, signature_flag
+    
+    //7/7 Full Serialization
+	//id, timestamp, title, content, display_flag, author_user_id, signature_flag
 	//{"id":"1","timestamp":"2018-01-16 21:06:16","title":"Test title","content":"Hello! Blabla post","display_flag":"1","author_user_id":"21","signature_flag":"1"}
 	public function Serialize()
 	{

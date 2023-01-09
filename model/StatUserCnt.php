@@ -17,7 +17,8 @@ class StatUserCnt
 		$this->user_id = $user_id;
 		$this->cnt = $cnt;
 	}
-
+    //2/2 Full Serialization
+	//user_id, cnt
 	//{"user_id":"1","cnt":"2"};
 	public function Serialize()
 	{

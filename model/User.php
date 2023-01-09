@@ -38,8 +38,8 @@ class User
 		$this->affiliation_club_id = $affiliation_club_id;
 	}
 
-	//Full serialization
-	//8/8: id, first_name, last_name, email, approved_flag, rights, referee_rank_id, affiliation_club_id
+	//8/8 Full Serialization
+	//id, first_name, last_name, email, approved_flag, rights, referee_rank_id, affiliation_club_id
 	//{"id":"12","first_name":"Lukas","last_name":"Kousal","email":"lukas.kousal@seznam.cz","approved_flag":"1","rights":"2","referee_rank_id,"2","affiliation_club_id":"7"}
 	public function SerializeFull()
 	{
@@ -47,8 +47,8 @@ class User
 		return $_serialized;
 	}
 
-	//Slim serialization
-	//5/8: id, first_name, last_name, -N/A-, -N/A-, -N/A-, referee_rank_id, affiliation_club_id
+	//5/8 Slim Serialization
+	//id, first_name, last_name, -N/A-, -N/A-, -N/A-, referee_rank_id, affiliation_club_id
 	//{"id":"12","first_name":"Lukas","last_name":"Kousal","affiliation_club_id":"7"}
 	public function SerializeSlim()
 	{
@@ -56,8 +56,8 @@ class User
 		return $_serialized;
 	}
 
-	//Tag serialization
-	//2/8: -NULL-, first_name, last_name, -NULL-, -NULL-, -NULL-, -NULL-, -NULL-
+	//2/8 Tag Serialization
+	//-NULL-, first_name, last_name, -NULL-, -NULL-, -NULL-, -NULL-, -NULL-
 	//{"first_name":"Lukas","last_name":"Kousal"}
 	public function SerializeTag()
 	{
