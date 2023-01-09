@@ -119,24 +119,6 @@ function validateForm() {
 }
 
 //CMS stuff
-function UpdatePost() {
-    var id = document.getElementById("postID").value;
-    var title = document.getElementById("title").value;
-    var article = tinyMCE.get('mytextarea').getContent();
-    var result;
-    if (window.XMLHttpRequest) {
-        xmlhttp = new XMLHttpRequest();
-    } else {
-        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xmlhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            location.reload();
-        }
-    }
-    xmlhttp.open("GET", "XMLHttpRequest/call_update_article.php?id=" + encodeURIComponent(id) + "&title=" + encodeURIComponent(title) + "&article=" + encodeURIComponent(article), true);
-    xmlhttp.send();
-}
 function ApproveUser(i) {
     //window.alert(i);
     if (window.XMLHttpRequest) {
@@ -202,7 +184,7 @@ function UpdatePairing(JSON) {
             location.reload();
         }
     }
-    xmlhttp.open("POST", "XMLHttpRequest/call_update_pairing.php", true);
+    xmlhttp.open("POST", "XMLHttpRequest/update_pairing.php", true);
     xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlhttp.send(encoded);
     //console.log(JSON);
