@@ -22,7 +22,7 @@ require_once('tmpl_header.php');
 </div>
 <h2><?= $thisCup->time_start ?> </h2>
 <p id="zavodID" hidden><?= $cupID ?></p>
-<p style="margin-top:10px; margin-bottom:0px;">My club</p>
+<p style="margin-top:10px; margin-bottom:0px;">Můj klub</p>
 <?php
     //echo $teamID;
     //echo $cupID;
@@ -35,7 +35,7 @@ require_once('tmpl_header.php');
 	<?php endforeach; ?>
 </div>
 <p>&nbsp;</p>
-<p style="margin-top:10px; margin-bottom:0px;">Currently registered</p>
+<p style="margin-top:10px; margin-bottom:0px;">Přihlášení rozhodčí</p>
 <div id="pairing">
     <div id="div1" ondrop="dropAvailability(event,<?= $cupID ?>)" ondragover="allowDrop(event)" style="margin-top:10px;">
 		<?php foreach ($registeredTeamMates as $user)
@@ -56,6 +56,6 @@ require_once('tmpl_header.php');
 </div>
 <p> </p>
 <input type="button" onclick="UpdateAvailability(AvailableToJSON());" value="Aktualizovat">
-<p> </p>
-<input type="button" onclick="console.log(AvailableToJSON());" value="console.log(AvailableToJSON());">
+<!-- <p>&nbsp;</p>
+<input type="button" onclick="console.log(AvailableToJSON());" value="console.log(AvailableToJSON());"> -->
 
