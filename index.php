@@ -1,7 +1,7 @@
 <?php
 require 'start.php';
 
-$posts = $postsManager->FindLastThreePosts();
+$posts = $postsManager->FindLastNPosts(3);
 ?>
 
 <!DOCTYPE html>

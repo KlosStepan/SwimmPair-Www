@@ -47,7 +47,6 @@ class PostsManager
 	 */
 	public function FindLastThreePosts()
 	{
-		//$statement = $this->mysqli->prepare('SELECT `id`, `timestamp`, `title`, `content`, `display_flag`, `author_user_id`, `signature_flag` FROM `sp_posts` WHERE `display_flag`=1  ORDER BY `id` DESC LIMIT ?');
 		$statement = $this->mysqli->prepare('CALL `FindLastThreePosts`();');
 		$posts = $this->_CreatePostsFromStatement($statement);
 
@@ -60,7 +59,6 @@ class PostsManager
 	 */
 	public function FindLastNPosts($N)
 	{
-		//$statement = $this->mysqli->prepare('SELECT `id`, `timestamp`, `title`, `content`, `display_flag`, `author_user_id`, `signature_flag` FROM `sp_posts` WHERE `display_flag`=1 ORDER BY `id` DESC LIMIT ?');
 		$statement = $this->mysqli->prepare('CALL `FindLastNPosts`(?);');
 		$statement->bind_param('i', $N);
 		$posts = $this->_CreatePostsFromStatement($statement);
