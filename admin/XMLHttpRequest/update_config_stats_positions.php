@@ -6,20 +6,17 @@ Auth::requireRole(UserRights::SuperUser);
 $json = Sanitizer::getPostString('json');
 
 $json_processed = json_decode($json, true);
-if (json_last_error()!==JSON_ERROR_NONE){
-	echo "hahaha";
-	echo $json;
+if (json_last_error()!==JSON_ERROR_NONE)
+{
 	echo "RuntimeException(), no commit";
-	throw new RuntimeException();
+	throw new RuntimeException("Decode json error - failed");
 }
 
-$result = $positionsManager->UpdateStatsPositions($json_processed);
-if($result==true)
+if($positionsManager->UpdateStatsPositions($json_processed))
 {
-	echo "Success, commited";
+	echo "succ<br/>\r\n";
 }
 else
 {
-	echo "RuntimeException(), rollback";
+	echo "err<br/>\r\n";
 }
-//DELETE FROM statsconfig

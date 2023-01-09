@@ -92,28 +92,23 @@ class PositionsManager
 	 */
 	public function UpdateStatsPositions($json_processed)
 	{
-		echo "updateStatsPositions";
+		//echo "updateStatsPositions";
 		$this->mysqli->begin_transaction();
 		try
 		{
-			//$statement = $this->mysqli->prepare('DELETE FROM `sp_public_stats_config`');
-			$statement = $this->mysqli->prepare('CALL `DeleteOldPositions`()');
-			//$statement->bind_param('i', $id);
+			$statement = $this->mysqli->prepare('CALL `DeleteOldStatsPositions`()');
 			$statement->execute();
-
 			foreach ($json_processed as $record)
 			{
-				//TODO p5epsat insertovany JSON
 				if (!isset($record["idpoz"]))
 				{
 					throw  new RuntimeException();
-				} elseif (!ctype_digit($record["idpoz"]))
+				}
+				elseif (!ctype_digit($record["idpoz"]))
 				{
 					throw new RuntimeException();
 				}
-				//$statement = $this->mysqli->prepare('INSERT INTO `sp_public_stats_config` (`id`, `position_id`) VALUES (NULL, ?)');
 				$statement = $this->mysqli->prepare('CALL `InsertNewStatPosition`(?)');
-				//TODO prepsat insertovany JSON
 				$statement->bind_param('i',$record["idpoz"]);
 				$statement->execute();
 			}
@@ -124,9 +119,7 @@ class PositionsManager
 		{
 			echo $e->getMessage();
 			$this->mysqli->rollback();
-			echo false;
+			return false;
 		}
 	}
-
-	//SELECT idpoz AS id, poz AS position FROM statsconfig LEFT JOIN pozice ON statsconfig.idpoz=pozice.id ORDER BY id ASC
 }
