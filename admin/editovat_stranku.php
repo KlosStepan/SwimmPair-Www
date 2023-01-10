@@ -30,7 +30,7 @@ require_once('tmpl_header.php');
 	</div>
 </div>
 <form action="PHPActionHandler/update_page.php" method="post" autocomplete="off">
-	<input id="id" type="hidden" name="pageID" value="<?= h($page->id); ?>">
+	<input id="id" type="hidden" name="id" value="<?= h($page->id); ?>">
 	<h2>Titulek</h2><input id="title" type="text" name="title" value="<?= h($page->title); ?>"><br>
 	<h2>Obsah</h2><textarea id="mytextarea" name="mytextarea"><?= h($page->content); ?></textarea>
 	</br>
