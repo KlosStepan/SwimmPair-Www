@@ -261,7 +261,7 @@ class UsersManager
 		$passwordHashed = password_hash($password, PASSWORD_BCRYPT);
 		$hash = md5(rand(0, 1000));
 		//approved, activated
-		$statement = $this->mysqli->prepate('CALL `RegisterUser`(?,?,?,?,?,1,1,?,?,?)');
+		$statement = $this->mysqli->prepare('CALL `RegisterUser`(?,?,?,?,?,1,1,?,?,?)');
 		$statement->bind_param('sssssiii', $first_name, $last_name, $email, $passwordHashed, $hash, $rights, $refRank, $klubaffil);
 		if ($statement->execute())
 		{
