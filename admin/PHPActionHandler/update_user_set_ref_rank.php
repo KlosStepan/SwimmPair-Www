@@ -5,7 +5,7 @@ session_start();
 Auth::requireRole(UserRights::SuperUser);
 //User refRank prep - HTTP POST
 $uid = Sanitizer::getPostInt('uid');
-$referee_rank_id = Sanitizer::getPostInt('refRank');
+$referee_rank_id = Sanitizer::getPostInt('referee_rank_id');
 //Redirect address - TODO red. to USER(?)
 $admin = "http://".$_SERVER['SERVER_NAME']."/admin";
 $redDestURL = "Location: $admin/profile.php";
