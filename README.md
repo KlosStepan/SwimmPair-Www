@@ -9,6 +9,11 @@ git clone https://github.com/KlosStepan/SwimmPair-Www
 //import database and set up credentials
 docker-compose up --detach 
 ```
+## Running instances  
+[SwimmPair.cz](http://swimmpair.cz) - Production application SwimmPair live.  
+[SwimmPair.STKL.cz](http://swimmpair.stkl.cz) - Development application SwimmPair (new features, bugfixes) before prod.  
+[SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.
+
 
 ## Web Application Structure Overview
 The web application consists of these main parts:
@@ -20,20 +25,20 @@ The web application consists of these main parts:
 ## Web Application Model Data Categorization
 SwimmPair implements these structures to be moved around while administering the swimming competitions.  
 Following objects are:
-* **Post**/PostsManager - informative posts on the homepage
+* **Post**/PostsManager - informative posts on the homepage,
 * **Page**/PagesManager - info pages,
-* **Club**/ClubsManager - organization units of cups of users,
-* **Cup**/CupsManager - swimming competition,
-* **Region**/RegionsManager - geographical region,
+* **Club**/ClubsManager - organization units of cups,
+* **Cup**/CupsManager - swimming competitions,
+* **Region**/RegionsManager - geographical regions,
 * **User**/UsersManager - app users (admins, club managers, admins),
-* **Position**/Positions - cup required work.
+* **Position**/Positions - work required for cups.
 
 
 ## Web Application Data Flow Architecture Overview
-Application flow is realized by accessing `application page` and calling `Controller` functionality, that wrapps database calls and returns results as PHP objects. 
+Application flow is realized by accessing `application page` and calling `Managers` functionality, that wrapps database calls and returns results as PHP objects. 
 ![App Schema](/misc/app-schema.jpg "app-schema")
 
-Public and private part have **PHP form-actions** and **ajax call endpoints** for achieving functionality via. appropriate manager calls or stores payloads sent on them. The folders with these respective script actions (in public and private sections) are to be found in:
+Public and private part have **PHP form-actions** and **Ajax endpoints** for achieving functionality via. appropriate manager calls or storing payloads sent to them via HTTP POST. The folders with these respective script actions (in public and private sections) are to be found in:
 * PHPActionHandler,
 * XMLHttpRequest.  
 
