@@ -225,6 +225,14 @@ input[type=text] {
     font-size: 36px;
 }
 
+.content>h2,
+#title>h2,
+#content>h2 {
+    text-align: center;
+    font-weight: 300;
+    font-size: 30px;
+}
+
 footer {
     display: block;
     color: white;
