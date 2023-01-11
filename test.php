@@ -6,8 +6,14 @@ $first_name_f = array("Eliska", "Tereza", "Anna", "Adela", "Natalie", "Ema", "Vi
 $second_name_f = array("Novakova", "Svobodova", "Novotna", "Dvorakova", "Cerna", "Prochazkova", "Kucerova", "Vesela", "Horakova", "Nemcova", "Markova", "Pokorna", "Pospisilova", "Hajkova", "Kralova", "Jelinkova", "Ruzickova", "Benesova", "Fialova", "Sedlackova");
 //$item = null;
 $start = microtime(true);
-$y = $usersManager->FindAllActiveUsersOrderByLastNameAsc();
+//$y = $usersManager->FindAllActiveUsersOrderByLastNameAsc();
 //print_r($y)
+//create 98 users - random affil to 1-15
+//create 10 cups - random affil to 1-15
+//availability for each cup 300
+//GetAvailabilityForCup(1-10) then foreach u, (u x 1-19)
+//random UserStatsQuery
+//random ClubStatQuery
 $total = microtime(true) - $start;
 echo $total;
 ?>
