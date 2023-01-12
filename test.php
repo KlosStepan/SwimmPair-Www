@@ -69,7 +69,6 @@ for($m=1;$m<=10;++$m)
     echo ("Q #$l<br/>\r\n");
 }
 //availability for each cup 300
-
 //foreach Cups as cup
 //for 1 to 30 random user
 //available(cup, person, 1)
@@ -79,9 +78,6 @@ for($m=1;$m<=10;++$m)
 //foreach availableUser as avlusr
 //pairing(cip, avlusr-id, positions[position-idx])
 
-//GetAvailabilityForCup(1-10) then foreach u, (u x 1-19)
-//random UserStatsQuery
-//random ClubStatQuery
 $total = microtime(true) - $start;
 echo $total;
 echo "<br/>\r\n";
