@@ -1,6 +1,6 @@
 <?php
 require 'start.php';
-////Dummy data to be fed into script
+////Dummy data to be fed into the script
 //Users dummy data
 $first_name_m = array("Jakub", "Jan", "Adam", "Tomas", "Matyas", "Filip", "Ondrej", "Vojtech", "Matej", "David", "Lukas", "Dominik", "Martin", "Daniel", "Simon", "Petr", "Stepan", "Antonin", "Jiri", "Marek");
 $second_name_m = array("Novak", "Svoboda", "Novotny", "Dvorak", "Cerny", "Prochazka", "Kucera", "Vesely", "Horak", "Nemec", "Marek", "Pospisil", "Pokorny", "Hajek", "Kral", "Jelinek", "Ruzicka", "Benes", "Fiala", "Sedlacek");
@@ -20,7 +20,7 @@ $clubs = $clubsManager->FindAllClubs();
 //START SCRIPT & STOPWATCH
 echo ("SWIMMPAIR DUMMY DATA & BENCHMARK<br/>\r\n");
 $start = microtime(true);
-//runtime so far - for snapshotting throught partial stops
+//runtime so far - for snapshotting through partial stops
 $rt_so_far = 0;
 
 //1. Create 98 Users - random affil to 1 club from $clubs
