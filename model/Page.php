@@ -14,6 +14,9 @@ class Page
 	//3/3 Full Serialization
 	//id, title, content
 	//{"id":"1","title":"Kontakt","content":"Telefon je +420765987324"}
+	/**
+	 * 
+	 */
 	public function Serialize()
 	{
 		$_serialized = "{\"id\":\"".$this->id."\",\"title\":\"".$this->title."\",\"content\":\"".$this->content."\"}";
