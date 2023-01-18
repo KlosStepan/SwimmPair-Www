@@ -39,6 +39,11 @@ class ClubsManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 	//Club handling
+	/**
+	 * Summary of GetClubByID
+	 * @param mixed $clubID
+	 * @return Club|null
+	 */
 	public function GetClubByID($clubID)
 	{
 		$statement = $this->mysqli->prepare('CALL `GetClubByID`(?)');
@@ -103,10 +108,20 @@ class ClubsManager
 		}
 		return $clubs;
 	}
+	/**
+	 * Summary of _CreateClubFromRow
+	 * @param array $row
+	 * @return Club
+	 */
 	private function _CreateClubFromRow(array $row)
 	{
 		return new Club($row['id'], $row['name'], $row['abbreviation'], $row['code'], $row['img'], $row['affiliation_region_id']);
 	}
+	/**
+	 * Summary of _CreateClubFromStatement
+	 * @param mysqli_stmt $statement
+	 * @return Club|null
+	 */
 	private function _CreateClubFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
@@ -117,6 +132,11 @@ class ClubsManager
 			return NULL;
 		}
 	}
+	/**
+	 * Summary of _GetSingleResultFromStatement
+	 * @param mysqli_stmt $statement
+	 * @return mixed
+	 */
 	private function _GetSingleResultFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();

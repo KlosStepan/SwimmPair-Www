@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Summary of Region
+ */
 class Region
 {
 	public $id;
@@ -16,7 +18,7 @@ class Region
 	//{"id":1,"name":"Olomoucky kraj","abbreviation":OLK"}
 	public function Serialize()
 	{
-		$_serialized = "{\"id\":\"".$this->id."\",\"name\":\"".$this->name."\",\"abbreviation\":\"".$this->abbreviation."\"}";
+		$_serialized = "{\"id\":\"" . $this->id . "\",\"name\":\"" . $this->name . "\",\"abbreviation\":\"" . $this->abbreviation . "\"}";
 		return $_serialized;
 	}
 }

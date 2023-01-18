@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Summary of CupsManager
+ */
 class CupsManager
 {
 	private $mysqli;

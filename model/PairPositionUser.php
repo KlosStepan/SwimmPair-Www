@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * Summary of PairPositionUser
+ */
 class PairPositionUser
 {
 	public $position_id;
@@ -13,9 +15,13 @@ class PairPositionUser
 	//2/2 Full Serialization
 	//position_id, user_id
 	//{"position_id":"5","user_id":"21"}
+	/**
+	 * Summary of Serialize
+	 * @return string
+	 */
 	public function Serialize()
 	{
-		$_serialized = "{\"position_id\":\"".$this->position_id."\",\"user_id\":\"".$this->user_id."\"}";
+		$_serialized = "{\"position_id\":\"" . $this->position_id . "\",\"user_id\":\"" . $this->user_id . "\"}";
 		return $_serialized;
 	}
 }
