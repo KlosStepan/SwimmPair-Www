@@ -5,9 +5,9 @@ SwimmPair is web application for managing swimming competitions in the Czech Rep
 Preview of SwimmPair - **public page** of `Cup` with **available** and **paired** `Users`.
 
 ## Running instances  
-[SwimmPair.STKL.cz](http://swimmpair.stkl.cz) - Development version of application (new features, bugfixes), filled with preview dummy data.  
+[SwimmPair.STKL.cz](http://swimmpair.stkl.cz) - Development version of application (new features, bugfixes), with preview data.  
 [SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.  
-[SwimmPair.cz](http://swimmpair.cz) - Production version of application.  
+## [SwimmPair.cz](http://swimmpair.cz) - Production version of application.  
 
 ## (Try it out! - NO DATABASE SCRIPT IN GIT YET)
 ```shell script
