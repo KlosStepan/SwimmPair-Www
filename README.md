@@ -1,19 +1,21 @@
 # SwimmPair Web Application
-SwimmPair is web application for managing swimming competitions in the Czech Republic. Application `model` describes administrative objects, such as `regions`, `cups`, `clubs` or `users`. The main goal was to automate administrative work formerly achived via Excel spreadsheets.  
+SwimmPair is web application for managing swimming competitions in the Czech Republic. Application `model` describes administrative objects, such as `regions`, `cups`, `clubs` or `users`. The main goal is to automate administrative work formerly achived via Excel spreadsheets.  
 
 ![App Schema](/misc/app-preview.png "app-schema")
 Preview of SwimmPair - **public page** of `Cup` with **available** and **paired** `Users`.
-## Try it out!
+
+## Running instances  
+[SwimmPair.STKL.cz](http://swimmpair.stkl.cz) - Development version of application (new features, bugfixes), filled with preview dummy data.  
+[SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.  
+[SwimmPair.cz](http://swimmpair.cz) - Production version of application.  
+
+## (Try it out! - NO DATABASE SCRIPT IN GIT YET)
 ```shell script
 git clone https://github.com/KlosStepan/SwimmPair-Www
-//import database and set up credentials
+//create database via import script (not in git yet)
+//set up environment credentials appropriately HOST+USER+PASS+NAME
 docker-compose up --detach 
 ```
-## Running instances  
-[SwimmPair.cz](http://swimmpair.cz) - Production application SwimmPair live.  
-[SwimmPair.STKL.cz](http://swimmpair.stkl.cz) - Development application SwimmPair (new features, bugfixes) before prod.  
-[SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.
-
 
 ## Web Application Structure Overview
 The web application consists of these main parts:
@@ -38,12 +40,12 @@ Following objects are:
 Application flow is realized by accessing `application page` and calling `Managers` functionality, that wrapps database calls and returns results as PHP objects. 
 ![App Schema](/misc/app-schema.jpg "app-schema")
 
-Public and private part have **PHP form-actions** and **Ajax endpoints** for achieving functionality via. appropriate manager calls or storing payloads sent to them via HTTP POST. The folders with these respective script actions (in public and private sections) are to be found in:
+Public and private part have **PHP form-actions** and **Ajax endpoints** for achieving functionality via. appropriate `manager calls` and storing payloads sent to them via HTTP POST. The folders with these respective script actions (in public and private sections) are to be found in:
 * PHPActionHandler,
 * XMLHttpRequest.  
 
 ## Containerized Local Development
-SwimmPair is shipped for production in [docker image](https://www.docker.com). It's run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair**, **MySQL** and **Adminer** containers.  
+SwimmPair is shipped for production as [docker image](https://www.docker.com). It can be run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair** volume being `www folder`, **MySQL** and **Adminer** containers.  
 ![docker compose rup](/misc/app-docker-compose-run.png "docker-compose-run")  
 
 Local development **docker-compose.yaml**:
@@ -129,7 +131,7 @@ kind: Deployment
 metadata:
   name: swimmpair
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: swimmpair
