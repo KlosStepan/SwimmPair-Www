@@ -1,6 +1,6 @@
 <?php
 /**
- * Summary of Cup
+ * Cup is swimming cup organized by Club with User entities signed up to it. Each User usually has some Position to perform at Cup when it takes place.
  */
 class Cup
 {
@@ -11,13 +11,13 @@ class Cup
 	public $description;
 	public $organizer_club_id;
 	/**
-	 * Summary of __construct
-	 * @param mixed $id
-	 * @param mixed $time_start
-	 * @param mixed $time_end
-	 * @param mixed $name
-	 * @param mixed $description
-	 * @param mixed $organizer_club_id
+	 * Ctor of Cup object for web application
+	 * @param int $id
+	 * @param string $time_start
+	 * @param string $time_end
+	 * @param int $name
+	 * @param string $description
+	 * @param int $organizer_club_id
 	 */
 	public function __construct($id, $time_start, $time_end, $name, $description, $organizer_club_id)
 	{
@@ -32,7 +32,7 @@ class Cup
 	//id, time_start, time_end, name, description, owningclub
 	//{"id":"7","time_start":"2018-07-16","time_end":"2018-07-18","name":"GJW Cup","description":"Letos v cervenci bude GJW cup","organizer_club_id":"5"}
 	/**
-	 * Summary of SerializeFull
+	 * SerializeFull outputs 6/6 these members: id, time_start, time_end, name, description, owningclub
 	 * @return string
 	 */
 	public function SerializeFull()
@@ -44,7 +44,7 @@ class Cup
 	//id, time_start, time_end, name, -NULL-, -NULL-
 	//{"id":"7","time_start":"2018-07-16","time_end":"2018-07-18","name":"GJW Cup"}
 	/**
-	 * Summary of SerializeSlim
+	 * SerializeSlim outputs 4/6 these members: id, time_start, time_end, name, -NULL-, -NULL-
 	 * @return string
 	 */
 	public function SerializeSlim()

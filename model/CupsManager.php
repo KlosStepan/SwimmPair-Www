@@ -1,12 +1,12 @@
 <?php
 /**
- * Summary of CupsManager
+ * CupsManager has API functions to handle Cup object/s and delivers it through web application.
  */
 class CupsManager
 {
 	private $mysqli;
 	/**
-	 * This constructor sets the mysqli object used to interact with the database.
+	 * Initialize CupsManager with live database connection.
 	 * @param mysqli $mysqli
 	 */
 	public function __construct(mysqli $mysqli)
@@ -14,7 +14,7 @@ class CupsManager
 		$this->mysqli = $mysqli;
 	}
 	/**
-	 * Summary of FindAllUpcomingCupsEarliestFirst
+	 * Find future cups and sort by earliest first.
 	 * @return array<Cup>
 	 */
 	public function FindAllUpcomingCupsEarliestFirst()
@@ -24,7 +24,7 @@ class CupsManager
 		return $cups;
 	}
 	/**
-	 * Summary of FindAllPastCupsMostRecentFirst
+	 * Find past cups and sort by the most recent first.
 	 * @return array<Cup>
 	 */
 	public function FindAllPastCupsMostRecentFirst()
@@ -34,8 +34,8 @@ class CupsManager
 		return $cups;
 	}
 	/**
-	 * Summary of FindPairingsForThisCup
-	 * @param mixed $cupID
+	 * Retrieve existing pairings list PairPositionUser that is ready for this Cup.
+	 * @param int $cupID
 	 * @return array<PairPositionUser>
 	 */
 	public function FindPairingsForThisCup($cupID)
@@ -46,9 +46,9 @@ class CupsManager
 		return $pairs;
 	}
 	/**
-	 * Summary of GetPairingHashForThisCup
-	 * @param mixed $cupID
-	 * @return mixed
+	 * Get hash of database result of pairing for this Cup.
+	 * @param int $cupID
+	 * @return string
 	 */
 	public function GetPairingHashForThisCup($cupID)
 	{
@@ -57,11 +57,11 @@ class CupsManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 	/**
-	 * Summary of GetNewCupIDByInfo
-	 * @param mixed $name
-	 * @param mixed $date_begin
-	 * @param mixed $date_end
-	 * @return mixed
+	 * Return Cup based on its information.
+	 * @param string $name
+	 * @param string $date_begin
+	 * @param string $date_end
+	 * @return Cup|null
 	 */
 	public function GetNewCupIDByInfo($name, $date_begin, $date_end)
 	{
@@ -70,9 +70,9 @@ class CupsManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 	/**
-	 * Summary of IsUserAvailableForTheCup
-	 * @param mixed $userID
-	 * @param mixed $cupID
+	 * Check if User is available for the Cup.
+	 * @param int $userID
+	 * @param int $cupID
 	 * @throws RuntimeException
 	 * @return bool
 	 */
@@ -95,8 +95,8 @@ class CupsManager
 		}
 	}
 	/**
-	 * Summary of GetEarliestCupYear
-	 * @return mixed
+	 * Get year of most early Cup in web application.
+	 * @return int
 	 */
 	public function GetEarliestCupYear()
 	{
@@ -109,7 +109,7 @@ class CupsManager
 		}
 	}
 	/**
-	 * Summary of GetMaximumCupYear
+	 * Get most recent year.
 	 * @return int
 	 */
 	public function GetMaximumCupYear()
@@ -117,8 +117,8 @@ class CupsManager
 		return (int) date("Y");
 	}
 	/**
-	 * Summary of GetCupByID
-	 * @param mixed $cupID
+	 * Get Cup by id.
+	 * @param int $cupID
 	 * @return Cup|null
 	 */
 	public function GetCupByID($cupID)
@@ -128,12 +128,12 @@ class CupsManager
 		return $this->_CreateCupOrNullFromStatement($statement);
 	}
 	/**
-	 * Summary of InsertNewCup
-	 * @param mixed $name
-	 * @param mixed $date_begin
-	 * @param mixed $date_end
-	 * @param mixed $club
-	 * @param mixed $content
+	 * Create new cup in the web application.
+	 * @param string $name
+	 * @param string $date_begin
+	 * @param string $date_end
+	 * @param int $club
+	 * @param string $content
 	 * @return bool
 	 */
 	public function InsertNewCup($name, $date_begin, $date_end, $club, $content)
@@ -149,8 +149,8 @@ class CupsManager
 	//public function UpdateCup($cupId) - TODO
 	//public function DeleteCup($cupId) - TODO
 	/**
-	 * Summary of DeleteOldAvailability
-	 * @param mixed $cupID
+	 * Deletes availabilities for Cup.
+	 * @param int $cupID
 	 * @return bool
 	 */
 	public function DeleteOldAvailability($cupID)
@@ -164,10 +164,10 @@ class CupsManager
 		}
 	}
 	/**
-	 * Summary of InsertNewAvailability
-	 * @param mixed $cupID
-	 * @param mixed $userID
-	 * @param mixed $attendanceFlag
+	 * Insert new availability.
+	 * @param int $cupID
+	 * @param int $userID
+	 * @param bool $attendanceFlag
 	 * @return bool
 	 */
 	public function InsertNewAvailability($cupID, $userID, $attendanceFlag)
@@ -181,8 +181,8 @@ class CupsManager
 		}
 	}
 	/**
-	 * Summary of DeleteOldPairing
-	 * @param mixed $cupID
+	 * Delete old pairings for Cup.
+	 * @param int $cupID
 	 * @return bool
 	 */
 	public function DeleteOldPairing($cupID)
@@ -196,10 +196,10 @@ class CupsManager
 		}
 	}
 	/**
-	 * Summary of InsertNewPairing
-	 * @param mixed $cupID
-	 * @param mixed $posID
-	 * @param mixed $userID
+	 * Insert new pairing for Cup.
+	 * @param int $cupID
+	 * @param int $posID
+	 * @param int $userID
 	 * @return bool
 	 */
 	public function InsertNewPairing($cupID, $posID, $userID)
@@ -218,7 +218,7 @@ class CupsManager
 	 * @param mysqli_stmt $statement
 	 * @return array<Cup>
 	 */
-	public function _CreateCupsFromStatement(mysqli_stmt $statement)
+	private function _CreateCupsFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -233,7 +233,7 @@ class CupsManager
 	 * @param mysqli_stmt $statement
 	 * @return Cup|null
 	 */
-	public function _CreateCupOrNullFromStatement(mysqli_stmt $statement)
+	private function _CreateCupOrNullFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$row = $statement->get_result()->fetch_assoc();
@@ -248,7 +248,7 @@ class CupsManager
 	 * @param array $row
 	 * @return Cup
 	 */
-	public function _CreateCupFromRow(array $row)
+	private function _CreateCupFromRow(array $row)
 	{
 		return new Cup($row['id'], $row['time_start'], $row['time_end'], $row['name'], $row['description'], $row['organizer_club_id']);
 	}
@@ -257,7 +257,7 @@ class CupsManager
 	 * @param mysqli_stmt $statement
 	 * @return array<PairPositionUser>
 	 */
-	public function _CreatePairsFromStatement(mysqli_stmt $statement)
+	private function _CreatePairsFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -272,7 +272,7 @@ class CupsManager
 	 * @param array $row
 	 * @return PairPositionUser
 	 */
-	public function _CreatePairFromRow(array $row)
+	private function _CreatePairFromRow(array $row)
 	{
 		return new PairPositionUser($row['position_id'], $row['user_id']);
 	}
@@ -281,7 +281,7 @@ class CupsManager
 	 * @param mysqli_stmt $statement
 	 * @return mixed
 	 */
-	public function _GetSingleResultFromStatement(mysqli_stmt $statement)
+	private function _GetSingleResultFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_NUM);

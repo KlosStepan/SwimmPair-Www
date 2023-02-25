@@ -1,15 +1,15 @@
 <?php
 /**
- * Summary of Position
+ * Position is object representing task for Cup that has to be performed by User. It has internal id based on which it is wired through the system internally.
  */
 class Position
 {
 	public $id;
 	public $name;
 	/**
-	 * Summary of __construct
-	 * @param mixed $id
-	 * @param mixed $name
+	 * Ctor of Position object for web application
+	 * @param int $id
+	 * @param string $name
 	 */
 	public function __construct($id, $name)
 	{
@@ -20,7 +20,7 @@ class Position
 	//id, name
 	//{"id":"1","name":"Hlavní rozhodčí"};
 	/**
-	 * Summary of Serialize
+	 * Serialize outputs 2/2 these members: id, name
 	 * @return string
 	 */
 	public function Serialize()

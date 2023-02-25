@@ -1,12 +1,12 @@
 <?php
 /**
- * Summary of RegionsManager
+ * RegionsManager has API functions to handle Region object/s and delivers it through web application.
  */
 class RegionsManager
 {
 	private $mysqli;
 	/**
-	 * Summary of __construct
+	 * Initialize RegionsManager with live database connection.
 	 * @param mysqli $mysqli
 	 */
 	public function __construct(mysqli $mysqli)
@@ -15,7 +15,7 @@ class RegionsManager
 	}
 	//
 	/**
-	 * Summary of FindAllRegions
+	 * Find all regions in under administration.
 	 * @return array<Region>
 	 */
 	public function FindAllRegions()
@@ -24,9 +24,9 @@ class RegionsManager
 		return $this->_CreateRegionsFromStatement($statement);
 	}
 	/**
-	 * Summary of GetRegionNameOfClub
-	 * @param mixed $regionID
-	 * @return mixed
+	 * Return name of Region in which Club is located.
+	 * @param int $regionID
+	 * @return string
 	 */
 	public function GetRegionNameOfClub($regionID)
 	{
@@ -36,8 +36,8 @@ class RegionsManager
 	}
 	//Region handling
 	/**
-	 * Summary of GetRegionByID
-	 * @param mixed $regionID
+	 * Return Region provided its id.
+	 * @param int $regionID
 	 * @return Region|null
 	 */
 	public function GetRegionByID($regionID)
@@ -47,9 +47,9 @@ class RegionsManager
 		return $this->_CreateRegionFromStatement($statement);
 	}
 	/**
-	 * Summary of InsertNewRegion
-	 * @param mixed $name
-	 * @param mixed $abbrev
+	 * Insert new Region into the web application.
+	 * @param string $name
+	 * @param string $abbrev
 	 * @return bool
 	 */
 	public function InsertNewRegion($name, $abbrev)
@@ -63,10 +63,10 @@ class RegionsManager
 		}
 	}
 	/**
-	 * Summary of UpdateRegion
-	 * @param mixed $id
-	 * @param mixed $name
-	 * @param mixed $abbrev
+	 * Update already existing Region in the web application.
+	 * @param int $id
+	 * @param string $name
+	 * @param string $abbrev
 	 * @return bool
 	 */
 	public function UpdateRegion($id, $name, $abbrev)

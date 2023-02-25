@@ -1,6 +1,6 @@
 <?php
 /**
- * Summary of Page
+ * Page is static website page with information in web application. It has some title and content.
  */
 class Page
 {
@@ -8,10 +8,10 @@ class Page
 	public $title;
 	public $content;
 	/**
-	 * Summary of __construct
-	 * @param mixed $id
-	 * @param mixed $title
-	 * @param mixed $content
+	 * Ctor of Page object for web application
+	 * @param int $id
+	 * @param string $title
+	 * @param string $content
 	 */
 	public function __construct($id, $title, $content)
 	{
@@ -23,7 +23,7 @@ class Page
 	//id, title, content
 	//{"id":"1","title":"Kontakt","content":"Telefon je +420765987324"}
 	/**
-	 * Summary of Serialize
+	 * Serialize outputs 3/3 these members: id, title, content
 	 * @return string
 	 */
 	public function Serialize()

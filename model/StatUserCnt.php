@@ -1,15 +1,15 @@
 <?php
 /**
- * Summary of StatUserCnt
+ * StatUserCnt is object providing statistics count of User. 
  */
 class StatUserCnt
 {
 	public $user_id;
 	public $cnt;
 	/**
-	 * Summary of __construct
-	 * @param mixed $user_id
-	 * @param mixed $cnt
+	 * Ctor of StatUserCnt object for web application
+	 * @param int $user_id
+	 * @param int $cnt
 	 */
 	public function __construct($user_id, $cnt)
 	{
@@ -20,7 +20,7 @@ class StatUserCnt
 	//user_id, cnt
 	//{"user_id":"1","cnt":"2"};
 	/**
-	 * Summary of Serialize
+	 * Serialize outputs 2/2 these members: user_id, cnt
 	 * @return string
 	 */
 	public function Serialize()

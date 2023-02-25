@@ -1,6 +1,6 @@
 <?php
 /**
- * Summary of Club
+ * Club is an administrative unit of swimming club grouping bunch of users. One User is VedouciKlubu/1 from UserRights, the rest is Rozhodci/0. It can organize Cup via its users.
  */
 class Club
 {
@@ -11,13 +11,13 @@ class Club
 	public $img;
 	public $affiliation_region_id;
 	/**
-	 * Summary of __construct
-	 * @param mixed $id
-	 * @param mixed $name
-	 * @param mixed $abbreviation
-	 * @param mixed $code
-	 * @param mixed $img
-	 * @param mixed $affiliation_region_id
+	 * Ctor of Club object for web application
+	 * @param int $id
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param int $code
+	 * @param string $img
+	 * @param int $affiliation_region_id
 	 */
 	public function __construct($id, $name, $abbreviation, $code, $img, $affiliation_region_id)
 	{
@@ -32,7 +32,7 @@ class Club
 	//id, name, abbreviation, code, img, affiliation_region_id
 	//{"id":"1","name":"Klub Prostejov","abbreviation":"KPV","code":"1","img":"prostejov.png","affiliation_region_id":"1"}
 	/**
-	 * Summary of SerializeFull
+	 * SerializeFull outputs 6/6 these members: id, name, abbreviation, code, img, affiliation_region_id
 	 * @return string
 	 */
 	public function SerializeFull()
@@ -44,7 +44,7 @@ class Club
 	//id, name, -NULL-, -NULL-, -NULL-, affiliation_region_id
 	//{"id":"1","name":"Klub Prostejov","affiliation_region_id":"1"}
 	/**
-	 * Summary of SerializeSlim
+	 * SerializeSlim outputs 3/6 these members: id, name, -NULL-, -NULL-, -NULL-, affiliation_region_id
 	 * @return string
 	 */
 	public function SerializeSlim()

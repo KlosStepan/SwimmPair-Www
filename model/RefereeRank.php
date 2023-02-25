@@ -1,15 +1,15 @@
 <?php
 /**
- * Summary of RefereeRank
+ * RefereeRank is object representing rank in referee hierarchy. It has internal id and caption of appropriate level in Czech Swimming Federation hierarchy.
  */
 class RefereeRank
 {
 	public $id;
 	public $rank_name;
 	/**
-	 * Summary of __construct
-	 * @param mixed $id
-	 * @param mixed $rank_name
+	 * Ctor of RefereeRank object for web application
+	 * @param int $id
+	 * @param string $rank_name
 	 */
 	public function __construct($id, $rank_name)
 	{
@@ -20,7 +20,7 @@ class RefereeRank
 	//id, rank_name
 	//{"id":"1","rank_name":"Hlavni rozhodci"}
 	/**
-	 * Summary of Serialize
+	 * Serialize outputs 2/2 these members: id, rank_name
 	 * @return string
 	 */
 	public function Serialize()

@@ -1,13 +1,12 @@
 <?php
 /**
- * Class ClubsManager
- * Manages clubs operations
+ * ClubsManager has API functions to handle Club object/s and delivers it through web application.
  */
 class ClubsManager
 {
 	private $mysqli;
 	/**
-	 * ClubsManager constructor.
+	 * Initialize ClubsManager with live database connection.
 	 * @param mysqli $mysqli
 	 */
 	public function __construct(mysqli $mysqli)
@@ -15,8 +14,8 @@ class ClubsManager
 		$this->mysqli = $mysqli;
 	}
 	/**
-	 * Find all clubs
-	 * @return array
+	 * Retrieve list of all clubs.
+	 * @return array<Club>
 	 */
 	public function FindAllClubs()
 	{
@@ -26,9 +25,9 @@ class ClubsManager
 		return $this->_CreateClubsFromStatement($statement);
 	}
 	/**
-	 * Summary of GetClubAffiliationToRegion
-	 * @param mixed $clubID
-	 * @return mixed
+	 * Get Region id based on Club id.
+	 * @param int $clubID
+	 * @return int
 	 */
 	public function GetClubAffiliationToRegion($clubID)
 	{
@@ -40,8 +39,8 @@ class ClubsManager
 	}
 	//Club handling
 	/**
-	 * Summary of GetClubByID
-	 * @param mixed $clubID
+	 * Get Club based on id.
+	 * @param int $clubID
 	 * @return Club|null
 	 */
 	public function GetClubByID($clubID)
@@ -51,12 +50,12 @@ class ClubsManager
 		return $this->_CreateClubFromStatement($statement);
 	}
 	/**
-	 * Summary of InsertNewClub
-	 * @param mixed $name
-	 * @param mixed $abbreviation
-	 * @param mixed $club_id
-	 * @param mixed $img
-	 * @param mixed $kraj
+	 * Create new Club in the web applicaton.
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param int $club_id
+	 * @param string $img
+	 * @param int $kraj
 	 * @return bool
 	 */
 	public function InsertNewClub($name, $abbreviation, $club_id, $img, $kraj)
@@ -70,13 +69,13 @@ class ClubsManager
 		}
 	}
 	/**
-	 * Summary of UpdateClub
-	 * @param mixed $id
-	 * @param mixed $name
-	 * @param mixed $abbreviation
-	 * @param mixed $code
-	 * @param mixed $img
-	 * @param mixed $affiliation_region_id
+	 * Update Club information.
+	 * @param int $id
+	 * @param string $name
+	 * @param string $abbreviation
+	 * @param string $code
+	 * @param string $img
+	 * @param int $affiliation_region_id
 	 * @return bool
 	 */
 	public function UpdateClub($id, $name, $abbreviation, $code, $img, $affiliation_region_id)
@@ -91,7 +90,7 @@ class ClubsManager
 	}
 	//PRIVATE FUNCTIONS - ORM-ing DB client lib results
 	/**
-	 * Summary of _CreateClubsFromStatement
+	 * Create list of clubs from returned database statement.
 	 * @param mysqli_stmt $statement
 	 * @return array<Club>
 	 */
@@ -109,7 +108,7 @@ class ClubsManager
 		return $clubs;
 	}
 	/**
-	 * Summary of _CreateClubFromRow
+	 * Create Club object from database statement row/associate array.
 	 * @param array $row
 	 * @return Club
 	 */
@@ -118,7 +117,7 @@ class ClubsManager
 		return new Club($row['id'], $row['name'], $row['abbreviation'], $row['code'], $row['img'], $row['affiliation_region_id']);
 	}
 	/**
-	 * Summary of _CreateClubFromStatement
+	 * Create single Club from database statement.
 	 * @param mysqli_stmt $statement
 	 * @return Club|null
 	 */
@@ -133,7 +132,7 @@ class ClubsManager
 		}
 	}
 	/**
-	 * Summary of _GetSingleResultFromStatement
+	 * Get one thing from database from only position in one row.
 	 * @param mysqli_stmt $statement
 	 * @return mixed
 	 */

@@ -1,12 +1,12 @@
 <?php
 /**
- * Summary of PositionsManager
+ * PositionsManager has API functions to handle Position object/s and delivers it through web application.
  */
 class PositionsManager
 {
 	private $mysqli;
 	/**
-	 * Summary of __construct
+	 * Initialize PositionsManager with live database connection.
 	 * @param mysqli $mysqli
 	 */
 	public function __construct(mysqli $mysqli)
@@ -15,7 +15,7 @@ class PositionsManager
 	}
 	//
 	/**
-	 * Summary of FindAllPositions
+	 * Retrieve all work positions needed at Cup to be administered. 
 	 * @return array<Position>
 	 */
 	public function FindAllPositions()
@@ -25,9 +25,9 @@ class PositionsManager
 		return $positions;
 	}
 	/**
-	 * Summary of GetPositionNameById
-	 * @param mixed $posId
-	 * @return mixed
+	 * Get Position name based on id.
+	 * @param int $posId
+	 * @return string
 	 */
 	public function GetPositionNameById($posId)
 	{
@@ -36,7 +36,7 @@ class PositionsManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 	/**
-	 * Summary of DisplayedLiveStatsConfiguredPositions
+	 * List of positions in our specific order that we desire to display at public website for statistical purposes.
 	 * @return array<Position>
 	 */
 	public function DisplayedLiveStatsConfiguredPositions()
@@ -47,7 +47,7 @@ class PositionsManager
 	}
 	//Stats-Positions Configuration
 	/**
-	 * Summary of DeleteOldStatsPositions
+	 * Delete setting of how positions should be dipslayed at public website.
 	 * @return bool
 	 */
 	public function DeleteOldStatsPositions()
@@ -60,8 +60,8 @@ class PositionsManager
 		}
 	}
 	/**
-	 * Summary of InsertNewStatPosition
-	 * @param mixed $id
+	 * Insert new setting of how positions should be dipslayed at public website.
+	 * @param int $id
 	 * @return bool
 	 */
 	public function InsertNewStatPosition($id)
@@ -77,11 +77,11 @@ class PositionsManager
 	//DEPRECATE SOON
 	//PRIVATE FUNCTIONS - ORM-ing DB client lib results
 	/**
-	 * Summary of _CreatePositionsFromStatement
+	 * This function creates a Position object or returns null.
 	 * @param mysqli_stmt $statement
 	 * @return array<Position>
 	 */
-	public function _CreatePositionsFromStatement(mysqli_stmt $statement)
+	private function _CreatePositionsFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -92,20 +92,20 @@ class PositionsManager
 		return $positions;
 	}
 	/**
-	 * Summary of _CreatePositionFromRow
+	 * This function creates new Position object from the row returned from database.
 	 * @param array $row
 	 * @return Position
 	 */
-	public function _CreatePositionFromRow(array $row)
+	private function _CreatePositionFromRow(array $row)
 	{
 		return new Position($row['id'], $row['name']);
 	}
 	/**
-	 * Summary of _GetSingleResultFromStatement
+	 * Get one thing from database from only position in one row.
 	 * @param mysqli_stmt $statement
 	 * @return mixed
 	 */
-	public function _GetSingleResultFromStatement(mysqli_stmt $statement)
+	private function _GetSingleResultFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_NUM);

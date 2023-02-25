@@ -1,12 +1,12 @@
 <?php
 /**
- * Summary of Sanitizer
+ * Sanitizer class serves as anti XSS protection. It handles Int and String parameters provided via HTTP GET and HTTP POST.
  */
 class Sanitizer
 {
 	/**
-	 * Summary of getPostInt
-	 * @param mixed $key
+	 * Process Integer provided via. HTTP POST.
+	 * @param int $key
 	 * @throws RuntimeException
 	 * @return int
 	 */
@@ -18,10 +18,10 @@ class Sanitizer
 		return (int) $_POST[$key];
 	}
 	/**
-	 * Summary of getPostString
-	 * @param mixed $key
+	 * Process String provided via. HTTP POST.
+	 * @param string $key
 	 * @throws RuntimeException
-	 * @return mixed
+	 * @return string
 	 */
 	public static function getPostString($key)
 	{
@@ -31,8 +31,8 @@ class Sanitizer
 		return $_POST[$key];
 	}
 	/**
-	 * Summary of getGetInt
-	 * @param mixed $key
+	 * Process Integer provided via. HTTP GET.
+	 * @param int $key
 	 * @throws RuntimeException
 	 * @return int
 	 */
@@ -44,10 +44,10 @@ class Sanitizer
 		return (int) $_GET[$key];
 	}
 	/**
-	 * Summary of getGetString
-	 * @param mixed $key
+	 * Process String provided via. HTTP GET.
+	 * @param string $key
 	 * @throws RuntimeException
-	 * @return mixed
+	 * @return string
 	 */
 	public static function getGetString($key)
 	{

@@ -1,6 +1,6 @@
 <?php
 /**
- * Summary of Post
+ * Post is a static snippet of news for homepage of web application.
  */
 class Post
 {
@@ -12,14 +12,14 @@ class Post
     public $author_user_id;
     public $signature_flag;
     /**
-     * Summary of __construct
-     * @param mixed $id
-     * @param mixed $timestamp
-     * @param mixed $title
-     * @param mixed $content
-     * @param mixed $display_flag
-     * @param mixed $author_user_id
-     * @param mixed $signature_flag
+     * Ctor of Post object for web application
+     * @param int $id
+     * @param string $timestamp
+     * @param string $title
+     * @param string $content
+     * @param bool $display_flag
+     * @param int $author_user_id
+     * @param int $signature_flag
      */
     public function __construct($id, $timestamp, $title, $content, $display_flag, $author_user_id, $signature_flag)
     {
@@ -32,7 +32,7 @@ class Post
         $this->signature_flag = $signature_flag;
     }
     /**
-     * Summary of NullCtor
+     * TODO - Constructor of Post with nothing inside. Not working yet.
      * @return void
      */
     public function NullCtor()
@@ -49,7 +49,7 @@ class Post
     //id, timestamp, title, content, display_flag, author_user_id, signature_flag
     //{"id":"1","timestamp":"2018-01-16 21:06:16","title":"Test title","content":"Hello! Blabla post","display_flag":"1","author_user_id":"21","signature_flag":"1"}
     /**
-     * Summary of Serialize
+     * Serialize outputs 7/7 these members: id, timestamp, title, content, display_flag, author_user_id, signature_flag
      * @return string
      */
     public function Serialize()

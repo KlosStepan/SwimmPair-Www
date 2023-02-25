@@ -1,12 +1,12 @@
 <?php
 /**
- * Summary of PostsManager
+ * PostsManager has API functions to handle Post object/s and delivers it through web application.
  */
 class PostsManager
 {
 	private $mysqli;
 	/**
-	 * Summary of __construct
+	 * Initialize PostsManager with live database connection.
 	 * @param mysqli $mysqli
 	 */
 	public function __construct(mysqli $mysqli)
@@ -15,8 +15,8 @@ class PostsManager
 	}
 	//
 	/**
-	 * Summary of GetPostByID
-	 * @param mixed $id
+	 * Get Post object by its id.
+	 * @param int $id
 	 * @return Post|null
 	 */
 	public function GetPostByID($id)
@@ -26,8 +26,8 @@ class PostsManager
 		return $this->_CreatePostOrNullFromStatement($statement);
 	}
 	/**
-	 * Summary of GetFollowingPost
-	 * @param mixed $id
+	 * Get following Post compared to one that we have by id.
+	 * @param int $id
 	 * @return Post|null
 	 */
 	public function GetFollowingPost($id)
@@ -37,8 +37,8 @@ class PostsManager
 		return $this->_CreatePostOrNullFromStatement($statement);
 	}
 	/**
-	 * Summary of FindLastNPosts
-	 * @param mixed $N
+	 * Finds last N posts based on provided N.
+	 * @param int $N
 	 * @return array<Post>
 	 */
 	public function FindLastNPosts($N)
@@ -49,7 +49,7 @@ class PostsManager
 		return $posts;
 	}
 	/**
-	 * Summary of FindAllPostsOrderByIDDesc
+	 * Finds all posts by descending id (earliest first).
 	 * @return array<Post>
 	 */
 	public function FindAllPostsOrderByIDDesc()
@@ -59,13 +59,13 @@ class PostsManager
 		return $posts;
 	}
 	/**
-	 * Summary of InsertNewCupPSAPost
-	 * @param mixed $cupTitle
-	 * @param mixed $cupID
-	 * @param mixed $date_start
-	 * @param mixed $date_end
-	 * @param mixed $authorID
-	 * @param mixed $clubAbbrev
+	 * Post that new Cup was created as public state announcement via this function. 
+	 * @param string $cupTitle
+	 * @param int $cupID
+	 * @param string $date_start
+	 * @param string $date_end
+	 * @param int $authorID
+	 * @param string $clubAbbrev
 	 * @return void
 	 */
 	public function InsertNewCupPSAPost($cupTitle, $cupID, $date_start, $date_end, $authorID, $clubAbbrev)
@@ -76,12 +76,12 @@ class PostsManager
 	}
 	//Post handling
 	/**
-	 * Summary of InsertNewPost
-	 * @param mixed $title
-	 * @param mixed $content
-	 * @param mixed $display_flag
-	 * @param mixed $author
-	 * @param mixed $signature_flag
+	 * Insert new news Post for visitors of web application. 
+	 * @param string $title
+	 * @param string $content
+	 * @param bool $display_flag
+	 * @param int $author
+	 * @param int $signature_flag
 	 * @return bool
 	 */
 	public function InsertNewPost($title, $content, $display_flag, $author, $signature_flag)
@@ -95,12 +95,12 @@ class PostsManager
 		}
 	}
 	/**
-	 * Summary of UpdatePost
-	 * @param mixed $id
-	 * @param mixed $title
-	 * @param mixed $content
-	 * @param mixed $display_flag
-	 * @param mixed $signature_flag
+	 * Update already existing Post.
+	 * @param int $id
+	 * @param string $title
+	 * @param string $content
+	 * @param int $display_flag
+	 * @param int $signature_flag
 	 * @return bool
 	 */
 	public function UpdatePost($id, $title, $content, $display_flag, $signature_flag)

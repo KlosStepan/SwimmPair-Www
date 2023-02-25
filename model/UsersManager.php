@@ -1,12 +1,12 @@
 <?php
 /**
- * Summary of UsersManager
+ * UsersManager has API functions to handle User object/s and delivers is through web application.
  */
 class UsersManager
 {
 	private $mysqli;
 	/**
-	 * Summary of __construct
+	 * Initialize UsersManager with live database connection.
 	 * @param mysqli $mysqli
 	 */
 	public function __construct(mysqli $mysqli)
@@ -15,8 +15,8 @@ class UsersManager
 	}
 	//
 	/**
-	 * Summary of GetUserByID
-	 * @param mixed $id
+	 * Get User by provided id.
+	 * @param int $id
 	 * @return User|null
 	 */
 	public function GetUserByID($id)
@@ -26,7 +26,7 @@ class UsersManager
 		return $this->_CreateUserOrNullFromStatement($statement);
 	}
 	/**
-	 * Summary of FindAllActiveUsersOrderByLastNameAsc
+	 * Get list of active users alphabetically.
 	 * @return array<User>
 	 */
 	public function FindAllActiveUsersOrderByLastNameAsc()
@@ -36,7 +36,7 @@ class UsersManager
 		return $users;
 	}
 	/**
-	 * Summary of FindAllInactiveUsersOrderByLastNameAsc
+	 * Get list of inactive user alphabetically.
 	 * @return array<User>
 	 */
 	public function FindAllInactiveUsersOrderByLastNameAsc()
@@ -46,9 +46,9 @@ class UsersManager
 		return $users;
 	}
 	/**
-	 * Summary of FindAllRegisteredTeamMembersForTheCup
-	 * @param mixed $cupId
-	 * @param mixed $teamId
+	 * Get list of inactive users alphabetically.
+	 * @param int $cupId
+	 * @param int $teamId
 	 * @return array<User>
 	 */
 	public function FindAllRegisteredTeamMembersForTheCup($cupId, $teamId)
@@ -59,8 +59,8 @@ class UsersManager
 		return $users;
 	}
 	/**
-	 * Summary of FindAllTeamMembers
-	 * @param mixed $teamId
+	 * List of registered User teammates for desired Cup. 
+	 * @param int $teamId
 	 * @return array<User>
 	 */
 	public function FindAllTeamMembers($teamId)
@@ -71,7 +71,7 @@ class UsersManager
 		return $users;
 	}
 	/**
-	 * Summary of FindAllUsers
+	 * List of all users from the web application.
 	 * @return array<User>
 	 */
 	public function FindAllUsers()
@@ -81,8 +81,8 @@ class UsersManager
 		return $users;
 	}
 	/**
-	 * Summary of FindAllRegisteredUsersForTheCup
-	 * @param mixed $cupId
+	 * List of registered users for Cup.
+	 * @param int $cupId
 	 * @return array<User>
 	 */
 	public function FindAllRegisteredUsersForTheCup($cupId)
@@ -93,9 +93,9 @@ class UsersManager
 		return $users;
 	}
 	/**
-	 * Summary of FindPairedUsersOnCupForPosition
-	 * @param mixed $cupId
-	 * @param mixed $position
+	 * Get list of User s that are on Cup on Position. 
+	 * @param int $cupId
+	 * @param int $position
 	 * @return array<User>
 	 */
 	public function FindPairedUsersOnCupForPosition($cupId, $position)
@@ -106,9 +106,9 @@ class UsersManager
 		return $users;
 	}
 	/**
-	 * Summary of GetClubAbbreviationByAffiliationID
-	 * @param mixed $id
-	 * @return mixed
+	 * Retrieve club abbreviation - short name code, provided Club id.
+	 * @param int $id
+	 * @return string
 	 */
 	public function GetClubAbbreviationByAffiliationID($id)
 	{
@@ -117,9 +117,9 @@ class UsersManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 	/**
-	 * Summary of GetClubNameByAffiliationID
-	 * @param mixed $id
-	 * @return mixed
+	 * Retrieve Club name by id.
+	 * @param int $id
+	 * @return string
 	 */
 	public function GetClubNameByAffiliationID($id)
 	{
@@ -128,8 +128,8 @@ class UsersManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 	/**
-	 * Summary of GetUserFullNameByID
-	 * @param mixed $userID
+	 * Retrieve full name (first_name + last_name) of User by provided id.
+	 * @param int $userID
 	 * @return string
 	 */
 	public function GetUserFullNameByID($userID)
@@ -139,7 +139,7 @@ class UsersManager
 		return $this->_GetSingleResultFromTwoColsStatement($statement);
 	}
 	/**
-	 * Summary of FindAllRefereeRanks
+	 * Find all referee ranks in the web application.
 	 * @return array<RefereeRank>
 	 */
 	public function FindAllRefereeRanks()
@@ -149,9 +149,9 @@ class UsersManager
 		return $refereeRanks;
 	}
 	/**
-	 * Summary of GetRefereeRank
-	 * @param mixed $id
-	 * @return mixed
+	 * Get referee rank name by its id.
+	 * @param int $id
+	 * @return string
 	 */
 	public function GetRefereeRank($id)
 	{
@@ -161,9 +161,9 @@ class UsersManager
 	}
 	//Availability flagging 3 tagging functions
 	/**
-	 * Summary of IsComing
-	 * @param mixed $cupID
-	 * @param mixed $userID
+	 * Answer T/F if User is coming to Cup.
+	 * @param int $cupID
+	 * @param int $userID
 	 * @return bool
 	 */
 	public function IsComing($cupID, $userID)
@@ -178,9 +178,9 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of RetComingCSSClass
-	 * @param mixed $cupID
-	 * @param mixed $userID
+	 * Return CSS class for element if User is/not coming for Cup.
+	 * @param int $cupID
+	 * @param int $userID
 	 * @return string
 	 */
 	public function RetComingCSSClass($cupID, $userID)
@@ -193,10 +193,10 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of RetStringComingFlag
-	 * @param mixed $cupID
-	 * @param mixed $userID
-	 * @return int|string
+	 * Return string flag of coming/not coming as "1" or "0"
+	 * @param int $cupID
+	 * @param int $userID
+	 * @return string
 	 */
 	public function RetStringComingFlag($cupID, $userID)
 	{
@@ -212,7 +212,7 @@ class UsersManager
 	}
 	//TODO mby PK unique email
 	/**
-	 * Summary of GetUserEmailByID
+	 * Retrieve e-mail of User based on his id.
 	 * @param mixed $userID
 	 * @return mixed
 	 */
@@ -223,9 +223,9 @@ class UsersManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 	/**
-	 * Summary of SetPasswordForUser
-	 * @param mixed $uid
-	 * @param mixed $passwd
+	 * Set new password for User as sysadmin.
+	 * @param int $uid
+	 * @param string $passwd
 	 * @return bool
 	 */
 	public function SetPasswordForUser($uid, $passwd)
@@ -240,9 +240,9 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of SetLoginEmailForUser
-	 * @param mixed $uid
-	 * @param mixed $email
+	 * Set new login email for User as sysadmin.
+	 * @param int $uid
+	 * @param string $email
 	 * @return bool
 	 */
 	public function SetLoginEmailForUser($uid, $email)
@@ -256,9 +256,9 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of SetRefereeRankForUser
-	 * @param mixed $uid
-	 * @param mixed $rank
+	 * Set new referee rank for User as sysadmin.
+	 * @param int $uid
+	 * @param int $rank
 	 * @return bool
 	 */
 	public function SetRefereeRankForUser($uid, $rank)
@@ -273,9 +273,9 @@ class UsersManager
 	}
 	//Availability 3 PROCs vv
 	/**
-	 * Summary of SetAvailabilityRegister
-	 * @param mixed $uid
-	 * @param mixed $cid
+	 * Set User's availability for cup.
+	 * @param int $uid
+	 * @param int $cid
 	 * @return bool
 	 */
 	public function SetAvailabilityRegister($uid, $cid)
@@ -289,9 +289,9 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of SetAvailabilityCanGo
-	 * @param mixed $uid
-	 * @param mixed $cid
+	 * Flag available User as can go - TRUE.
+	 * @param int $uid
+	 * @param int $cid
 	 * @return bool
 	 */
 	public function SetAvailabilityCanGo($uid, $cid)
@@ -305,9 +305,9 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of SetAvailabilityCantGo
-	 * @param mixed $uid
-	 * @param mixed $cid
+	 * Flag available User as can't go - FALSE.
+	 * @param int $uid
+	 * @param int $cid
 	 * @return bool
 	 */
 	public function SetAvailabilityCantGo($uid, $cid)
@@ -321,8 +321,8 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of IsEmailPresentAlready
-	 * @param mixed $email
+	 * Ask if User with this e-mail is already present in the system.
+	 * @param string $email
 	 * @return bool
 	 */
 	public function IsEmailPresentAlready($email)
@@ -341,7 +341,7 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of IsUserWithIDPresentAlready
+	 * Ask if User with this id is already present in the system.
 	 * @param mixed $id
 	 * @return bool
 	 */
@@ -359,14 +359,14 @@ class UsersManager
 		}
 	}
 	/**
-	 * Summary of RegisterUser
-	 * @param mixed $first_name
-	 * @param mixed $last_name
-	 * @param mixed $email
-	 * @param mixed $password
-	 * @param mixed $rights
-	 * @param mixed $refRank
-	 * @param mixed $klubaffil
+	 * Register new user in the web application.
+	 * @param string $first_name
+	 * @param string $last_name
+	 * @param string $email
+	 * @param string $password
+	 * @param int $rights
+	 * @param int $refRank
+	 * @param int $klubaffil
 	 * @return bool
 	 */
 	public function RegisterUser($first_name, $last_name, $email, $password, $rights, $refRank, $klubaffil)
@@ -384,7 +384,7 @@ class UsersManager
 	}
 	//TODO mby uncomment and test at server after deployment
 	/**
-	 * Summary of EmailNewPersonRegistered
+	 * TODO - function that e-mails person and notifies him/her that registration to our web application happened. 
 	 * @param mixed $email
 	 * @param mixed $password
 	 * @return bool
@@ -403,8 +403,8 @@ class UsersManager
 		return false;
 	}
 	/**
-	 * Summary of SetApprovedForUser
-	 * @param mixed $userID
+	 * Set approved flag for new User so he/she can use the system.
+	 * @param int $userID
 	 * @return bool
 	 */
 	public function SetApprovedForUser($userID)
@@ -420,10 +420,10 @@ class UsersManager
 	}
 	//TODO mby filter out NOT ATTENDING...&WHERE ATTENDANCE_FLAG = 1
 	/**
-	 * Summary of CountCupsAttendanceOfUserGivenYear
-	 * @param mixed $userID
-	 * @param mixed $year
-	 * @return mixed
+	 * Stats function that returns howmany cups User has attended for given year.
+	 * @param int $userID
+	 * @param int $year
+	 * @return int
 	 */
 	public function CountCupsAttendanceOfUserGivenYear($userID, $year)
 	{
@@ -432,9 +432,9 @@ class UsersManager
 		return $this->_GetSingleResultFromStatement($statement);
 	}
 	/**
-	 * Summary of CountOverallStatisticsOfUserGivenYear
-	 * @param mixed $userID
-	 * @param mixed $year
+	 * Stats function that returns pairs StatPositionCnt of User for given year.
+	 * @param int $userID
+	 * @param int $year
 	 * @return array<StatPositionCnt>
 	 */
 	public function CountOverallStatisticsOfUserGivenYear($userID, $year)
@@ -445,9 +445,9 @@ class UsersManager
 		return $idpoz_cnts;
 	}
 	/**
-	 * Summary of CountClubSeasonalStatistics
-	 * @param mixed $clubID
-	 * @param mixed $year
+	 * Stats function that returns User attendances for cups in given year.
+	 * @param int $clubID
+	 * @param int $year
 	 * @return array<StatUserCnt>
 	 */
 	public function CountClubSeasonalStatistics($clubID, $year)
@@ -458,8 +458,8 @@ class UsersManager
 		return $idpoz_cnts;
 	}
 	/**
-	 * Summary of LoginCandidateToBeAuthorized
-	 * @param mixed $email
+	 * TODO LoginCandidateToBeAuthorized / mby depr.
+	 * @param string $email
 	 * @return array|bool|null
 	 */
 	public function LoginCandidateToBeAuthorized($email)
@@ -476,7 +476,7 @@ class UsersManager
 	 * @param mysqli_stmt $statement
 	 * @return array<PairPositionUser>
 	 */
-	public function _CreatePairsFromStatement(mysqli_stmt $statement)
+	private function _CreatePairsFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -491,7 +491,7 @@ class UsersManager
 	 * @param array $row
 	 * @return PairPositionUser
 	 */
-	public function _CreatePairFromRow(array $row)
+	private function _CreatePairFromRow(array $row)
 	{
 		return new PairPositionUser($row['position_id'], $row['user_id']);
 	}
@@ -501,7 +501,7 @@ class UsersManager
 	 * @param mysqli_stmt $statement
 	 * @return array<User>
 	 */
-	public function _CreateUsersFromStatement(mysqli_stmt $statement)
+	private function _CreateUsersFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -517,7 +517,7 @@ class UsersManager
 	 * @param mysqli_stmt $statement
 	 * @return User|null
 	 */
-	public function _CreateUserOrNullFromStatement(mysqli_stmt $statement)
+	private function _CreateUserOrNullFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$row = $statement->get_result()->fetch_assoc();
@@ -532,7 +532,7 @@ class UsersManager
 	 * @param array $row
 	 * @return User
 	 */
-	public function _CreateUserFromRow(array $row)
+	private function _CreateUserFromRow(array $row)
 	{
 		return new User($row['id'], $row['first_name'], $row['last_name'], $row['email'], $row['approved_flag'], $row['rights'], $row['referee_rank_id'], $row['affiliation_club_id']);
 	}
@@ -542,7 +542,7 @@ class UsersManager
 	 * @param mysqli_stmt $statement
 	 * @return array<RefereeRank>
 	 */
-	public function _CreateRefereeRanksFromStatement(mysqli_stmt $statement)
+	private function _CreateRefereeRanksFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -557,7 +557,7 @@ class UsersManager
 	 * @param array $row
 	 * @return RefereeRank
 	 */
-	public function _CreateRefereeRankFromRow(array $row)
+	private function _CreateRefereeRankFromRow(array $row)
 	{
 		return new RefereeRank($row['id'], $row['name']);
 	}
@@ -567,7 +567,7 @@ class UsersManager
 	 * @param mysqli_stmt $statement
 	 * @return array<StatPositionCnt>
 	 */
-	public function _CreateStatsFromStatement(mysqli_stmt $statement)
+	private function _CreateStatsFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -582,7 +582,7 @@ class UsersManager
 	 * @param array $row
 	 * @return StatPositionCnt
 	 */
-	public function _CreateStatFromRow(array $row)
+	private function _CreateStatFromRow(array $row)
 	{
 		return new StatPositionCnt($row['position_id'], $row['cnt']);
 	}
@@ -592,7 +592,7 @@ class UsersManager
 	 * @param mysqli_stmt $statement
 	 * @return array<StatUserCnt>
 	 */
-	public function _CreateClubStatisticsFromStatement(mysqli_stmt $statement)
+	private function _CreateClubStatisticsFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
 		$rows = $statement->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -607,7 +607,7 @@ class UsersManager
 	 * @param array $row
 	 * @return StatUserCnt
 	 */
-	public function _CreateSingleUserStatFromRow(array $row)
+	private function _CreateSingleUserStatFromRow(array $row)
 	{
 		return new StatUserCnt($row['user_id'], $row['cnt']);
 	}
@@ -618,7 +618,7 @@ class UsersManager
 	 * @param mixed $userID
 	 * @return mixed
 	 */
-	public function _IsComingINT($cupID, $userID)
+	private function _IsComingINT($cupID, $userID)
 	{
 		$statement = $this->mysqli->prepare('CALL `IsComingINT`(?, ?)');
 		$statement->bind_param('ii', $cupID, $userID);

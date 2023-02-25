@@ -1,6 +1,6 @@
 <?php
 /**
- * Summary of User
+ * User is referee in the system. User is affiliated to Club has one of UserRights and one of tier from RefereeRank. His statistics are presented via StatUserCnt in public sites via PositionsManager.
  */
 class User
 {
@@ -13,15 +13,15 @@ class User
 	public $referee_rank_id;
 	public $affiliation_club_id;
 	/**
-	 * Summary of __construct
-	 * @param mixed $id
-	 * @param mixed $first_name
-	 * @param mixed $last_name
-	 * @param mixed $email
-	 * @param mixed $approved_flag
-	 * @param mixed $rights
-	 * @param mixed $referee_rank_id
-	 * @param mixed $affiliation_club_id
+	 * Ctor of User object for web application
+	 * @param int $id
+	 * @param string $first_name
+	 * @param string $last_name
+	 * @param string $email
+	 * @param bool $approved_flag
+	 * @param int $rights
+	 * @param int $referee_rank_id
+	 * @param int $affiliation_club_id
 	 */
 	public function __construct($id, $first_name, $last_name, $email, $approved_flag, $rights, $referee_rank_id, $affiliation_club_id)
 	{
@@ -38,7 +38,7 @@ class User
 	//id, first_name, last_name, email, approved_flag, rights, referee_rank_id, affiliation_club_id
 	//{"id":"12","first_name":"Lukas","last_name":"Kousal","email":"lukas.kousal@seznam.cz","approved_flag":"1","rights":"2","referee_rank_id,"2","affiliation_club_id":"7"}
 	/**
-	 * Summary of SerializeFull
+	 * Serialize outputs 8/8 these members: id, first_name, last_name, email, approved_flag, rights, referee_rank_id, affiliation_club_id
 	 * @return string
 	 */
 	public function SerializeFull()
@@ -50,7 +50,7 @@ class User
 	//id, first_name, last_name, -N/A-, -N/A-, -N/A-, referee_rank_id, affiliation_club_id
 	//{"id":"12","first_name":"Lukas","last_name":"Kousal","affiliation_club_id":"7"}
 	/**
-	 * Summary of SerializeSlim
+	 * Serialize outputs 5/8 these members: id, first_name, last_name, -N/A-, -N/A-, -N/A-, referee_rank_id, affiliation_club_id
 	 * @return string
 	 */
 	public function SerializeSlim()
@@ -62,7 +62,7 @@ class User
 	//-NULL-, first_name, last_name, -NULL-, -NULL-, -NULL-, -NULL-, -NULL-
 	//{"first_name":"Lukas","last_name":"Kousal"}
 	/**
-	 * Summary of SerializeTag
+	 * Serialize outputs 2/8 these members: -NULL-, first_name, last_name, -NULL-, -NULL-, -NULL-, -NULL-, -NULL-
 	 * @return string
 	 */
 	public function SerializeTag()

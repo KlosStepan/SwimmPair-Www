@@ -1,16 +1,13 @@
 <?php
 /**
- * Summary of PagesManager
+ * PagesManager has API functions to handle Page object and delivers it through web application.
  */
 class PagesManager
 {
 	private $mysqli;
 	/**
-	 * PagesManager constructor.
-	 *
+	 * Initialize PagesManager with live database connection.
 	 * @param mysqli $mysqli
-	 *
-	 * This constructor sets the mysqli object used to interact with the database.
 	 */
 	public function __construct(mysqli $mysqli)
 	{
@@ -19,13 +16,9 @@ class PagesManager
 	//public function CreatePage() - TODO 
 	//public function DeletePage() - TODO
 	/**
-	 * GetPageByID
-	 *
+	 * Get Page from database by its id.
 	 * @param int $id
-	 *
-	 * @return mixed
-	 *
-	 * This function retrieves a page from the database by its ID.
+	 * @return Page|null
 	 */
 	public function GetPageByID($id)
 	{
@@ -34,15 +27,11 @@ class PagesManager
 		return $this->_CreatePageOrNullFromStatement($statement);
 	}
 	/**
-	 * UpdatePage
-	 *
+	 * Updates Page in the web application.
 	 * @param int $id
 	 * @param string $title
 	 * @param string $content
-	 *
 	 * @return bool
-	 *
-	 * This function updates a page in the database.
 	 */
 	public function UpdatePage($id, $title, $content)
 	{
@@ -55,13 +44,9 @@ class PagesManager
 		}
 	}
 	/**
-	 * _CreatePageOrNullFromStatement
-	 *
-	 * @param $statement
-	 *
-	 * @return mixed
-	 *
-	 * This function creates a page object or returns null.
+	 * This function creates a Page object or returns null.
+	 * @param mysqli_stmt $statement
+	 * @return Page|null
 	 */
 	private function _CreatePageOrNullFromStatement($statement)
 	{
@@ -74,13 +59,9 @@ class PagesManager
 		}
 	}
 	/**
-	 * _CreatePageFromRow
-	 *
+	 * This function creates new Page object from the row returned from database.
 	 * @param array $row
-	 *
 	 * @return Page
-	 *
-	 * This function creates a new Page object from a row in the database.
 	 */
 	private function _CreatePageFromRow(array $row)
 	{

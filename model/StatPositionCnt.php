@@ -1,15 +1,15 @@
 <?php
 /**
- * Summary of StatPositionCnt
+ * StatPositionCnt is object providing count of statistics of Position.
  */
 class StatPositionCnt
 {
 	public $position_id;
 	public $cnt;
 	/**
-	 * Summary of __construct
-	 * @param mixed $position_id
-	 * @param mixed $cnt
+	 * Ctor of StatPositionCnt object for web application
+	 * @param int $position_id
+	 * @param int $cnt
 	 */
 	public function __construct($position_id, $cnt)
 	{
@@ -20,7 +20,7 @@ class StatPositionCnt
 	//position_id, cnt
 	//{"position_id":"1","cnt":"2"};
 	/**
-	 * Summary of Serialize
+	 * Serialize outputs 2/2 these members: position_id, cnt
 	 * @return string
 	 */
 	public function Serialize()
