@@ -95,7 +95,15 @@ docker push stepanklos/swimmpair
 ```
 
 Bundled application doesn't come with **database** and **adminer/phpmyadmin**. We advise production on cloud provider with database service or self-hosted database storing in `Persistent Storage` accessed via `Persistent Volume Claim`.  
-
+___ 
+## // Documentation Doxygen - generate&prepare&push/run:
+```
+> www: doxygen Doxyfile
+> www: cd _doc/html
+> www/_doc/html: docker build -t stepanklos/docu-swimmpair .
+> www/_doc_html: docker push stepanklos/docu-swimmpair
+```
+___
 
 ## Production in DOKS
 Several production options in container cloud service providers are possible, be it ECS or EKS in Amazon AWS, some alternative in Microsoft Azure, or self-hosted Kubernetes/Rancher/OpenShift/VMware Tanzu. We have, however, chosen **DigitalOcean** - [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes) because it suits us best.  
