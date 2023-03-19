@@ -7,18 +7,15 @@ Auth::requireRole(UserRights::SuperUser);
 $name = Sanitizer::getPostString('name');
 $abbreviation = Sanitizer::getPostString('abbreviation');
 //Redirect address
-$admin = "http://".$_SERVER['SERVER_NAME']."/admin";
+$admin = "http://" . $_SERVER['SERVER_NAME'] . "/admin";
 $redDestURL = "Location: $admin/profile.php";
 
 //Insert and redirect or throw
-if($regionsManager->InsertNewRegion($name, $abbreviation))
-{
+if ($regionsManager->InsertNewRegion($name, $abbreviation)) {
 	echo "succ<br/>\r\n";
 	header($redDestURL);
-}
-else
-{
-	throw new Exception('Insert failed - RegionsManager::InsertNewRegion');
+} else {
 	echo "err<br/>\r\n";
 	echo "Insert failed - RegionsManager::InsertNewRegion<br/>\r\n";
+	throw new Exception('Insert failed - RegionsManager::InsertNewRegion');
 }
