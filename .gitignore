@@ -3,3 +3,5 @@ admin/__new_CMS
 admin/__sql_import_CMS
 .DS_Store
 _doc/
+vendor/
+.phpunit.result.cache
