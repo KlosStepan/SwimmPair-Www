@@ -52,6 +52,7 @@ class CupsManager
 	 */
 	public function GetPairingHashForThisCup($cupID)
 	{
+		//https://www.php.net/manual/en/mysqlinfo.concepts.buffering.php
 		//kurva tohle se musi fixnout, fuuu
 		//$this->mysqli->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true); // Enable query buffering
 		$statement = $this->mysqli->prepare('CALL `HashPairingForThisCup`(?)');
