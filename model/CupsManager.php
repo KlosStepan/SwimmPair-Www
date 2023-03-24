@@ -52,9 +52,13 @@ class CupsManager
 	 */
 	public function GetPairingHashForThisCup($cupID)
 	{
-		$statement = $this->mysqli->prepare('CALL `HashPairingForThisCup`(?)');
+		//$this->mysqli->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true); // Enable query buffering
+		//$statement = $this->mysqli->prepare('CALL `HashPairingForThisCup2`(?)');
+		$statement = $this->mysqli->prepare("SELECT MD5(GROUP_CONCAT(CONCAT(`position_id`, `user_id`))) AS hash FROM `sp_user_position_pairing` WHERE `cup_id`=? ORDER BY `position_id`");
 		$statement->bind_param('i', $cupID);
-		return $this->_GetSingleResultFromStatement($statement);
+		$ret = $this->_GetSingleResultFromStatement($statement);
+		//return $this->_GetSingleResultFromStatement($statement);
+		return $ret;
 	}
 	/**
 	 * Return Cup based on its information.
