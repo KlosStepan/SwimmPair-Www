@@ -1,31 +1,21 @@
 # SwimmPair Web Application
-SwimmPair is web application for managing swimming competitions in the Czech Republic. Application `model` describes administrative objects, such as `regions`, `cups`, `clubs` or `users`. The main goal is to automate administrative work formerly achived via Excel spreadsheets.  
+SwimmPair is web application for managing swimming competitions in the Czech Republic. Application `model` describes administrative objects, such as `cups`, `clubs`, `users` etc. The main goal is to automate administrative work formerly achived via Excel spreadsheets and provide decent archivation history.  
 
 ![App Schema](/misc/app-preview.png "app-schema")
-Preview of SwimmPair - **public page** of `Cup` with **available** and **paired** `Users`.
+*Preview of SwimmPair - **public page** of `Cup` - **available** & **paired** `Users`.*
 
-## Running instances  
-[SwimmPair.STKL.cz](http://swimmpair.stkl.cz) - Development version of application (new features, bugfixes), with preview data.  
-[SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.  
-<!--- [SwimmPair.cz](http://swimmpair.cz) - Production version of application.  -->
-
-## (Try it out! - NO DATABASE SCRIPT IN GIT YET)
-```shell script
-git clone https://github.com/KlosStepan/SwimmPair-Www
-//create database via import script (not in git yet)
-//set up environment credentials appropriately HOST+USER+PASS+NAME
-docker-compose up --detach 
-```
 
 ## Web Application Structure Overview
 The web application consists of these main parts:
 * **public** part - www,
 * **private** admin - www/admin,
 * app **model** - www/model,
-* mysql **database procedures** used by model.  
+* mysql **database procedures** used by model,
+* **test scripts** - tests/Unit, dummy_data_benchmark.  
 
 ## Web Application Model Data Categorization
-SwimmPair implements these structures to be moved around while administering the swimming competitions.  
+SwimmPair implements several structures to be used for administration of the competitions.  
+
 Following objects are:
 * **Post**/PostsManager - informative posts on the homepage,
 * **Page**/PagesManager - info pages,
@@ -37,8 +27,10 @@ Following objects are:
 
 
 ## Web Application Data Flow Architecture Overview
-Application flow is realized by accessing `application page` and calling `Managers` functionality, that wrapps database calls and returns results as PHP objects. 
+Application flow is realized by accessing `application page` and calling `Managers` functionality, that wrapps database calls and returns results as PHP objects.  
+
 ![App Schema](/misc/app-schema.jpg "app-schema")
+*Approximate flow from, public page to the database.*
 
 Public and private part have **PHP form-actions** and **Ajax endpoints** for achieving functionality via. appropriate `manager calls` and storing payloads sent to them via HTTP POST. The folders with these respective script actions (in public and private sections) are to be found in:
 * PHPActionHandler,
@@ -96,12 +88,28 @@ docker push stepanklos/swimmpair
 
 Bundled application doesn't come with **database** and **adminer/phpmyadmin**. We advise production on cloud provider with database service or self-hosted database storing in `Persistent Storage` accessed via `Persistent Volume Claim`.  
 ___ 
+## Running instances  
+[SwimmPair.STKL.cz](http://swimmpair.stkl.cz) - Development version of application (new features, bugfixes), with preview data.  
+[SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.  
+<!--- [SwimmPair.cz](http://swimmpair.cz) - Production version of application.  -->
+## Database
+There are two scripts for database creation, one to create semi-empty and one full database with dummy data.  
+* _db/1_create_proc_schema_init_data.sql  
+* _db/1b_create_proc_schema_all_data.sql
 ## // Documentation Doxygen - generate&prepare&push/run:
 ```
 > www: doxygen Doxyfile
 > www: cd _doc/html
 > www/_doc/html: docker build -t stepanklos/docu-swimmpair .
 > www/_doc_html: docker push stepanklos/docu-swimmpair
+```
+
+## (Try it out! - NO DATABASE SCRIPT IN GIT YET)
+```shell script
+git clone https://github.com/KlosStepan/SwimmPair-Www
+//create database via import script (not in git yet)
+//set up environment credentials appropriately HOST+USER+PASS+NAME
+docker-compose up --detach 
 ```
 ___
 
@@ -115,7 +123,7 @@ It is advised to run SwimmPair as follows:
   - or https://www.digitalocean.com/pricing/managed-databases.
 - **Database Client**: command line / Adminer Deployment / administration dashboard of chosen cloud provider.  
 
-Consider running `2 Node Cluster` running replica on each. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with `2 Pods` (up-to-date `Replica Set`). 
+Consider running `2 Node Cluster` running replica on each. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with `1 Pod` (up-to-date `Replica Set`). 
 ![docker compose rup](/misc/app-kubernetes-doks-run.png "docker-compose-run")
 
 
