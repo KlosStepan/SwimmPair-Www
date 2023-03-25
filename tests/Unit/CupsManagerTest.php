@@ -4,8 +4,8 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
-require((dirname(dirname(__DIR__))) . '/start.php');
-//require __DIR__ . '/../start.php';
+//require((dirname(dirname(__DIR__))) . '/start.php');
+require __DIR__ . '/../start.php';
 class CupsManagerTest extends TestCase
 {
     /**
@@ -30,12 +30,11 @@ class CupsManagerTest extends TestCase
         $cupID = 5;
         global $cupsManager;
         $hash1 = $cupsManager->GetPairingHashForThisCup($cupID);
-        $this->assertEquals($hash1, "aafg");
-        //global $cupsManager;
-        //$hash2 = $cupsManager->GetPairingHashForThisCup($cupID);
-        //$this->assertIsString($hash1);
-        //$this->assertIsString($hash2);
-        //$this->assertNotEquals($hash1, $hash2);
+        global $cupsManager;
+        $hash2 = $cupsManager->GetPairingHashForThisCup($cupID);
+        $this->assertIsString($hash1);
+        $this->assertIsString($hash2);
+        $this->assertNotEquals($hash1, $hash2);
     }
     /*public function test_GetEarliestCupYear()
     {
@@ -48,5 +47,21 @@ class CupsManagerTest extends TestCase
         global $cupsManager;
         $latest = $cupsManager->GetMaximumCupYear();
         $this->assertIsInt($latest);
+    }
+    public function test_IsUserAvailableForTheCup()
+    {
+        $userID = 1;
+        $cupID = 1;
+        global $cupsManager;
+        $available = $cupsManager->IsUserAvailableForTheCup($userID, $cupID);
+        $this->assertIsBool($available);
+    }
+    public function test_FindAllUpcomingCupsEarliestFirst()
+    {
+        global $cupsManager;
+        $cups = $cupsManager->FindAllUpcomingCupsEarliestFirst();
+        $this->assertIsArray($cups);
+        $this->assertNotEmpty($cups);
+        //$this->assertGreaterThanOrEqual($cups[0]['date_begin'], $cups[1]['date_begin']);
     }
 }
