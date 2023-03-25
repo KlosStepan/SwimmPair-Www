@@ -18,7 +18,7 @@ class UsersManagerTest extends TestCase
         //$this->assertEquals([1, 2, 3], [1, 2, 3]);
         return true;
     }
-    public function text_2()
+    public function test_2()
     {
         $this->assertTrue(true);
         return true;
