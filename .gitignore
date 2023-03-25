@@ -5,3 +5,4 @@ admin/__sql_import_CMS
 _doc/
 vendor/
 .phpunit.result.cache
+_start.php
