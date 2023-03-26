@@ -35,11 +35,14 @@ jobs:
       - name: Set env variables
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
-        run: echo "::set-env name=DATABASE_HOST::database\n::set-env name=DATABASE_USER::root\n::set-env name=DATABASE_PASS::moje_tajne_heslo\n::set-env name=DATABASE_NAME::plavani"
+        run: echo "::set-env name=DATABASE_HOST::database
+             ::set-env name=DATABASE_USER::root
+             ::set-env name=DATABASE_PASS::moje_tajne_heslo
+             ::set-env name=DATABASE_NAME::plavani"
       
       - name: Load MySQL schema and data
         run: mysql -h database -u root -proot test_db < ./_db/1_create_proc_schema_init_data.sql
-        
+
       - name: Prepare env
         run: composer install --no-interaction --no-progress
 
