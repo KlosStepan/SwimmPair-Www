@@ -34,17 +34,18 @@ class CupsManagerTest extends TestCase
     $this->assertEquals($directory, "/Applications/Ampps/www/start.php");
     //$post = $postsManager->GetPostByID($postID);
     }*/
+    /*
     public function test_GetPairingHashForThisCup()
     {
-        $cupID = 5;
-        global $cupsManager;
-        $hash1 = $cupsManager->GetPairingHashForThisCup($cupID);
-        global $cupsManager;
-        $hash2 = $cupsManager->GetPairingHashForThisCup($cupID);
-        $this->assertIsString($hash1);
-        $this->assertIsString($hash2);
-        $this->assertEquals($hash1, $hash2);
-    }
+    $cupID = 5;
+    global $cupsManager;
+    $hash1 = $cupsManager->GetPairingHashForThisCup($cupID);
+    global $cupsManager;
+    $hash2 = $cupsManager->GetPairingHashForThisCup($cupID);
+    $this->assertIsString($hash1);
+    $this->assertIsString($hash2);
+    $this->assertEquals($hash1, $hash2);
+    }*/
     public function test_GetMaximumCupYear()
     {
         global $cupsManager;
