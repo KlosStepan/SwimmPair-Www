@@ -32,9 +32,6 @@ jobs:
           php-version: '7.4'
           extensions: mbstring, mysqli
 
-      - name: Wait for MySQL to be ready
-        run: dockerize -wait tcp://localhost:3306 -timeout 1m
-
       - name: Load MySQL schema and data
         run: mysql -h localhost -u root -proot test_db < ./_db/1_create_proc_schema_init_data.sql
 
