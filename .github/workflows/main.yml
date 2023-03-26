@@ -33,6 +33,8 @@ jobs:
           extensions: mbstring, mysqli
 
       - name: Set env variables
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: echo "::set-env name=DATABASE_HOST::database\n::set-env name=DATABASE_USER::root\n::set-env name=DATABASE_PASS::moje_tajne_heslo\n::set-env name=DATABASE_NAME::plavani"
 
       - name: Run PHPUnit
