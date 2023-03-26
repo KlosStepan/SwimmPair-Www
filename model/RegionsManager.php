@@ -74,10 +74,13 @@ class RegionsManager
 		$statement = $this->mysqli->prepare('CALL `UpdateRegion`(?,?,?)');
 		$statement->bind_param('iss', $id, $name, $abbrev);
 		if ($statement->execute()) {
-			return true;
+			$affectedRows = $statement->affected_rows;
+			$statement->close();
+			return ($affectedRows > 0);
 		} else {
 			return false;
 		}
+
 	}
 	//PRIVATE FUNCTIONS - ORM-ing DB client lib results
 	/**

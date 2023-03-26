@@ -19,9 +19,20 @@ class UsersManagerTest extends TestCase
 //$this->assertEquals([1, 2, 3], [1, 2, 3]);
         return true;
     }
-    public function test_2()
+    public function test_UserRetrieval1()
     {
-        $this->assertTrue(true);
-        return true;
+        global $usersManager;
+        $user = $usersManager->GetUserByID(1);
+        $this->assertInstanceOf('User', $user);
+        $this->assertEquals($user->last_name, "Kousal");
+        $this->assertIsNumeric($user->affiliation_club_id);
+    }
+    public function test_UserRetrieval2()
+    {
+        global $usersManager;
+        $user = $usersManager->GetUserByID(2);
+        $this->assertInstanceOf('User', $user);
+        $this->assertEquals($user->last_name, "Klos");
+        $this->assertIsString($user->email);
     }
 }

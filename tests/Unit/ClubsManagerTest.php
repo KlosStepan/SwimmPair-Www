@@ -5,7 +5,7 @@ namespace Tests\Unit;
 use PHPUnit\Framework\TestCase;
 
 require_once((dirname(dirname(__DIR__))) . '/start.php');
-class ExampleTest extends TestCase
+class ClubsManagerTest extends TestCase
 {
     /**
      * A basic test example.

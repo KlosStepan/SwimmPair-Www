@@ -51,6 +51,10 @@ class PagesManager
 	private function _CreatePageOrNullFromStatement($statement)
 	{
 		$statement->execute();
+		if ($statement->error) {
+			// handle the error message returned by the database
+			throw new \Exception("Error executing SQL query: " . $statement->error);
+		}
 		$row = $statement->get_result()->fetch_assoc();
 		if ($row !== NULL) {
 			return $this->_CreatePageFromRow($row);
