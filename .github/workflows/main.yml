@@ -3,7 +3,7 @@ name: PHP 7.4 Tests
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   test:
