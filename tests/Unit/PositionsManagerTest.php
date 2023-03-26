@@ -18,6 +18,11 @@ class PositionsManagerTest extends TestCase
         $this->assertEquals([1, 2, 3], [1, 2, 3]);
         return true;
     }
+    public function test_constructor_sets_mysqli_connection()
+    {
+        global $positionsManager;
+        $this->assertInstanceOf(mysqli::class, $positionsManager->mysqli);
+    }
     public function test_DisplayedLiveStatsConfiguredPositions_returns_array()
     {
         global $positionsManager;
