@@ -42,7 +42,7 @@ jobs:
           echo "::set-env name=DATABASE_NAME::plavani"
       
       - name: Load MySQL schema and data
-        run: mysql -h 0.0.0.0 -u root -proot test_db < ./_db/1_create_proc_schema_init_data.sql
+        run: mysql -h 0.0.0.0 -u root --password=moje_tajne_heslo plavani < ./_db/1_create_proc_schema_init_data.sql
 
       - name: Prepare env
         run: composer install --no-interaction --no-progress
