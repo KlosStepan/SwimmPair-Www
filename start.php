@@ -1,5 +1,4 @@
 <?php
-
     $host = getenv("DATABASE_HOST");
     $user = getenv("DATABASE_USER");
     $pass = getenv("DATABASE_PASS");
