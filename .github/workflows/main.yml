@@ -39,6 +39,6 @@ jobs:
 
       - name: Prepare env
         run: composer install --no-interaction --no-progress
-        
+
       - name: Run PHPUnit
-        run: phpunit
+        run: vendor/bin/phpunit
