@@ -32,9 +32,6 @@ jobs:
           php-version: '7.4'
           extensions: mbstring, mysqli
 
-      - name: Load MySQL schema and data
-        run: mysql -h localhost -u root -proot test_db < ./_db/1_create_proc_schema_init_data.sql
-
       - name: Set env variables
         run: echo "::set-env name=DATABASE_HOST::database\n::set-env name=DATABASE_USER::root\n::set-env name=DATABASE_PASS::moje_tajne_heslo\n::set-env name=DATABASE_NAME::plavani"
 
