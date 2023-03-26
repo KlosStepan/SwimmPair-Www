@@ -36,13 +36,13 @@ jobs:
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
         run: |
-          echo "::set-env name=DATABASE_HOST::localhost"
+          echo "::set-env name=DATABASE_HOST::0.0.0.0"
           echo "::set-env name=DATABASE_USER::root"
           echo "::set-env name=DATABASE_PASS::moje_tajne_heslo"
           echo "::set-env name=DATABASE_NAME::plavani"
       
       - name: Load MySQL schema and data
-        run: mysql -h localhost -u root -proot test_db < ./_db/1_create_proc_schema_init_data.sql
+        run: mysql -h 0.0.0.0 -u root -proot test_db < ./_db/1_create_proc_schema_init_data.sql
 
       - name: Prepare env
         run: composer install --no-interaction --no-progress
