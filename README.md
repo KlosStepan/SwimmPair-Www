@@ -99,7 +99,7 @@ ___
 There are two scripts for database creation:  
 * _db/1_create_proc_schema_init_data.sql - just basics,
 * _db/1b_create_proc_schema_all_data.sql - dummy data included.
-## Documentation Doxygen - generate&prepare&push/run:
+## Documentation Doxygen - generate&prepare&push/run
 Consider we have installed all Doxygen whereabouts, we can run it and publish it.
 ```bash
 > www: doxygen Doxyfile
