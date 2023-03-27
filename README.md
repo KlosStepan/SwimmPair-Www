@@ -11,8 +11,13 @@ The web application consists of these main parts:
 * **private** admin - www/admin,
 * app **model** - www/model,
 * mysql **database procedures** used by model,
-* **test scripts** - tests/Unit, dummy_data_benchmark.  
+* **tests** - execute **phpunit** on www/tests/Unit/* (run by [GitHub Actions workflow](https://github.com/KlosStepan/SwimmPair-Www/blob/master/.github/workflows/main.yml)).  
 
+Other stuff that comes with project in this repo:
+* Doxyfile - for docummentation,
+* docker-compose.yaml - for local development,
+* Dockerfile - for building image.
+<!---
 ## Web Application Model Data Categorization
 SwimmPair implements several structures to be used for administration of the competitions.  
 
@@ -24,17 +29,15 @@ Following objects are:
 * **Region**/RegionsManager - geographical regions,
 * **User**/UsersManager - app users (admins, club managers, admins),
 * **Position**/Positions - work required for cups.
-
+-->
 
 ## Web Application Data Flow Architecture Overview
-Application flow is realized by accessing `application page` and calling `Managers` functionality, that wrapps database calls and returns results as PHP objects.  
+Application flow is realized by accessing `application page` and calling `Managers` functionality (folder www/model), that wrapps database calls and returns results as PHP objects.  
 
 ![App Schema](/misc/app-schema.jpg "app-schema")
 *Approximate flow from, public page to the database.*
 
-Public and private part have **PHP form-actions** and **Ajax endpoints** for achieving functionality via. appropriate `manager calls` and storing payloads sent to them via HTTP POST. The folders with these respective script actions (in public and private sections) are to be found in:
-* PHPActionHandler,
-* XMLHttpRequest.  
+Public and private part have **PHP form-actions** and **Ajax endpoints** for achieving functionality via. appropriate `manager calls` and storing payloads sent to them via HTTP POST.
 
 ## Containerized Local Development
 SwimmPair is shipped for production as [docker image](https://www.docker.com). It can be run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair** volume being `www folder`, **MySQL** and **Adminer** containers.  
@@ -89,32 +92,36 @@ docker push stepanklos/swimmpair
 Bundled application doesn't come with **database** and **adminer/phpmyadmin**. We advise production on cloud provider with database service or self-hosted database storing in `Persistent Storage` accessed via `Persistent Volume Claim`.  
 ___ 
 ## Running instances  
-[SwimmPair.STKL.cz](http://swimmpair.stkl.cz) - Development version of application (new features, bugfixes), with preview data.  
-[SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.  
+* Visit [swimmpair.stkl.cz](http://swimmpair.stkl.cz) - development version of application with dummy data.  
+<!--[SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.-->
 <!--- [SwimmPair.cz](http://swimmpair.cz) - Production version of application.  -->
 ## Database
-There are two scripts for database creation, one to create semi-empty and one full database with dummy data.  
-* _db/1_create_proc_schema_init_data.sql  
-* _db/1b_create_proc_schema_all_data.sql
-## // Documentation Doxygen - generate&prepare&push/run:
-```
+There are two scripts for database creation:  
+* _db/1_create_proc_schema_init_data.sql - just basics,
+* _db/1b_create_proc_schema_all_data.sql - dummy data included.
+## Documentation Doxygen - generate&prepare&push/run:
+Consider we have installed all Doxygen whereabouts, we can run it and publish it.
+```bash
 > www: doxygen Doxyfile
+# Create Docker image with buidled docummentation & publish 
+# http://docu.swimmpair.cz
 > www: cd _doc/html
 > www/_doc/html: docker build -t stepanklos/docu-swimmpair .
 > www/_doc_html: docker push stepanklos/docu-swimmpair
 ```
 
-## (Try it out! - NO DATABASE SCRIPT IN GIT YET)
+## Try it out!
 ```shell script
 git clone https://github.com/KlosStepan/SwimmPair-Www
-//create database via import script (not in git yet)
-//set up environment credentials appropriately HOST+USER+PASS+NAME
 docker-compose up --detach 
+mysql -h ${DATABASE_HOST} -u ${DATABASE_USER} --password=${DATABASE_PASS} < ./_db/1_create_proc_schema_init_data.sql
 ```
 ___
 
 ## Production in DOKS
-Several production options in container cloud service providers are possible, be it ECS or EKS in Amazon AWS, some alternative in Microsoft Azure, or self-hosted Kubernetes/Rancher/OpenShift/VMware Tanzu. We have, however, chosen **DigitalOcean** - [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes) because it suits us best.  
+Several production options in container cloud service providers are possible, be it ECS or EKS in Amazon AWS, some alternative in Microsoft Azure, or self-hosted Kubernetes/Rancher/OpenShift/VMware Tanzu.
+
+We chose **DigitalOcean** - [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes) because it suits us best.  
 
 It is advised to run SwimmPair as follows:
 - **Application**: Service + Deployment utilizing **stepanklos/swimmpair**.
@@ -123,7 +130,7 @@ It is advised to run SwimmPair as follows:
   - or https://www.digitalocean.com/pricing/managed-databases.
 - **Database Client**: command line / Adminer Deployment / administration dashboard of chosen cloud provider.  
 
-Consider running `2 Node Cluster` running replica on each. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with `1 Pod` (up-to-date `Replica Set`). 
+Consider running `1 Node Cluster` running replica on each. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with `1 Pod` (up-to-date `Replica Set`). 
 ![docker compose rup](/misc/app-kubernetes-doks-run.png "docker-compose-run")
 
 
