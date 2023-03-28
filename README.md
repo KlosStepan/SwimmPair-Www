@@ -34,8 +34,9 @@ Following objects are:
 ## Web Application Data Flow Architecture Overview
 Application flow is realized by accessing `application page` and calling `Managers` functionality (folder www/model), that wrapps database calls and returns results as PHP objects.  
 
-![App Schema](/misc/app-schema.jpg "app-schema")
-*Approximate flow from, public page to the database.*
+<p align="center">
+  <img src="misc/app-schema.jpg" alt="App Schema"/>
+</p>
 
 Public and private part have **PHP form-actions** and **Ajax endpoints** for achieving functionality via. appropriate `manager calls` and storing payloads sent to them via HTTP POST.
 
