@@ -10,19 +10,24 @@ services:
       MYSQL_ROOT_PASSWORD: "moje_tajne_heslo"
     volumes:
       - mysql-data:/var/lib/mysql
-  redis-service:
+  redis:
     image: redis
     ports:
       - "6379:6379"
-    #environment:
-    #  REDIS_PASSWORD: "aGVzbG8="
-    #command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    environment:
+      REDIS_HOST: "redis"
+    command: redis-server --save 20 1 --loglevel warning --requirepass aGVzbG8=
+    #REDIS_PASSWORD: "aGVzbG8="
+    #REDIS_PASSWORD: 'heslo'
+    #command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASS}
+    #command: redis-server --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis-data:/data
   php:
     image: thecodingmachine/php:7.4-v4-apache
     depends_on:
       - database
+      - redis
     ports:
       - "80:80"
     environment:
@@ -30,8 +35,18 @@ services:
       DATABASE_USER: 'root'
       DATABASE_PASS: 'moje_tajne_heslo'
       DATABASE_NAME: 'plavani'
+      #REDIS_HOST: 'redis'
+      #REDIS_PASS: 'aGVzbG8='
+      PHP_INI_SESSION__SAVE_HANDLER: 'redis'
+      PHP_INI_SESSION__SAVE_PATH: 'tcp://redis:6379?auth=aGVzbG8='
     volumes:
       - ./:/var/www/html
+      #- ./_misc/php.ini:/usr/lib/php/7.4/php.ini-development
+      #- type: bind
+      #  source: ./_misc/php.ini
+      #  target: /etc/php/7.4/apache2/php.ini
+      #command: >
+      #  bash -c "sudo rm -rf /etc/php/7.4/apache2/php.ini && sudo ln -sv /var/www/html/_misc/php.ini /etc/php/7.4/apache2/php.ini"
 volumes:
   mysql-data:
   redis-data:
