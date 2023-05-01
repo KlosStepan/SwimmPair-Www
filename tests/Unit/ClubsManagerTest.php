@@ -20,70 +20,79 @@ class ClubsManagerTest extends TestCase
     }
     public function testFindAllClubsReturnsArray()
     {
-        $clubs = $this->cupsManager->FindAllClubs();
+        global $clubsManager;
+        $clubs = $clubsManager->FindAllClubs();
         $this->assertIsArray($clubs);
     }
 
     public function testFindAllClubsReturnsEmptyArrayWhenNoClubs()
     {
-        $clubs = $this->cupsManager->FindAllClubs();
+        global $clubsManager;
+        $clubs = $clubsManager->FindAllClubs();
         $this->assertEmpty($clubs);
     }
 
     public function testGetClubAffiliationToRegionReturnsValidRegionId()
     {
+        global $clubsManager;
         $clubId = 1;
-        $regionId = $this->cupsManager->GetClubAffiliationToRegion($clubId);
+        $regionId = $clubsManager->GetClubAffiliationToRegion($clubId);
         $this->assertNotNull($regionId);
     }
 
     public function testGetClubAffiliationToRegionReturnsNullWithInvalidClubId()
     {
+        global $clubsManager;
         $clubId = -1;
-        $regionId = $this->cupsManager->GetClubAffiliationToRegion($clubId);
+        $regionId = $clubsManager->GetClubAffiliationToRegion($clubId);
         $this->assertNull($regionId);
     }
 
     public function testGetClubByIDReturnsValidClubObject()
     {
+        global $clubsManager;
         $clubId = 1;
-        $club = $this->cupsManager->GetClubByID($clubId);
+        $club = $clubsManager->GetClubByID($clubId);
         $this->assertInstanceOf(Club::class, $club);
     }
 
     public function testGetClubByIDReturnsNullWithInvalidClubId()
     {
+        global $clubsManager;
         $clubId = -1;
-        $club = $this->cupsManager->GetClubByID($clubId);
+        $club = $clubsManager->GetClubByID($clubId);
         $this->assertNull($club);
     }
 
     public function testInsertNewClubSuccessfullyInsertsClub()
     {
+        global $clubsManager;
         $name = 'Test Club';
         $abbreviation = 'TC';
         $clubId = 100;
         $img = 'test_image.png';
         $regionId = 1;
 
-        $success = $this->cupsManager->InsertNewClub($name, $abbreviation, $clubId, $img, $regionId);
+        $success = $clubsManager->InsertNewClub($name, $abbreviation, $clubId, $img, $regionId);
         $this->assertTrue($success);
     }
 
     public function testInsertNewClubReturnsFalseWithInvalidInput()
     {
+        global $clubsManager;
         $name = 'Invalid Club';
         $abbreviation = 'IC';
         $clubId = 1;
         $img = 'invalid_image.png';
         $regionId = -1;
 
-        $success = $this->cupsManager->InsertNewClub($name, $abbreviation, $clubId, $img, $regionId);
+        $success = $clubsManager->InsertNewClub($name, $abbreviation, $clubId, $img, $regionId);
         $this->assertFalse($success);
     }
 
     public function testUpdateClubSuccessfullyUpdatesClub()
     {
+        global $clubsManager;
         $id = 1;
         $name = 'Updated Club';
         $abbreviation = 'UC';
@@ -91,12 +100,13 @@ class ClubsManagerTest extends TestCase
         $img = 'updated_image.png';
         $regionId = 2;
 
-        $success = $this->cupsManager->UpdateClub($id, $name, $abbreviation, $code, $img, $regionId);
+        $success = $clubsManager->UpdateClub($id, $name, $abbreviation, $code, $img, $regionId);
         $this->assertTrue($success);
     }
 
     public function testUpdateClubReturnsFalseWithInvalidInput()
     {
+        global $clubsManager;
         $id = -1;
         $name = 'Invalid Club';
         $abbreviation = 'IC';
@@ -104,7 +114,7 @@ class ClubsManagerTest extends TestCase
         $img = 'invalid_image.png';
         $regionId = -1;
 
-        $success = $this->cupsManager->UpdateClub($id, $name, $abbreviation, $code, $img, $regionId);
+        $success = $clubsManager->UpdateClub($id, $name, $abbreviation, $code, $img, $regionId);
         $this->assertFalse($success);
     }
 }
