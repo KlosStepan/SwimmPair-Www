@@ -53,7 +53,7 @@ class ClubsManagerTest extends TestCase
         global $clubsManager;
         $clubId = 1;
         $club = $clubsManager->GetClubByID($clubId);
-        $this->assertInstanceOf(Club::class, $club);
+        $this->assertInstanceOf('Club', $club);
     }
 
     public function testGetClubByIDReturnsNullWithInvalidClubId()
