@@ -124,7 +124,12 @@ class ClubsManager
 	private function _CreateClubFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
-		$row = $statement->get_result()->fetch_assoc();
+		$result = $statement->get_result();
+		//no reuslt
+		if ($result === false) {
+			return NULL;
+		}
+		$row = $result->fetch_assoc();
 		if ($row !== NULL) {
 			return $this->_CreateClubFromRow($row);
 		} else {
