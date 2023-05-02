@@ -85,7 +85,7 @@ class CupsManagerTest extends TestCase
         $cupID = $cupsManager->InsertNewCup($name, $date_begin, $date_end, $club, $content);
 
         // Check if a user is available for the cup
-        $userID = 1;
+        $userID = 2;
         $isAvailable = $cupsManager->IsUserAvailableForTheCup($userID, $cupID);
 
         // Assert that the user is not available by default
