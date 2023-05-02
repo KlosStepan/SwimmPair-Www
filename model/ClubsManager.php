@@ -144,8 +144,14 @@ class ClubsManager
 	private function _GetSingleResultFromStatement(mysqli_stmt $statement)
 	{
 		$statement->execute();
-		$rows = $statement->get_result()->fetch_all(MYSQLI_NUM);
-		$row = $rows[0];
-		return $row[0];
+		$result = $statement->get_result();
+		$rows = $result->fetch_all(MYSQLI_NUM);
+		//if that 1 found
+		if (!empty($rows)) {
+			$row = $rows[0];
+			return $row[0];
+		} else {
+			return NULL;
+		}
 	}
 }
