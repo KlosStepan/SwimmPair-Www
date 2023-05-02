@@ -53,16 +53,27 @@ class CupsManagerTest extends TestCase
         $latest = $cupsManager->GetMaximumCupYear();
         $this->assertIsInt($latest);
     }
-
-    public function test_IsUserAvailableForTheCup()
-    {
-        $userID = 1;
-        $cupID = 1;
-        global $cupsManager;
-        $available = $cupsManager->IsUserAvailableForTheCup($userID, $cupID);
-        $this->assertIsBool($available);
-    }
     public function testInsertCupAndCheckIfUserIsAvailable()
+    {
+        global $cupsManager;
+        // Insert a new cup
+        $name = "Test Cup";
+        $date_begin = "2023-06-01";
+        $date_end = "2023-06-05";
+        $club = "Test Club";
+        $content = "Test Content";
+        $cupID = $cupsManager->InsertNewCup($name, $date_begin, $date_end, $club, $content);
+
+        $userID = 1;
+        //InsertNewAvailability Cup x User x 1
+        $cupsManager->InsertNewAvailability($cupID, $userID, 1);
+        // Check if a user is available for the cup
+        $isAvailable = $cupsManager->IsUserAvailableForTheCup($userID, $cupID);
+
+        // Assert that the user is not available by default
+        $this->assertTrue($isAvailable);
+    }
+    public function testInsertCupAndCheckIfUserIsNotAvailable()
     {
         global $cupsManager;
         // Insert a new cup
