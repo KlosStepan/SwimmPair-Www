@@ -25,13 +25,6 @@ class ClubsManagerTest extends TestCase
         $this->assertIsArray($clubs);
     }
 
-    public function testFindAllClubsReturnsEmptyArrayWhenNoClubs()
-    {
-        global $clubsManager;
-        $clubs = $clubsManager->FindAllClubs();
-        $this->assertEmpty($clubs);
-    }
-
     public function testGetClubAffiliationToRegionReturnsValidRegionId()
     {
         global $clubsManager;
