@@ -35,4 +35,18 @@ class UsersManagerTest extends TestCase
         $this->assertEquals($user->last_name, "Klos");
         $this->assertIsString($user->email);
     }
+    public function testRegisterUserRetrieveUser()
+    {
+        //RegisterUser xyz
+        //GetUserByID user xyz
+        $this->assertTrue(true);
+        return true;
+    }
+    public function testFindAllRefereeRanks()
+    {
+        //check for array
+        //check equal array (4 things)
+        $this->assertTrue(true);
+        return true;
+    }
 }

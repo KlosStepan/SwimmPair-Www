@@ -18,4 +18,12 @@ class PostsManagerTest extends TestCase
         $this->assertEquals([1, 2, 3], [1, 2, 3]);
         return true;
     }
+    public function testInsertPost()
+    {
+
+    }
+    public function testPrevId()
+    {
+
+    }
 }

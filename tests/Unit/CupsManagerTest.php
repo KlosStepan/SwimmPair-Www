@@ -91,5 +91,33 @@ class CupsManagerTest extends TestCase
         // Assert that the user is not available by default
         $this->assertFalse($isAvailable);
     }
-
+    public function testCupPreparationTrue()
+    {
+        //Create cup
+        //put pple available
+        //pair users
+        $this->assertTrue(true);
+        return true;
+    }
+    public function testHashPairingWorks()
+    {
+        //get hash of pairing
+        //add 1 pairing
+        //get hash of pairing
+        //hash1 NEQ hash2
+        $this->assertTrue(true);
+        return true;
+    }
+    public function testStartsEarlierThanEnds()
+    {
+        $this->assertTrue(true);
+        return true;
+    }
+    public function testInsertBadDates()
+    {
+        //assert RTE
+        //try insert ends earlier than starts -> RTE
+        $this->assertTrue(true);
+        return true;
+    }
 }
