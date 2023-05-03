@@ -30,4 +30,26 @@ class PagesManagerTest extends TestCase
         $page = $pagesManager->GetPageByID(69420);
         $this->assertNull($page);
     }
+    public function testGetPageById()
+    {
+        global $pagesManager;
+        $id = 1;
+        $page = $pagesManager->GetPageByID($id);
+        $this->assertNotNull($page);
+        $this->assertEquals('Kontakty', $page->title);
+    }
+    public function testUpdatePageSuccessfully()
+    {
+        global $pagesManager;
+        $id = 1;
+        $newTitle = "New Title";
+        $newContent = "New Content";
+
+        $updated = $pagesManager->UpdatePage($id, $newTitle, $newContent);
+        $this->assertTrue($updated);
+
+        $page = $pagesManager->GetPageByID($id);
+        $this->assertEquals($page->title, "New Title");
+        $this->assertEquals($page->content, "New Content");
+    }
 }
