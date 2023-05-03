@@ -18,19 +18,19 @@ class PagesManagerTest extends TestCase
         $this->assertEquals([1, 2, 3], [1, 2, 3]);
         return true;
     }
-    public function test_GetPageByID_InvalidID_ThrowsException()
+    public function testGetPageByIDInvalidIDThrowsException()
     {
         $this->expectException(\Exception::class);
         global $pagesManager;
         $page = $pagesManager->GetPageByID(-1);
     }
-    public function test_GetPageByID_NonExistingID_ReturnsNulle()
+    public function testGetPageByIDNonExistingIDReturnsNull()
     {
         global $pagesManager;
         $page = $pagesManager->GetPageByID(69420);
         $this->assertNull($page);
     }
-    public function testGetPageById()
+    public function testGetPageByID()
     {
         global $pagesManager;
         $id = 1;
@@ -38,7 +38,7 @@ class PagesManagerTest extends TestCase
         $this->assertNotNull($page);
         $this->assertEquals('Kontakty', $page->title);
     }
-    public function testUpdatePageSuccessfully()
+    public function testUpdatePageRetrieveSuccessfully()
     {
         global $pagesManager;
         $id = 1;
