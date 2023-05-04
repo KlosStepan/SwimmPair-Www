@@ -72,4 +72,22 @@ class UsersManagerTest extends TestCase
         $userPresent = $usersManager->IsEmailPresentAlready("tonda.zapotocky@seznam.cz");
         $this->assertFalse($userPresent);
     }
+    public function testGetRefereeRank()
+    {
+        global $usersManager;
+        $refRank = $usersManager->GetRefereeRank(1);
+        $this->assertIsString($refRank);
+    }
+    public function testGetRefereeRankNullOnNonsense()
+    {
+        global $usersManager;
+        $refRank = $usersManager->GetRefereeRank(10000);
+        $this->assertNull($refRank);
+    }
+    public function testGetRefereeRankNullOnNonsense2()
+    {
+        global $usersManager;
+        $refRank = $usersManager->GetRefereeRank("khqwgehqwe");
+        $this->assertNull($refRank);
+    }
 }
