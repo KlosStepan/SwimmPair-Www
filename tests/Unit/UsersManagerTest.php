@@ -16,10 +16,10 @@ class UsersManagerTest extends TestCase
     {
         $this->assertTrue(true);
         //$this->assertEquals([1, 2, 3], [1, 2, 4]);
-//$this->assertEquals([1, 2, 3], [1, 2, 3]);
+        //$this->assertEquals([1, 2, 3], [1, 2, 3]);
         return true;
     }
-    public function test_UserRetrieval1()
+    public function testUserRetrievalAdmin1()
     {
         global $usersManager;
         $user = $usersManager->GetUserByID(1);
@@ -27,7 +27,7 @@ class UsersManagerTest extends TestCase
         $this->assertEquals($user->last_name, "Kousal");
         $this->assertIsNumeric($user->affiliation_club_id);
     }
-    public function test_UserRetrieval2()
+    public function testUserRetrievalAdmin2()
     {
         global $usersManager;
         $user = $usersManager->GetUserByID(2);
@@ -37,16 +37,39 @@ class UsersManagerTest extends TestCase
     }
     public function testRegisterUserRetrieveUser()
     {
-        //RegisterUser xyz
-        //GetUserByID user xyz
-        $this->assertTrue(true);
-        return true;
+        global $usersManager;
+        $insertResponse = $usersManager->RegisterUser("Tomas", "Novak", "tomasnovak@seznam.cz", "12345", "0", "2", "1");
+        $this->assertTrue($insertResponse);
     }
     public function testFindAllRefereeRanks()
     {
-        //check for array
-        //check equal array (4 things)
-        $this->assertTrue(true);
-        return true;
+        global $usersManager;
+        $ranks = $usersManager->FindAllRefereeRanks();
+        $this->assertIsArray($ranks);
+        $this->assertEquals(count($ranks), 4);
+    }
+    public function testUserWithIDPresent()
+    {
+        global $usersManager;
+        $isUserPresent = $usersManager->IsUserWithIDPresentAlready(1);
+        $this->assertTrue($isUserPresent);
+    }
+    public function testUserWithIDNotPresent()
+    {
+        global $usersManager;
+        $notUserPresent = $usersManager->IsUserWithIDPresentAlready(-500);
+        $this->assertFalse($notUserPresent);
+    }
+    public function testUserWithEmailPresent()
+    {
+        global $usersManager;
+        $userPresent = $usersManager->IsEmailPresentAlready("stepanklos@gmail.com");
+        $this->assertTrue($userPresent);
+    }
+    public function testUserWithEmailNotPresent()
+    {
+        global $usersManager;
+        $userPresent = $usersManager->IsEmailPresentAlready("tonda.zapotocky@seznam.cz");
+        $this->assertFalse($userPresent);
     }
 }
