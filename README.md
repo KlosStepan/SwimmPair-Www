@@ -131,7 +131,7 @@ It is advised to run SwimmPair as follows:
   - or https://www.digitalocean.com/pricing/managed-databases.
 - **Database Client**: command line / Adminer Deployment / administration dashboard of chosen cloud provider.  
 
-Consider running `1 Node Cluster` running replica on each. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with `1 Pod` (up-to-date `Replica Set`). 
+Consider running `2 Node Cluster` running replica on each. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with `1 Pod` (up-to-date `Replica Set`). 
 ![docker compose rup](/misc/app-kubernetes-doks-run.png "docker-compose-run")
 
 
@@ -155,7 +155,7 @@ kind: Deployment
 metadata:
   name: swimmpair
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: swimmpair
