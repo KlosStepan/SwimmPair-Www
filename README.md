@@ -100,7 +100,7 @@ ___
 There are two scripts for database creation:  
 * _db/1_create_proc_schema_init_data.sql - just basics,
 * _db/1b_create_proc_schema_all_data.sql - dummy data included.
-## Documentation Doxygen - generate&prepare&push/run
+## Documentation Doxygen HTML - generate&prepare&push/run
 Consider we have installed all Doxygen whereabouts, we can run it and publish it.
 ```bash
 > www: doxygen Doxyfile
@@ -110,7 +110,15 @@ Consider we have installed all Doxygen whereabouts, we can run it and publish it
 > www/_doc/html: docker build -t stepanklos/docu-swimmpair .
 > www/_doc_html: docker push stepanklos/docu-swimmpair
 ```
-
+## Documentation Doxygen PDF
+```bash
+> www: doxygen Doxyfile2
+> www: cd _doc/latex
+> www: make
+> www: cd ..
+> www: mkdir -p pdf
+> www: cp latex/refman.pdf pdf/
+```
 ## Try it out!
 ```shell script
 git clone https://github.com/KlosStepan/SwimmPair-Www
