@@ -44,8 +44,10 @@ Public and private part have **PHP form-actions** and **Ajax endpoints** for ach
 
 ## Containerized Local Development
 SwimmPair is shipped for production as [Docker image](https://www.docker.com). It can be run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair** - volume for www_php_1 being `www folder` + **MySQL**, **Adminer**, and **Redis** containers.  
+### Docker desktop of `docker-compose up -d` for SwimmPair application
 ![docker compose rup](/misc/app-docker-compose-run.png "docker-compose-run")  
 
+<!---
 Local development **docker-compose.yaml**:
 ```yaml
 version: "3.9"
@@ -88,8 +90,8 @@ services:
 volumes:
   mysql-data:
   redis-data:
-
 ```
+-->
 ## Dockerization - Production & Deployment Notes
 Bundling PHP files into **Docker image** with base **PHP/Apache image** is defined by `Dockerfile`.  
 
@@ -130,10 +132,10 @@ Docker image for http://docu.swimmpair.cz<!--- / http://docu-swimmpair.stkl.cz -
 ```bash
 > www: doxygen Doxyfile2
 > www: cd _doc/latex
-> www: make
-> www: cd ..
-> www: mkdir -p pdf
-> www: cp latex/refman.pdf pdf/
+> www/_doc/latex: make
+> www/_doc/latex: cd ..
+> www/_doc: mkdir -p pdf
+> www/_doc: cp latex/refman.pdf pdf/
 ```
 It is necessary to have installed Doxygen whereabouts.
 ## Try it out!
