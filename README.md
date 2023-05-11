@@ -1,22 +1,24 @@
 # SwimmPair Web Application
-SwimmPair is web application for managing swimming competitions in the Czech Republic. Application `model` describes administrative objects, such as `cups`, `clubs`, `users` etc. The main goal is to automate administrative work formerly achived via Excel spreadsheets and provide decent archivation history.  
+**SwimmPair** is a web application for managing swimming competitions in the Czech Republic. [Application model](http://docu-swimmpair.stkl.cz/annotated.html) describes administrative objects, such as `cups`, `clubs`, `users` etc. The main goal is to automate administrative work formerly achived via Excel spreadsheets and provide decent archivation history.  
 
 ![App Schema](/misc/app-preview.png "app-schema")
 *Preview of SwimmPair - **public page** of `Cup` - **available** & **paired** `Users`.*
 
 
 ## Web Application Structure Overview
-The web application consists of these main parts:
+Our web application consists of these main parts:
 * **public** part - www,
 * **private** admin - www/admin,
 * app **model** - www/model,
-* mysql **database procedures** used by model,
-* **tests** - execute **phpunit** on www/tests/Unit/* (run by [GitHub Actions workflow](https://github.com/KlosStepan/SwimmPair-Www/blob/master/.github/workflows/main.yml)).  
+* mysql **database procedures** used by the model,
+* **tests** - execute **phpunit** on www/tests/Unit/* (automatically run in [GitHub Actions workflow](https://github.com/KlosStepan/SwimmPair-Www/blob/master/.github/workflows/main.yml)).  
 
-Other stuff that comes with project in this repo:
-* Doxyfile - for docummentation,
-* docker-compose.yaml - for local development,
-* Dockerfile - for building image.
+Other stuff that comes with our project in this repo:
+* **Doxyfile** - for HTML docummentation ([http://docu-swimmpair.stkl.cz](http://docu-swimmpair.stkl.cz)),
+* **Doxyfile2** - for PDF docummentation ([_doc/pdf/refman.pdf](https://github.com/KlosStepan/SwimmPair-Www/blob/master/_doc/pdf/refman.pdf)),
+* **docker-compose.yaml** - for my local development,
+* 2 **database scripts** (_db/*) - [1 w/ basic data](https://github.com/KlosStepan/SwimmPair-Www/blob/master/_db/1_create_proc_schema_init_data.sql) & [1 w/ set of demonstration data](https://github.com/KlosStepan/SwimmPair-Www/blob/master/_db/1b_create_proc_schema_all_data.sql),
+* **Dockerfile** - for building pullable [image](https://hub.docker.com/repository/docker/stepanklos/swimmpair/general) of SwimmPair application.
 <!---
 ## Web Application Model Data Categorization
 SwimmPair implements several structures to be used for administration of the competitions.  
@@ -41,7 +43,7 @@ Application flow is realized by accessing `application page` and calling `Manage
 Public and private part have **PHP form-actions** and **Ajax endpoints** for achieving functionality via. appropriate `manager calls` and storing payloads sent to them via HTTP POST.
 
 ## Containerized Local Development
-SwimmPair is shipped for production as [docker image](https://www.docker.com). It can be run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair** volume being `www folder`, **MySQL** and **Adminer** containers.  
+SwimmPair is shipped for production as [Docker image](https://www.docker.com). It can be run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair** - volume for www_php_1 being `www folder` + **MySQL**, **Adminer**, and **Redis** containers.  
 ![docker compose rup](/misc/app-docker-compose-run.png "docker-compose-run")  
 
 Local development **docker-compose.yaml**:
@@ -55,62 +57,76 @@ services:
   database:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: "mysql_root_passwd"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     volumes:
       - mysql-data:/var/lib/mysql
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_HOST: "redis"
+    command: redis-server --save 20 1 --loglevel warning --requirepass aGVzbG8=
+    volumes:
+      - redis-data:/data
   php:
     image: thecodingmachine/php:7.4-v4-apache
+    depends_on:
+      - database
+      - redis
     ports:
       - "80:80"
     environment:
-      DATABASE_HOST: 'database'
-      DATABASE_USER: 'user'
-      DATABASE_PASS: 'password'
-      DATABASE_NAME: 'db'
+      DATABASE_HOST: '${DATABASE_HOST}'
+      DATABASE_USER: '${DATABASE_USER}'
+      DATABASE_PASS: '${DATABASE_PASS}'
+      DATABASE_NAME: '${DATABASE_NAME}'
+      PHP_INI_SESSION__SAVE_HANDLER: 'redis'
+      PHP_INI_SESSION__SAVE_PATH: 'tcp://redis:6379?auth=aGVzbG8='
     volumes:
       - ./:/var/www/html
 volumes:
   mysql-data:
+  redis-data:
+
 ```
-## Dockerized Production & Deployment Notes
+## Dockerization - Production & Deployment Notes
 Bundling PHP files into **Docker image** with base **PHP/Apache image** is defined by `Dockerfile`.  
 
 ```dockerfile
 FROM thecodingmachine/php:7.4-v4-apache
 COPY --chown=docker . /var/www/html
 ```
-[Dockerhub](https://hub.docker.com) is default and public namespace for pulling all images - our image can be tagger as [stepanklos/swimmpair](https://hub.docker.com/repository/docker/stepanklos/swimmpair) and therefore be accessible publicly by this name.  
+[Dockerhub](https://hub.docker.com) is default and public namespace for pulling all images - our image can be tagged as [stepanklos/swimmpair](https://hub.docker.com/repository/docker/stepanklos/swimmpair) and therefore be accessible publicly by this name.  
 
-Build Docker image of swimmpair, tagged as **stepanklos/swimmpair**.
+Build & Push **Docker image** of SwimmPair, tagged as **stepanklos/swimmpair**.
 ```zsh
 docker build -t stepanklos/swimmpair .
-```
-Push **stepanklos/swimmpair** into Dockerhub image repository.
-```zsh
 docker push stepanklos/swimmpair
 ```
 
-Bundled application doesn't come with **database** and **adminer/phpmyadmin**. We advise production on cloud provider with database service or self-hosted database storing in `Persistent Storage` accessed via `Persistent Volume Claim`.  
-___ 
+Bundled application image doesn't come with **database** and **adminer/phpmyadmin** or **Redis**. We advise production on cloud provider with database/redis services or use self-hosted database/redis solution storing in `Persistent Storage` accessed via `Persistent Volume Claim`.  
+
+Installing **MySQL Database** like [mysql-deployment](https://github.com/KlosStepan/DOKS-tutorial/tree/main/mysql-deployment) or **Redis** like [redis-deployment](https://github.com/KlosStepan/DOKS-tutorial/tree/main/redis-deployment) into Kubernetes cluster shouldn't be a problem. 
+
+# SwimmPair  Misc.
 ## Running instances  
-* Visit [swimmpair.stkl.cz](http://swimmpair.stkl.cz) - development version of application with dummy data.  
+* Visit [swimmpair.stkl.cz](http://swimmpair.stkl.cz) - development version of the application with dummy data.  
 <!--[SwimmPair090.STKL.cz](http://swimmpair090.stkl.cz) - Legacy v0.90 pre refactor w/ old real data.-->
 <!--- [SwimmPair.cz](http://swimmpair.cz) - Production version of application.  -->
-## Database
-There are two scripts for database creation:  
-* _db/1_create_proc_schema_init_data.sql - just basics,
-* _db/1b_create_proc_schema_all_data.sql - dummy data included.
-## Documentation Doxygen HTML - generate&prepare&push/run
-Consider we have installed all Doxygen whereabouts, we can run it and publish it.
+## Database scripts
+* Schema w/ very slim data - **_db/1_create_proc_schema_init_data.sql**
+* Schema full of data - **_db/1b_create_proc_schema_all_data.sql**
+## Documentation Doxygen HTML & PDF
+Docker image for http://docu.swimmpair.cz<!--- / http://docu-swimmpair.stkl.cz --> or PDF.
+### Documentation Doxygen HTML
 ```bash
 > www: doxygen Doxyfile
-# Create Docker image with buidled docummentation & publish 
-# http://docu.swimmpair.cz
 > www: cd _doc/html
 > www/_doc/html: docker build -t stepanklos/docu-swimmpair .
 > www/_doc_html: docker push stepanklos/docu-swimmpair
 ```
-## Documentation Doxygen PDF
+### Documentation Doxygen PDF
 ```bash
 > www: doxygen Doxyfile2
 > www: cd _doc/latex
@@ -119,31 +135,31 @@ Consider we have installed all Doxygen whereabouts, we can run it and publish it
 > www: mkdir -p pdf
 > www: cp latex/refman.pdf pdf/
 ```
+It is necessary to have installed Doxygen whereabouts.
 ## Try it out!
 ```shell script
 git clone https://github.com/KlosStepan/SwimmPair-Www
 docker-compose up --detach 
 mysql -h ${DATABASE_HOST} -u ${DATABASE_USER} --password=${DATABASE_PASS} < ./_db/1_create_proc_schema_init_data.sql
 ```
-___
 
-## Production in DOKS
-Several production options in container cloud service providers are possible, be it ECS or EKS in Amazon AWS, some alternative in Microsoft Azure, or self-hosted Kubernetes/Rancher/OpenShift/VMware Tanzu.
+# SwimmPair Production in DOKS
+Several production options in container cloud service providers are possible, be it ECS or EKS in Amazon AWS, some AKS alternative in Microsoft Azure, or self-hosted Kubernetes/Rancher/OpenShift/VMware Tanzu.
 
-We chose **DigitalOcean** - [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes) because it suits us best.  
+We use [DigitalOcean Kubernetes](https://www.digitalocean.com/products/kubernetes) because it suits us the best (despite being a little bit pricy ~$40/m).  
 
-It is advised to run SwimmPair as follows:
+It is advised to run SwimmPair based on these [K8s notes](https://github.com/KlosStepan/DOKS-tutorial) as follows:
 - **Application**: Service + Deployment utilizing **stepanklos/swimmpair**.
 - **MySQL DB**:
   - either Public Service - Service + Deployment + PVC -> PV,
   - or https://www.digitalocean.com/pricing/managed-databases.
 - **Database Client**: command line / Adminer Deployment / administration dashboard of chosen cloud provider.  
 
-Consider running `2 Node Cluster` running replica on each. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with `1 Pod` (up-to-date `Replica Set`). 
+Consider `2 Node Cluster` and running `1 app replica` on each of them. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with spawned `2 Pods` (of up-to-date `Replica Set`). 
 ![docker compose rup](/misc/app-kubernetes-doks-run.png "docker-compose-run")
 
 
-### Kubernetes `Service` + `Deployment `
+## Kubernetes `Service` + `Deployment` of SwimmPair
 Configuration file **app-swimmpair.yaml**:
 ```yaml
 apiVersion: v1
@@ -191,7 +207,7 @@ spec:
         - name: DATABASE_NAME
           value: 'db'    
 ```
-### Ingress
+## Ingress settings
 Ingress, add SwimmPair to config section `rules:` as following snippet: 
 ```yaml
   - host: "swimmpair.stkl.cz"
@@ -205,7 +221,7 @@ Ingress, add SwimmPair to config section `rules:` as following snippet:
             port:
               number: 80
 ```
-### Run
+## Run - Apply changes via kubectl
 Finally, apply `SwimmPair yaml config` and reapply `Ingress yaml config` as noted
 ```zsh
 kubectl apply -f app-swimmpair.yaml
