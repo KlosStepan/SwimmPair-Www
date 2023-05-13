@@ -2,7 +2,7 @@
 **SwimmPair** is a web application for managing swimming competitions in the Czech Republic. [Application model](http://docu-swimmpair.stkl.cz/annotated.html) describes administrative objects, such as `cups`, `clubs`, `users` etc. The main goal is to automate administrative work formerly achived via Excel spreadsheets and provide decent archivation history.  
 
 ![App Schema](/misc/app-preview.png "app-schema")
-*Preview of SwimmPair - **public page** of `Cup` - **available** & **paired** `Users`.*
+*Preview of SwimmPair - **public page** of `Cup` w/ **available** & **paired** `Users`.*
 
 
 ## Web Application Structure Overview
@@ -18,6 +18,7 @@ Other stuff that comes with our project in this repo:
 * **Doxyfile2** - for PDF docummentation ([_doc/pdf/refman.pdf](https://github.com/KlosStepan/SwimmPair-Www/blob/master/_doc/pdf/refman.pdf)),
 * **docker-compose.yaml** - for my local development,
 * 2 **database scripts** (_db/*) - [1 w/ basic data](https://github.com/KlosStepan/SwimmPair-Www/blob/master/_db/1_create_proc_schema_init_data.sql) & [1 w/ set of demonstration data](https://github.com/KlosStepan/SwimmPair-Www/blob/master/_db/1b_create_proc_schema_all_data.sql),
+* **workflow** (.github/workflows/main.yaml) w/ a job **test**,
 * **Dockerfile** - for building pullable [image](https://hub.docker.com/repository/docker/stepanklos/swimmpair/general) of SwimmPair application.
 <!---
 ## Web Application Model Data Categorization
@@ -34,7 +35,7 @@ Following objects are:
 -->
 
 ## Web Application Data Flow Architecture Overview
-Application flow is realized by accessing `application page` and calling `Managers` functionality (folder www/model), that wrapps database calls and returns results as PHP objects.  
+Application flow is realized by accessing `application page` and calling `manager` functionality (folder www/model), that wrapps database calls and returns results as PHP objects.  
 
 <p align="center">
   <img src="misc/app-schema.jpg" alt="App Schema"/>
@@ -44,7 +45,7 @@ Public and private part have **PHP form-actions** and **Ajax endpoints** for ach
 
 ## Containerized Local Development
 SwimmPair is shipped for production as [Docker image](https://www.docker.com). It can be run locally by [docker-compose](https://docs.docker.com/compose), starting **SwimmPair** - volume for www_php_1 being `www folder` + **MySQL**, **Adminer**, and **Redis** containers.  
-### Docker desktop of `docker-compose up -d` for SwimmPair application
+### Docker desktop `docker-compose up -d` of SwimmPair application
 ![docker compose rup](/misc/app-docker-compose-run.png "docker-compose-run")  
 
 <!---
@@ -120,7 +121,7 @@ Installing **MySQL Database** like [mysql-deployment](https://github.com/KlosSte
 * Schema w/ very slim data - **_db/1_create_proc_schema_init_data.sql**
 * Schema full of data - **_db/1b_create_proc_schema_all_data.sql**
 ## Documentation Doxygen HTML & PDF
-Docker image for http://docu.swimmpair.cz<!--- / http://docu-swimmpair.stkl.cz --> or PDF.
+Docker image for http://docu.swimmpair.cz<!--- / http://docu-swimmpair.stkl.cz --> and PDF file.
 ### Documentation Doxygen HTML
 ```bash
 > www: doxygen Doxyfile
@@ -137,7 +138,7 @@ Docker image for http://docu.swimmpair.cz<!--- / http://docu-swimmpair.stkl.cz -
 > www/_doc: mkdir -p pdf
 > www/_doc: cp latex/refman.pdf pdf/
 ```
-It is necessary to have installed Doxygen whereabouts.
+It is necessary to have installed Doxygen whereabouts and LaTeX w/ `pdflatex`.
 ## Try it out!
 ```shell script
 git clone https://github.com/KlosStepan/SwimmPair-Www
@@ -157,11 +158,11 @@ It is advised to run SwimmPair based on these [K8s notes](https://github.com/Klo
   - or https://www.digitalocean.com/pricing/managed-databases.
 - **Database Client**: command line / Adminer Deployment / administration dashboard of chosen cloud provider.  
 
-Consider `2 Node Cluster` and running `1 app replica` on each of them. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with spawned `2 Pods` (of up-to-date `Replica Set`). 
-![docker compose rup](/misc/app-kubernetes-doks-run.png "docker-compose-run")
+Consider `2 Node Cluster` and running `one replica on each node`. Reference **swimmpair-service** `Service` from `Ingress` for cluster routing to access **swimmpair** Deployment with spawned `2 Pods` of up-to-date `Replica Set`. 
+![docker compose run](/misc/app-kubernetes-doks-run.png "docker-compose-run")
 
 
-## Kubernetes `Service` + `Deployment` of SwimmPair
+## Kubernetes `Service` + `Deployment` for SwimmPair application
 Configuration file **app-swimmpair.yaml**:
 ```yaml
 apiVersion: v1
@@ -209,8 +210,8 @@ spec:
         - name: DATABASE_NAME
           value: 'db'    
 ```
-## Ingress settings
-Ingress, add SwimmPair to config section `rules:` as following snippet: 
+## Ingress settings snippet for SwimmPair application
+Ingress, add SwimmPair to config section `rules:` in the **kubernetes-ingress.yaml** as following snippet: 
 ```yaml
   - host: "swimmpair.stkl.cz"
     http:
@@ -223,10 +224,10 @@ Ingress, add SwimmPair to config section `rules:` as following snippet:
             port:
               number: 80
 ```
-## Run - Apply changes via kubectl
-Finally, apply `SwimmPair yaml config` and reapply `Ingress yaml config` as noted
+## Run by applying configs via kubectl on the K8s cluster
+Finally, apply `SwimmPair app config` and reapply `Ingress config` as noted
 ```zsh
 kubectl apply -f app-swimmpair.yaml
 kubectl apply -f kubernetes-ingress-config.yaml
 ```
-to achieve desired state of running application in the **Kubernetes Cluster**.
+to achieve desired state of running our application in the **Kubernetes Cluster**.
